@@ -1,0 +1,13 @@
+query GetPosts {
+  posts(orderBy: availableAt_DESC) {
+    title
+    slug
+    description
+    teacher {
+      name
+    }
+    image {
+      url
+    }
+  }
+}

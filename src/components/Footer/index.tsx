@@ -3,6 +3,7 @@ import Link from "next/link";
 import { RiInstagramLine } from "react-icons/ri";
 
 export default function Footer(){
+  const year = new Date().getFullYear();
   return (
     <Flex 
       as="footer"
@@ -16,11 +17,10 @@ export default function Footer(){
         w={{ base: '1024px', '2xl': '1200px', xl: '1024px', md: '768px', sm: '480px'}}
         p="1.5rem"
       >
-
         <Box>
           <Image w="178px" src="images/logo.png" alt="TheXCodes"/>
           <Text fontWeight="sm" pl="0.5rem">
-            Copyright © 2022 The Xcodes
+            Copyright © {year} The Xcodes
           </Text>
         </Box>
 

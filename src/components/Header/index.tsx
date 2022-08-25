@@ -1,6 +1,9 @@
-import { Box, Flex, Image, Link as ChakraLink, Text } from "@chakra-ui/react";
+import { Flex, Image, Link as ChakraLink, Spinner, Text } from "@chakra-ui/react";
+import { useQuery, gql } from '@apollo/client';
+
 import Head from "next/head";
 import Link from "next/link";
+import { useGetSessionsQuery } from "../../graphql/generated";
 
 interface HomeProps {
   title: string;
@@ -8,14 +11,13 @@ interface HomeProps {
 }
 
 export default function Header({ title, selectedMenu}: HomeProps){
-
-  const menu = ['React JS', 'Node JS']
+  const { data } = useGetSessionsQuery();
 
   return (
     <>
-      <Head>
+      {/* <Head>
         <title>{title} - The Xcodes</title>
-      </Head>  
+      </Head>   */}
 
       <Flex 
         as="header"
@@ -38,8 +40,8 @@ export default function Header({ title, selectedMenu}: HomeProps){
 
           <Flex as="nav" w="60%">
             {
-              menu.map(item => (
-                <Link key={item} href={`/${item}`}>
+              data?.sessions.map(item => (
+                <Link key={item.slug} href={`/${item.slug}`}>
                   <ChakraLink 
                     position="relative"
                     pl="0.5rem"
@@ -48,7 +50,7 @@ export default function Header({ title, selectedMenu}: HomeProps){
                       color: 'green.300'
                     }}
                   >
-                    { item === selectedMenu ? 
+                    { item.slug === selectedMenu ? 
                         <Text 
                           fontWeight="medium"
                           _after={{
@@ -62,9 +64,9 @@ export default function Header({ title, selectedMenu}: HomeProps){
                             bottom: '1px',
                             borderRadius: "3px 3px 0 0"
                           }}
-                        >{item}</Text>                  
+                        >{item.title}</Text>                  
                     :
-                        <Text fontWeight="medium">{item}</Text> 
+                        <Text fontWeight="medium">{item.title}</Text> 
                     }
                   </ChakraLink>
               </Link>

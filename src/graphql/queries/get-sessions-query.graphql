@@ -1,0 +1,6 @@
+query GetSessions {
+  sessions {
+    slug
+    title
+  }
+}
