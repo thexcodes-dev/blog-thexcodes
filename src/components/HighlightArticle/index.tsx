@@ -1,4 +1,6 @@
-import { Box, BoxProps } from "@chakra-ui/react";
+import { Box, BoxProps, Link as ChakraLink } from "@chakra-ui/react";
+import Link from "next/link";
+
 import Badge from "../Badge";
 import MainImage from "./MainImage";
 import TextDescription from "./TextDescription";
@@ -33,12 +35,16 @@ export default function HighlightArticle({ post, isMiniHighlight, ...rest }: Hig
 
   return (
     <Box as="article" overflow="hidden" position="relative" {...rest}>
-      <MainImage url={post.image.url} isMiniHighlight={isMiniHighlight} />
-      <Badge text='ReactJs' />
-      <TextDescription 
-        timeRead={1} 
-        title={post.title} 
-        description={post.description} isMiniHighlight={isMiniHighlight} />
+      <Link href={post.slug}>
+        <ChakraLink _hover={{ color: 'green.300', textDecoration: 'none'}}>
+          <MainImage url={post.image.url} isMiniHighlight={isMiniHighlight} />
+          <Badge text='ReactJs' />
+          <TextDescription 
+            timeRead={1} 
+            title={post.title} 
+            description={post.description} isMiniHighlight={isMiniHighlight} />
+        </ChakraLink>
+      </Link>
     </Box>
   )
 }

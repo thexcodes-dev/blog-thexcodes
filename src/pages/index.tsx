@@ -27,7 +27,7 @@ export default function Home() {
   }
 
   return (
-    <Flex direction="column" h="100vh" >
+    <Flex direction="column" h="100vh" position="relative">
       <Header title="Home"/>
 
       <Flex 

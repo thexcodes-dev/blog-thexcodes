@@ -20,10 +20,12 @@ export default function Header({ title, selectedMenu}: HomeProps){
       </Head>   */}
 
       <Flex 
-        as="header"
+        as="nav"
         bg="gray.800"
         position="sticky"
+        top="0"
         justify="center"
+        zIndex="200"
       >
         <Flex 
           justify="space-around" 

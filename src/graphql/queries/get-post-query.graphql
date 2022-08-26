@@ -1,0 +1,16 @@
+query GetPost($slug: String) {
+  post(where: {slug: $slug}) {
+    teacher {
+      name
+    }
+    text {
+      html
+    }
+    image {
+      url
+    }
+    slug
+    title
+    description
+  }
+}

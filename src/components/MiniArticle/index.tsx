@@ -33,7 +33,7 @@ export default function MiniArticle({ post, ...rest }: MiniArticleProps) {
       <Box flexShrink={0}>
         <Image
           width={{ md: 40 }}
-          src={post.image.url}
+          src={post?.image.url}
           alt=''
         />
       </Box>
