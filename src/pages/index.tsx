@@ -1,14 +1,14 @@
-import { Flex, Image, Text, Link as ChakraLink, Box, VStack, Badge, Button, Center, WrapItem, Avatar, Spinner } from "@chakra-ui/react";
-import Link from "next/link";
-import Footer from "../components/Footer";
+import { Flex, Box, VStack } from "@chakra-ui/react";
+import { GetPostsDocument, useGetPostsQuery } from "../graphql/generated";
+import { GetStaticProps } from "next";
+import { client } from "../service/apollo";
+
 import Header from "../components/Header";
-import { useGetPostsQuery } from "../graphql/generated";
 import HighlightArticle from '../components/HighlightArticle';
-import MiniArticle from "../components/MiniArticle";
-import MostRead from "../components/MostRead";
+import BoxArticles from "../components/BoxArticles";
+import Footer from "../components/Footer";
 
 interface Post { 
-  __typename?: 'Post', 
   title: string, 
   slug: string, 
   description?: string | null, 
@@ -16,16 +16,25 @@ interface Post {
   image?: { __typename?: 'Asset', url: string } | null 
 }
 
-export default function Home() {
+interface HomeProps {
+  posts: Post[]
+}
 
-  const { data, loading, error} = useGetPostsQuery();
+export default function Home({ posts}: HomeProps) {
 
-  let mainPost: Post;
+  useGetPostsQuery({
+    variables: {
+      skip: 2
+    }
+  })
 
-  if (data || data?.posts){
-    mainPost = data?.posts[0];
+
+  let mainPost:Post;
+
+  if (posts){
+    mainPost = posts[0];
   }
-
+  
   return (
     <Flex direction="column" h="100vh" position="relative">
       <Header title="Home"/>
@@ -43,50 +52,7 @@ export default function Home() {
             <HighlightArticle post={mainPost} isMiniHighlight={true} ml={{ md: '0.25rem' }} />
           </Box>
 
-          <Box flex='1' bg='white' p="1.35rem" w="100%">
-            <Box display={{ md: 'flex' }}>
-              <Box>
-
-                <MiniArticle post={mainPost} />
-
-                <MiniArticle post={mainPost} />
-
-                <MiniArticle post={mainPost} />
-
-                <MiniArticle post={mainPost} />
-
-                <MiniArticle post={mainPost} />
-
-                <MiniArticle post={mainPost} />
-
-                <MiniArticle post={mainPost} />
-
-                <Center p="1rem">
-                  <Button bg='gray.900' fontSize='xs' borderRadius="50">
-                    LOAD MORE
-                  </Button>
-                </Center>
-              </Box>
-
-              <Box p={4} flexShrink={0}>
-                <Box w={{ md: 80 }}>
-
-                  <HighlightArticle post={mainPost} isMiniHighlight={true} />                  
-
-                  <Box bg="gray.900">
-                    <Box display={{ md: 'flex' }} p="1rem">
-                      <Text fontWeight='bold' textTransform="uppercase">Most Read</Text>
-                    </Box>
-
-                    <MostRead post={mainPost} />
-                    <MostRead post={mainPost} />
-                    <MostRead post={mainPost} />
-                  </Box>
-                </Box>
-
-              </Box>
-            </Box>
-          </Box>
+          <BoxArticles posts={posts} p="1rem"/>
 
         </VStack>
 
@@ -96,4 +62,21 @@ export default function Home() {
     </Flex>
 
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+
+  const { data } = await client.query({
+    query: GetPostsDocument,
+    variables: {
+      skip: 0
+    }
+  });
+
+  return {
+    props: {
+      posts: data.posts
+    },
+    revalidate: 60 * 30, //30 minutes
+  }
 }

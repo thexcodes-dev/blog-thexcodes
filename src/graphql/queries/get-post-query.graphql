@@ -12,5 +12,9 @@ query GetPost($slug: String) {
     slug
     title
     description
+    session {
+      slug
+      title
+    }
   }
 }

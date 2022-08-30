@@ -1790,6 +1790,7 @@ export type Post = Node & {
   updatedAt: Scalars['DateTime'];
   /** User that last updated this document */
   updatedBy?: Maybe<User>;
+  views: Scalars['Int'];
 };
 
 
@@ -1877,6 +1878,7 @@ export type PostCreateInput = {
   text?: InputMaybe<Scalars['RichTextAST']>;
   title: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
+  views: Scalars['Int'];
 };
 
 export type PostCreateManyInlineInput = {
@@ -2063,6 +2065,21 @@ export type PostManyWhereInput = {
   /** All values that are not contained in given list. */
   updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   updatedBy?: InputMaybe<UserWhereInput>;
+  views?: InputMaybe<Scalars['Int']>;
+  /** All values greater than the given value. */
+  views_gt?: InputMaybe<Scalars['Int']>;
+  /** All values greater than or equal the given value. */
+  views_gte?: InputMaybe<Scalars['Int']>;
+  /** All values that are contained in given list. */
+  views_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
+  /** All values less than the given value. */
+  views_lt?: InputMaybe<Scalars['Int']>;
+  /** All values less than or equal the given value. */
+  views_lte?: InputMaybe<Scalars['Int']>;
+  /** All values that are not equal to given value. */
+  views_not?: InputMaybe<Scalars['Int']>;
+  /** All values that are not contained in given list. */
+  views_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
 };
 
 export enum PostOrderByInput {
@@ -2085,7 +2102,9 @@ export enum PostOrderByInput {
   TitleAsc = 'title_ASC',
   TitleDesc = 'title_DESC',
   UpdatedAtAsc = 'updatedAt_ASC',
-  UpdatedAtDesc = 'updatedAt_DESC'
+  UpdatedAtDesc = 'updatedAt_DESC',
+  ViewsAsc = 'views_ASC',
+  ViewsDesc = 'views_DESC'
 }
 
 export type PostUpdateInput = {
@@ -2099,6 +2118,7 @@ export type PostUpdateInput = {
   teacher?: InputMaybe<TeacherUpdateOneInlineInput>;
   text?: InputMaybe<Scalars['RichTextAST']>;
   title?: InputMaybe<Scalars['String']>;
+  views?: InputMaybe<Scalars['Int']>;
 };
 
 export type PostUpdateManyInlineInput = {
@@ -2125,6 +2145,7 @@ export type PostUpdateManyInput = {
   isPortuguese?: InputMaybe<Scalars['Boolean']>;
   text?: InputMaybe<Scalars['RichTextAST']>;
   title?: InputMaybe<Scalars['String']>;
+  views?: InputMaybe<Scalars['Int']>;
 };
 
 export type PostUpdateManyWithNestedWhereInput = {
@@ -2331,6 +2352,21 @@ export type PostWhereInput = {
   /** All values that are not contained in given list. */
   updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   updatedBy?: InputMaybe<UserWhereInput>;
+  views?: InputMaybe<Scalars['Int']>;
+  /** All values greater than the given value. */
+  views_gt?: InputMaybe<Scalars['Int']>;
+  /** All values greater than or equal the given value. */
+  views_gte?: InputMaybe<Scalars['Int']>;
+  /** All values that are contained in given list. */
+  views_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
+  /** All values less than the given value. */
+  views_lt?: InputMaybe<Scalars['Int']>;
+  /** All values less than or equal the given value. */
+  views_lte?: InputMaybe<Scalars['Int']>;
+  /** All values that are not equal to given value. */
+  views_not?: InputMaybe<Scalars['Int']>;
+  /** All values that are not contained in given list. */
+  views_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
 };
 
 /** References Post record uniquely */
@@ -5544,7 +5580,7 @@ export type GetPostQueryVariables = Exact<{
 }>;
 
 
-export type GetPostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', slug: string, title: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, text?: { __typename?: 'RichText', html: string } | null, image?: { __typename?: 'Asset', url: string } | null } | null };
+export type GetPostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', slug: string, title: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, text?: { __typename?: 'RichText', html: string } | null, image?: { __typename?: 'Asset', url: string } | null, session?: { __typename?: 'Session', slug: string, title: string } | null } | null };
 
 export type GetPostsBySessionQueryVariables = Exact<{
   slug?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
@@ -5553,7 +5589,9 @@ export type GetPostsBySessionQueryVariables = Exact<{
 
 export type GetPostsBySessionQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
 
-export type GetPostsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetPostsQueryVariables = Exact<{
+  skip?: InputMaybe<Scalars['Int']>;
+}>;
 
 
 export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
@@ -5579,6 +5617,10 @@ export const GetPostDocument = gql`
     slug
     title
     description
+    session {
+      slug
+      title
+    }
   }
 }
     `;
@@ -5654,8 +5696,8 @@ export type GetPostsBySessionQueryHookResult = ReturnType<typeof useGetPostsBySe
 export type GetPostsBySessionLazyQueryHookResult = ReturnType<typeof useGetPostsBySessionLazyQuery>;
 export type GetPostsBySessionQueryResult = Apollo.QueryResult<GetPostsBySessionQuery, GetPostsBySessionQueryVariables>;
 export const GetPostsDocument = gql`
-    query GetPosts {
-  posts(orderBy: availableAt_DESC) {
+    query GetPosts($skip: Int) {
+  posts(orderBy: availableAt_DESC, skip: $skip) {
     title
     slug
     description
@@ -5681,6 +5723,7 @@ export const GetPostsDocument = gql`
  * @example
  * const { data, loading, error } = useGetPostsQuery({
  *   variables: {
+ *      skip: // value for 'skip'
  *   },
  * });
  */

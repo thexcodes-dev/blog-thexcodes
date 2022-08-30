@@ -1,30 +1,38 @@
 import { Flex, Image, Text, Link as ChakraLink, Box, VStack, Badge, Button, Center, WrapItem, Avatar, Wrap, HStack } from "@chakra-ui/react";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, GetStaticProps } from "next";
 import Link from "next/link";
+import BoxArticles from "../components/BoxArticles";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import { useGetPostQuery } from "../graphql/generated";
+import { GetPostDocument, GetPostsBySessionDocument, useGetPostQuery } from "../graphql/generated";
+import { client } from "../service/apollo";
 
-interface PostProps {
-  post: {
-    slug: string;
-    title: string;
-    content: string;
-    updatedAt: string;
-  }
+type Session = { 
+  slug: string, 
+  title: string 
 }
 
-export default function Post({ post }: PostProps){
-  const { data, loading, error} = useGetPostQuery({
-    variables: { 
-      slug: post.slug
-    }
-  });
+type Post = {
+    slug: string, 
+    title: string, 
+    description?: string | null, 
+    teacher?: { name: string } | null, 
+    text?: { html: string } | null, 
+    image?: { url: string } | null, 
+    session?: Session | null 
+}
 
+interface ArticleProps {
+  session: string;
+  article: Post,
+  listOfArticlesBySession: Post[]
+}
 
+export default function Article({ session, article, listOfArticlesBySession }: ArticleProps){
+  console.log(article);
   return (
     <Flex direction="column" h="100vh" >
-      <Header title={post.slug} selectedMenu={post.slug}/>
+      <Header title={session} selectedMenu={session}/>
       <Box>
         <Box position="relative">
           <Box
@@ -52,7 +60,7 @@ export default function Post({ post }: PostProps){
                 transform="translate3d(0px, 50px, 0px)"
                 objectFit="cover"
                 objectPosition="center"
-                src={data?.post?.image.url}
+                src={article?.image.url}
                 alt=""
               />  
             </Box>
@@ -78,8 +86,7 @@ export default function Post({ post }: PostProps){
                   transitionDelay=".5s"
                   transition=".5s ease-out"
                 >
-                   {data?.post.title}</Text>
-                {/* <Text as="p">{data?.post.description}</Text> */}
+                   {article?.title}</Text>
             </Box>
         </Box>
 
@@ -88,7 +95,6 @@ export default function Post({ post }: PostProps){
           mx="auto" 
           w={{ base: '1024px', '2xl': '1200px', xl: '1024px', md: '768px', sm: '480px'}}
           bg="#ffffff"
-          color="gray.500"
           p="5rem"
         >
           <Box pt="1rem" pb="2rem" mx="5rem">
@@ -108,26 +114,54 @@ export default function Post({ post }: PostProps){
 
             </VStack>
           </Box>
-          <Box mx="5rem">
-            <Text dangerouslySetInnerHTML={{ __html: data?.post.text.html}} />
+          <Box mx="5rem" color="gray.500">
+            <Text dangerouslySetInnerHTML={{ __html: article?.text.html}} />
+          </Box>
+        
+          <Box mx="5rem" pt="5rem">
+            <Text fontSize={['sm', 'md', 'lg', 'xl', '3xl']} fontWeight='bold' color="gray.500">Explore mais</Text>
+            <BoxArticles posts={listOfArticlesBySession} isArticlePage={true} />
           </Box>
         </Box>
+
       </Box>
       <Footer />
     </Flex>
   )
 }
 
+type GetPost = {
+  data: {
+    post: Post
+  }
+}
+
 export const getServerSideProps: GetServerSideProps = async ({ req, params }) => {
   const { slug } = params;
 
-  const post = {
-      slug: slug,
-    };
+  const getPost: GetPost = await client.query({
+    query: GetPostDocument,
+    variables: {
+      slug
+    }
+  });
 
-  //console.log(JSON.stringify(post, null, 2));
+  const session:Session = getPost.data ? getPost.data.post?.session : { slug: '', title: ''}
+
+  console.log(session)
+
+  const getPostsBySessionDocument = await client.query({
+    query: GetPostsBySessionDocument,
+    variables: {
+      slug: [session.slug]
+    }
+  });
 
   return {
-    props: { post },
+    props: { 
+      session: 'react js',
+      article: getPost.data.post,
+      listOfArticlesBySession: getPostsBySessionDocument.data.posts
+     },
   }
 }

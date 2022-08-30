@@ -24,7 +24,6 @@ export default function MiniArticle({ post, ...rest }: MiniArticleProps) {
     <Box 
       as="article" 
       display={{ md: 'flex' }} 
-      p="1rem"
       borderBottom="1px" 
       borderColor="gray.200" 
       borderStyle="solid"
@@ -33,7 +32,7 @@ export default function MiniArticle({ post, ...rest }: MiniArticleProps) {
       <Box flexShrink={0}>
         <Image
           width={{ md: 40 }}
-          src={post?.image.url}
+          src={post?.image?.url}
           alt=''
         />
       </Box>

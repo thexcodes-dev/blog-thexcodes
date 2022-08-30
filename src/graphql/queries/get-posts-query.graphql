@@ -1,5 +1,5 @@
-query GetPosts {
-  posts(orderBy: availableAt_DESC) {
+query GetPosts($skip: Int) {
+  posts(orderBy: availableAt_DESC, skip: $skip) {
     title
     slug
     description

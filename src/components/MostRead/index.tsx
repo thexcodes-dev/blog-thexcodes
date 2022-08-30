@@ -15,7 +15,7 @@ export default function MostRead({ post }: MostReadProps){
     <Flex p={4} display={{ md: 'flex' }} align="center" >
       <Box flexShrink={0}>
         <WrapItem>
-          <Avatar size='xl' name='Segun Adebayo' src={post?.image.url} />{' '}
+          <Avatar size='xl' name='Segun Adebayo' src={post?.image?.url} />{' '}
         </WrapItem>
       </Box>
       <Box mt={{ base: 4, md: 0 }} ml={{ md: 6 }}>
