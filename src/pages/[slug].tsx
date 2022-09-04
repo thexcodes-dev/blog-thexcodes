@@ -1,10 +1,10 @@
-import { Flex, Image, Text, Link as ChakraLink, Box, VStack, Badge, Button, Center, WrapItem, Avatar, Wrap, HStack } from "@chakra-ui/react";
+import { Flex, Image, Text, Link as ChakraLink, Box, VStack, Badge, Button, Center, WrapItem, Avatar, Wrap, HStack, Spinner, CircularProgress } from "@chakra-ui/react";
 import { GetServerSideProps, GetStaticProps } from "next";
 import Link from "next/link";
 import BoxArticles from "../components/BoxArticles";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import { GetPostDocument, GetPostsBySessionDocument, useGetPostQuery } from "../graphql/generated";
+import { GetPostDocument, GetPostsBySessionDocument, useGetPostQuery, useGetPostsBySessionQuery, useGetPostsQuery } from "../graphql/generated";
 import { client } from "../service/apollo";
 
 type Session = { 
@@ -19,17 +19,24 @@ type Post = {
     teacher?: { name: string } | null, 
     text?: { html: string } | null, 
     image?: { url: string } | null, 
-    session?: Session | null 
+    sessions?: Array<Session> | null 
 }
 
 interface ArticleProps {
-  session: string;
   article: Post,
-  listOfArticlesBySession: Post[]
 }
 
-export default function Article({ session, article, listOfArticlesBySession }: ArticleProps){
-  console.log(article);
+export default function Article({ article }: ArticleProps){
+  const session = article?.sessions[0].title
+  
+  const { data, loading} = useGetPostsBySessionQuery({
+    variables: { 
+      slug: article?.sessions.map(session => session.slug)
+    }
+  })
+
+  console.log(article?.text.html)
+
   return (
     <Flex direction="column" h="100vh" >
       <Header title={session} selectedMenu={session}/>
@@ -115,12 +122,19 @@ export default function Article({ session, article, listOfArticlesBySession }: A
             </VStack>
           </Box>
           <Box mx="5rem" color="gray.500">
-            <Text dangerouslySetInnerHTML={{ __html: article?.text.html}} />
+            <Box dangerouslySetInnerHTML={{ __html: article?.text.html }} />
           </Box>
         
           <Box mx="5rem" pt="5rem">
             <Text fontSize={['sm', 'md', 'lg', 'xl', '3xl']} fontWeight='bold' color="gray.500">Explore mais</Text>
-            <BoxArticles posts={listOfArticlesBySession} isArticlePage={true} />
+            {/* <BoxArticles posts={listOfArticlesBySession} isArticlePage={true} /> */}
+            {
+              loading ? 
+                <CircularProgress value={30} size='120px' /> 
+              :
+                <BoxArticles posts={data.posts} isArticlePage={true} /> 
+              
+            }
           </Box>
         </Box>
 
@@ -146,22 +160,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req, params }) =>
     }
   });
 
-  const session:Session = getPost.data ? getPost.data.post?.session : { slug: '', title: ''}
-
-  console.log(session)
-
-  const getPostsBySessionDocument = await client.query({
-    query: GetPostsBySessionDocument,
-    variables: {
-      slug: [session.slug]
-    }
-  });
-
   return {
     props: { 
-      session: 'react js',
       article: getPost.data.post,
-      listOfArticlesBySession: getPostsBySessionDocument.data.posts
      },
   }
 }

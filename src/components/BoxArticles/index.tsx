@@ -26,7 +26,7 @@ export default function BoxArticles ({ posts, isArticlePage = false, ...rest }: 
           {
             posts.map(post => {
               if (isArticlePage)
-                return (<MiniArticle key={post.slug} post={post}/>)
+                return (<MiniArticle key={post.slug} post={post} pt="1rem"/>)
 
               return (<MiniArticle key={post.slug} post={post} p="1rem"/>)  
             })
@@ -39,16 +39,15 @@ export default function BoxArticles ({ posts, isArticlePage = false, ...rest }: 
           </Center>
         </Box>
 
-        <Box p={4} pt={0} flexShrink={0}>
+        <Box p={4} pt={4} flexShrink={0}>
           <Box w={{ md: 80 }}>
 
             <HighlightArticle post={mainPost} isMiniHighlight={true} />                  
 
             <Box bg="gray.900">
               <Box display={{ md: 'flex' }} p="1rem">
-                <Text fontWeight='bold' textTransform="uppercase">Most Read</Text>
+                <Text fontWeight='bold' textTransform="uppercase" pb="0px">Most Read</Text>
               </Box>
-
               {
                 posts.map(post => <MostRead key={post.slug} post={post} />)
               }

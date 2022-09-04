@@ -38,6 +38,26 @@ export const theme = extendTheme({
         // bgSize: 'cover',
         // bgAttachment: 'fixed',
         color: 'gray.50'
+      },
+      h1: {
+        fontSize: 'xl',
+        mb: '4',
+      },
+      h2: {
+        fontSize: 'xl',
+        color: 'green.200',
+        lineHeight: '1.3',
+        margin: '0 0 0.5em 0'
+      },
+      p: {
+        pb: '1.75em',
+        color: '#3d4459',
+      },
+      ul: {
+        margin: '0 0 1.5em 3em'
+      },
+      ol: {
+        margin: '0 0 1.5em 3em'
       }
     },
   },

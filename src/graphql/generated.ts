@@ -1779,11 +1779,11 @@ export type Post = Node & {
   /** User that last published this document */
   publishedBy?: Maybe<User>;
   scheduledIn: Array<ScheduledOperation>;
-  session?: Maybe<Session>;
+  sessions: Array<Session>;
   slug: Scalars['String'];
   /** System stage field */
   stage: Stage;
-  teacher?: Maybe<Teacher>;
+  teachers: Array<Teacher>;
   text?: Maybe<RichText>;
   title: Scalars['String'];
   /** The time the document was updated */
@@ -1834,13 +1834,27 @@ export type PostScheduledInArgs = {
 };
 
 
-export type PostSessionArgs = {
+export type PostSessionsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<SessionOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<SessionWhereInput>;
 };
 
 
-export type PostTeacherArgs = {
+export type PostTeachersArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<TeacherOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<TeacherWhereInput>;
 };
 
 
@@ -1872,9 +1886,9 @@ export type PostCreateInput = {
   image?: InputMaybe<AssetCreateOneInlineInput>;
   isEnglish: Scalars['Boolean'];
   isPortuguese: Scalars['Boolean'];
-  session?: InputMaybe<SessionCreateOneInlineInput>;
+  sessions?: InputMaybe<SessionCreateManyInlineInput>;
   slug: Scalars['String'];
-  teacher?: InputMaybe<TeacherCreateOneInlineInput>;
+  teachers?: InputMaybe<TeacherCreateManyInlineInput>;
   text?: InputMaybe<Scalars['RichTextAST']>;
   title: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -2009,7 +2023,9 @@ export type PostManyWhereInput = {
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
-  session?: InputMaybe<SessionWhereInput>;
+  sessions_every?: InputMaybe<SessionWhereInput>;
+  sessions_none?: InputMaybe<SessionWhereInput>;
+  sessions_some?: InputMaybe<SessionWhereInput>;
   slug?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   slug_contains?: InputMaybe<Scalars['String']>;
@@ -2029,7 +2045,9 @@ export type PostManyWhereInput = {
   slug_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   slug_starts_with?: InputMaybe<Scalars['String']>;
-  teacher?: InputMaybe<TeacherWhereInput>;
+  teachers_every?: InputMaybe<TeacherWhereInput>;
+  teachers_none?: InputMaybe<TeacherWhereInput>;
+  teachers_some?: InputMaybe<TeacherWhereInput>;
   title?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   title_contains?: InputMaybe<Scalars['String']>;
@@ -2113,9 +2131,9 @@ export type PostUpdateInput = {
   image?: InputMaybe<AssetUpdateOneInlineInput>;
   isEnglish?: InputMaybe<Scalars['Boolean']>;
   isPortuguese?: InputMaybe<Scalars['Boolean']>;
-  session?: InputMaybe<SessionUpdateOneInlineInput>;
+  sessions?: InputMaybe<SessionUpdateManyInlineInput>;
   slug?: InputMaybe<Scalars['String']>;
-  teacher?: InputMaybe<TeacherUpdateOneInlineInput>;
+  teachers?: InputMaybe<TeacherUpdateManyInlineInput>;
   text?: InputMaybe<Scalars['RichTextAST']>;
   title?: InputMaybe<Scalars['String']>;
   views?: InputMaybe<Scalars['Int']>;
@@ -2296,7 +2314,9 @@ export type PostWhereInput = {
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
-  session?: InputMaybe<SessionWhereInput>;
+  sessions_every?: InputMaybe<SessionWhereInput>;
+  sessions_none?: InputMaybe<SessionWhereInput>;
+  sessions_some?: InputMaybe<SessionWhereInput>;
   slug?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   slug_contains?: InputMaybe<Scalars['String']>;
@@ -2316,7 +2336,9 @@ export type PostWhereInput = {
   slug_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   slug_starts_with?: InputMaybe<Scalars['String']>;
-  teacher?: InputMaybe<TeacherWhereInput>;
+  teachers_every?: InputMaybe<TeacherWhereInput>;
+  teachers_none?: InputMaybe<TeacherWhereInput>;
+  teachers_some?: InputMaybe<TeacherWhereInput>;
   title?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   title_contains?: InputMaybe<Scalars['String']>;
@@ -3774,7 +3796,7 @@ export type Session = Node & {
   id: Scalars['ID'];
   isEnglish: Scalars['Boolean'];
   isPortuguese: Scalars['Boolean'];
-  posts?: Maybe<Post>;
+  posts: Array<Post>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
   /** User that last published this document */
@@ -3811,7 +3833,14 @@ export type SessionHistoryArgs = {
 
 
 export type SessionPostsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
   locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<PostOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<PostWhereInput>;
 };
 
 
@@ -3856,7 +3885,7 @@ export type SessionCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   isEnglish: Scalars['Boolean'];
   isPortuguese: Scalars['Boolean'];
-  posts?: InputMaybe<PostCreateOneInlineInput>;
+  posts?: InputMaybe<PostCreateManyInlineInput>;
   slug: Scalars['String'];
   title: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -3936,7 +3965,9 @@ export type SessionManyWhereInput = {
   isPortuguese?: InputMaybe<Scalars['Boolean']>;
   /** All values that are not equal to given value. */
   isPortuguese_not?: InputMaybe<Scalars['Boolean']>;
-  posts?: InputMaybe<PostWhereInput>;
+  posts_every?: InputMaybe<PostWhereInput>;
+  posts_none?: InputMaybe<PostWhereInput>;
+  posts_some?: InputMaybe<PostWhereInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -4034,7 +4065,7 @@ export enum SessionOrderByInput {
 export type SessionUpdateInput = {
   isEnglish?: InputMaybe<Scalars['Boolean']>;
   isPortuguese?: InputMaybe<Scalars['Boolean']>;
-  posts?: InputMaybe<PostUpdateOneInlineInput>;
+  posts?: InputMaybe<PostUpdateManyInlineInput>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
 };
@@ -4156,7 +4187,9 @@ export type SessionWhereInput = {
   isPortuguese?: InputMaybe<Scalars['Boolean']>;
   /** All values that are not equal to given value. */
   isPortuguese_not?: InputMaybe<Scalars['Boolean']>;
-  posts?: InputMaybe<PostWhereInput>;
+  posts_every?: InputMaybe<PostWhereInput>;
+  posts_none?: InputMaybe<PostWhereInput>;
+  posts_some?: InputMaybe<PostWhereInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -4627,7 +4660,6 @@ export type Teacher = Node & {
   /** The unique identifier */
   id: Scalars['ID'];
   name: Scalars['String'];
-  posts?: Maybe<Post>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
   /** User that last published this document */
@@ -4658,11 +4690,6 @@ export type TeacherHistoryArgs = {
   limit?: Scalars['Int'];
   skip?: Scalars['Int'];
   stageOverride?: InputMaybe<Stage>;
-};
-
-
-export type TeacherPostsArgs = {
-  locales?: InputMaybe<Array<Locale>>;
 };
 
 
@@ -4706,9 +4733,9 @@ export type TeacherConnection = {
 export type TeacherCreateInput = {
   avatarUrl: Scalars['String'];
   bio?: InputMaybe<Scalars['String']>;
+  cl7g9hnqf7j0d01t272xg0vld?: InputMaybe<PostCreateManyInlineInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   name: Scalars['String'];
-  posts?: InputMaybe<PostCreateOneInlineInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -4837,7 +4864,6 @@ export type TeacherManyWhereInput = {
   name_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   name_starts_with?: InputMaybe<Scalars['String']>;
-  posts?: InputMaybe<PostWhereInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -4895,8 +4921,8 @@ export enum TeacherOrderByInput {
 export type TeacherUpdateInput = {
   avatarUrl?: InputMaybe<Scalars['String']>;
   bio?: InputMaybe<Scalars['String']>;
+  cl7g9hnqf7j0d01t272xg0vld?: InputMaybe<PostUpdateManyInlineInput>;
   name?: InputMaybe<Scalars['String']>;
-  posts?: InputMaybe<PostUpdateOneInlineInput>;
 };
 
 export type TeacherUpdateManyInlineInput = {
@@ -5067,7 +5093,6 @@ export type TeacherWhereInput = {
   name_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   name_starts_with?: InputMaybe<Scalars['String']>;
-  posts?: InputMaybe<PostWhereInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -5580,21 +5605,21 @@ export type GetPostQueryVariables = Exact<{
 }>;
 
 
-export type GetPostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', slug: string, title: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, text?: { __typename?: 'RichText', html: string } | null, image?: { __typename?: 'Asset', url: string } | null, session?: { __typename?: 'Session', slug: string, title: string } | null } | null };
+export type GetPostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', slug: string, title: string, description?: string | null, text?: { __typename?: 'RichText', html: string } | null, image?: { __typename?: 'Asset', url: string } | null, sessions: Array<{ __typename?: 'Session', title: string, slug: string }>, teachers: Array<{ __typename?: 'Teacher', name: string }> } | null };
 
 export type GetPostsBySessionQueryVariables = Exact<{
   slug?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
 }>;
 
 
-export type GetPostsBySessionQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
+export type GetPostsBySessionQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teachers: Array<{ __typename?: 'Teacher', name: string }>, image?: { __typename?: 'Asset', url: string } | null }> };
 
 export type GetPostsQueryVariables = Exact<{
   skip?: InputMaybe<Scalars['Int']>;
 }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
+export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teachers: Array<{ __typename?: 'Teacher', name: string }>, image?: { __typename?: 'Asset', url: string } | null }> };
 
 export type GetSessionsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5605,9 +5630,6 @@ export type GetSessionsQuery = { __typename?: 'Query', sessions: Array<{ __typen
 export const GetPostDocument = gql`
     query GetPost($slug: String) {
   post(where: {slug: $slug}) {
-    teacher {
-      name
-    }
     text {
       html
     }
@@ -5617,9 +5639,12 @@ export const GetPostDocument = gql`
     slug
     title
     description
-    session {
-      slug
+    sessions {
       title
+      slug
+    }
+    teachers {
+      name
     }
   }
 }
@@ -5654,11 +5679,11 @@ export type GetPostLazyQueryHookResult = ReturnType<typeof useGetPostLazyQuery>;
 export type GetPostQueryResult = Apollo.QueryResult<GetPostQuery, GetPostQueryVariables>;
 export const GetPostsBySessionDocument = gql`
     query GetPostsBySession($slug: [String]) {
-  posts(where: {session: {slug_in: $slug}}) {
+  posts(where: {sessions_some: {slug_in: $slug}}) {
     title
     slug
     description
-    teacher {
+    teachers {
       name
     }
     image {
@@ -5701,7 +5726,7 @@ export const GetPostsDocument = gql`
     title
     slug
     description
-    teacher {
+    teachers {
       name
     }
     image {

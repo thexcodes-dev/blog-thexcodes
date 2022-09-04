@@ -8,11 +8,15 @@ import HighlightArticle from '../components/HighlightArticle';
 import BoxArticles from "../components/BoxArticles";
 import Footer from "../components/Footer";
 
+type Teacher = {
+  name: string
+}
+
 interface Post { 
   title: string, 
   slug: string, 
   description?: string | null, 
-  teacher?: { __typename?: 'Teacher', name: string } | null, 
+  teacher?: Array<Teacher> | null, 
   image?: { __typename?: 'Asset', url: string } | null 
 }
 

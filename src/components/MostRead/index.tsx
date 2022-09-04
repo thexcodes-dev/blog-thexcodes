@@ -24,6 +24,8 @@ export default function MostRead({ post }: MostReadProps){
           textTransform='uppercase'
           fontSize='sm'
           letterSpacing='wide'
+          color='white'
+          pb='0px'
         >
           {post?.title}
         </Text>

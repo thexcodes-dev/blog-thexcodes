@@ -1,8 +1,5 @@
 query GetPost($slug: String) {
   post(where: {slug: $slug}) {
-    teacher {
-      name
-    }
     text {
       html
     }
@@ -12,9 +9,12 @@ query GetPost($slug: String) {
     slug
     title
     description
-    session {
-      slug
+    sessions {
       title
+      slug
+    }
+    teachers {
+      name
     }
   }
 }

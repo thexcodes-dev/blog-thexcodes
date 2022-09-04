@@ -1,9 +1,9 @@
 query GetPostsBySession ($slug: [String]) {
-  posts(where: {session: {slug_in: $slug}}) {
+  posts(where: {sessions_some: {slug_in: $slug}}) {
     title
     slug
     description
-    teacher { 
+    teachers { 
       name
     }
     image {

@@ -25,14 +25,14 @@ export default function TextDescription({ timeRead, title, description, isMiniHi
       {
         isMiniHighlight ? (
           <>
-            <Text fontSize='sm'>{timeRead} min read</Text>
-            <Text fontSize='sm' fontWeight='bold' textTransform="uppercase">{title}</Text>
+            <Text fontSize='sm' pb="0px">{timeRead} min read</Text>
+            <Text fontSize='sm' fontWeight='bold' textTransform="uppercase" color="white" pb="0px">{title}</Text>
           </>
         ) : (
           <>
             <Text>{timeRead} min read</Text>
-            <Text fontSize={['sm', 'md', 'lg', 'xl', '3xl']} fontWeight='bold' textTransform="uppercase">{title}</Text>
-            <Text fontSize={['sm', 'md']}>{description}</Text>
+            <Text fontSize={['sm', 'md', 'lg', 'xl', '3xl']} fontWeight='bold' textTransform="uppercase" color="white" pb="0px">{title}</Text>
+            <Text fontSize={['sm', 'md']} color="white" pb="0px">{description}</Text>
           </>
         )
       }

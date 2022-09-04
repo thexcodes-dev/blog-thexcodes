@@ -37,11 +37,11 @@ export default function MiniArticle({ post, ...rest }: MiniArticleProps) {
         />
       </Box>
       <Box ml={{ md: '0.5rem' }}>
-        <Link href="">
+        <Link href={post?.slug}>
         <ChakraLink _hover={{ color: 'green.300', textDecoration: 'none'}}>
-            <Text color="gray.800" fontSize='md' fontWeight='bold' _hover={{ color: 'green.300'}}>{post?.title}</Text>
-            <Text color="gray.700" fontSize='xs' _hover={{ color: 'green.300'}}>By {post?.teacher?.name}</Text>
-            <Text color="gray.600" _hover={{ color: 'green.300'}}>{description}</Text>
+            <Text color="gray.800" fontSize='md' fontWeight='bold' _hover={{ color: 'green.300'}} pb="0px">{post?.title}</Text>
+            <Text color="gray.700" fontSize='xs' _hover={{ color: 'green.300'}} pb="0px">By {post?.teacher?.name}</Text>
+            <Text color="gray.600" _hover={{ color: 'green.300'}} pb="0px">{description}</Text>
         </ChakraLink>
       </Link>
       </Box>

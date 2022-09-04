@@ -3,7 +3,7 @@ query GetPosts($skip: Int) {
     title
     slug
     description
-    teacher {
+    teachers {
       name
     }
     image {
