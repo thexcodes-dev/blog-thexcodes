@@ -1,5 +1,5 @@
-query GetPosts($skip: Int) {
-  posts(orderBy: availableAt_DESC, skip: $skip) {
+query GetPosts($first: Int, $skip: Int) {
+  posts(orderBy: availableAt_DESC, first: $first, skip: $skip) {
     title
     slug
     description
@@ -8,6 +8,11 @@ query GetPosts($skip: Int) {
     }
     image {
       url
+    }
+    sessions {
+      title
+      color
+      bgColor
     }
   }
 }

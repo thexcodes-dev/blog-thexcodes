@@ -1,5 +1,5 @@
-import { Flex, Box, VStack } from "@chakra-ui/react";
-import { GetPostsDocument, useGetPostsQuery } from "../graphql/generated";
+import { Flex, Box, VStack, Spinner } from "@chakra-ui/react";
+import { GetPostsDocument, useGetPostsBySessionQuery, useGetPostsQuery } from "../graphql/generated";
 import { GetStaticProps } from "next";
 import { client } from "../service/apollo";
 
@@ -25,19 +25,15 @@ interface HomeProps {
 }
 
 export default function Home({ posts}: HomeProps) {
+  const listOfPosts = [...posts];
+  const mainPost = listOfPosts.shift();
 
-  useGetPostsQuery({
-    variables: {
-      skip: 2
+  const { data, loading} = useGetPostsQuery({
+    variables: { 
+      first: 5,
+      skip: 4
     }
   })
-
-
-  let mainPost:Post;
-
-  if (posts){
-    mainPost = posts[0];
-  }
   
   return (
     <Flex direction="column" h="100vh" position="relative">
@@ -51,12 +47,28 @@ export default function Home({ posts}: HomeProps) {
         <VStack>
           <HighlightArticle post={mainPost} />
           <Box mt="0px" display={{ md: 'flex' }}>
-            <HighlightArticle post={mainPost} isMiniHighlight={true} />
-            <HighlightArticle post={mainPost} isMiniHighlight={true} ml={{ md: '0.25rem' }} />
-            <HighlightArticle post={mainPost} isMiniHighlight={true} ml={{ md: '0.25rem' }} />
+            {
+              listOfPosts.map((post, index) => {
+                if (index === 0) {
+                  return <HighlightArticle key={post.slug} post={post} isMiniHighlight={true} />
+                }
+                return <HighlightArticle key={post.slug} post={post} isMiniHighlight={true} ml={{ md: '0.25rem' }} />
+              })
+            }
           </Box>
-
-          <BoxArticles posts={posts} p="1rem"/>
+          {
+              loading ? 
+                <Spinner
+                  thickness='4px'
+                  speed='0.65s'
+                  emptyColor='gray.200'
+                  color='green.500'
+                  size='md'
+                  ml="0.5rem"
+                />
+              :
+                <BoxArticles posts={data.posts} p="1rem"/> 
+            }
 
         </VStack>
 
@@ -73,6 +85,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const { data } = await client.query({
     query: GetPostsDocument,
     variables: {
+      first: 4,
       skip: 0
     }
   });
@@ -81,6 +94,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       posts: data.posts
     },
-    revalidate: 60 * 30, //30 minutes
+    //revalidate: 60 * 30, //30 minutes
   }
 }

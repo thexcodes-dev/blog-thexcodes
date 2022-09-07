@@ -12,6 +12,8 @@ query GetPost($slug: String) {
     sessions {
       title
       slug
+      color
+      bgColor
     }
     teachers {
       name

@@ -9,6 +9,7 @@ interface TextDescriptionProps {
 
 export default function TextDescription({ timeRead, title, description, isMiniHighlight }: TextDescriptionProps){
   description = description.length > 150 ? `${description.substring(0, 150)} ...` : description;
+  const miniTitle = title.length > 37 ? `${title.substring(0, 37)} ...` : title;
 
   return (
     <Box 
@@ -25,12 +26,12 @@ export default function TextDescription({ timeRead, title, description, isMiniHi
       {
         isMiniHighlight ? (
           <>
-            <Text fontSize='sm' pb="0px">{timeRead} min read</Text>
-            <Text fontSize='sm' fontWeight='bold' textTransform="uppercase" color="white" pb="0px">{title}</Text>
+            {/* <Text fontSize='sm' pb="0px" color='white'>{timeRead} min read</Text> */}
+            <Text fontSize='sm' fontWeight='bold' textTransform="uppercase" color="white" pb="0px">{miniTitle}</Text>
           </>
         ) : (
           <>
-            <Text>{timeRead} min read</Text>
+            <Text color='white' pb='0px'>{timeRead} min read</Text>
             <Text fontSize={['sm', 'md', 'lg', 'xl', '3xl']} fontWeight='bold' textTransform="uppercase" color="white" pb="0px">{title}</Text>
             <Text fontSize={['sm', 'md']} color="white" pb="0px">{description}</Text>
           </>

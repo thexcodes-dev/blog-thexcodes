@@ -1,11 +1,15 @@
 import { Box, Image, Text, Link as ChakraLink, BoxProps } from "@chakra-ui/react";
 import Link from "next/link";
 
-interface Post {
+type Teacher = {
+  name: string
+}
+
+type Post = {
   title: string, 
   slug: string, 
   description?: string | null, 
-  teacher?: { name: string } | null, 
+  teachers?: Teacher[] | null, 
   image?: { url: string } | null 
 }
 
@@ -19,6 +23,7 @@ export default function MiniArticle({ post, ...rest }: MiniArticleProps) {
   }
 
   const description = post?.description?.length > 150 ? `${post.description.substring(0, 150)} ...` : post?.description;
+  const teacher = post?.teachers.map(teacher => teacher.name).join(',')
 
   return (
     <Box 
@@ -40,7 +45,7 @@ export default function MiniArticle({ post, ...rest }: MiniArticleProps) {
         <Link href={post?.slug}>
         <ChakraLink _hover={{ color: 'green.300', textDecoration: 'none'}}>
             <Text color="gray.800" fontSize='md' fontWeight='bold' _hover={{ color: 'green.300'}} pb="0px">{post?.title}</Text>
-            <Text color="gray.700" fontSize='xs' _hover={{ color: 'green.300'}} pb="0px">By {post?.teacher?.name}</Text>
+            <Text color="gray.700" fontSize='xs' _hover={{ color: 'green.300'}} pb="0px">By {teacher}</Text>
             <Text color="gray.600" _hover={{ color: 'green.300'}} pb="0px">{description}</Text>
         </ChakraLink>
       </Link>

@@ -1,35 +1,37 @@
-import { Avatar, Box, Flex, WrapItem, Text } from "@chakra-ui/react";
+import { Box, CircularProgress, Text } from "@chakra-ui/react";
+import { useGetPostsMostReadQuery } from "../../graphql/generated";
+import HighlightArticle from "../HighlightArticle";
+import PostCard from "./postCard";
 
-interface Post {
-  title: string, 
-  slug: string, 
-  image?: { url: string } | null 
-}
+export default function MostRead(){
 
-interface MostReadProps {
-  post: Post;
-}
+  const { data, loading} = useGetPostsMostReadQuery({
+    variables: { 
+      first: 5,
+      skip: 0
+    }
+  })
+  
+  if (loading) {
+    return <CircularProgress value={30} size='120px' />
+  }
 
-export default function MostRead({ post }: MostReadProps){
+  const posts = [...data.posts];
+  const mainPost = posts.shift();
+
   return (
-    <Flex p={4} display={{ md: 'flex' }} align="center" >
-      <Box flexShrink={0}>
-        <WrapItem>
-          <Avatar size='xl' name='Segun Adebayo' src={post?.image?.url} />{' '}
-        </WrapItem>
+    <Box w={{ md: 80 }}>
+
+    <HighlightArticle post={mainPost} isMiniHighlight={true} />                  
+
+    <Box bg="gray.900">
+      <Box display={{ md: 'flex' }} p="1rem">
+        <Text fontWeight='bold' textTransform="uppercase" pb="0px" color='white'>Most Read</Text>
       </Box>
-      <Box mt={{ base: 4, md: 0 }} ml={{ md: 6 }}>
-        <Text
-          fontWeight='bold'
-          textTransform='uppercase'
-          fontSize='sm'
-          letterSpacing='wide'
-          color='white'
-          pb='0px'
-        >
-          {post?.title}
-        </Text>
-      </Box>
-    </Flex>     
+      {
+        posts.map(post => <PostCard key={post.slug} post={post} />)
+      }
+    </Box>
+  </Box>   
   )
 }

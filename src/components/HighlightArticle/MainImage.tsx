@@ -18,6 +18,7 @@ export default function MainImage({ url, isMiniHighlight }: MainImageProps){
         <Image 
           width="100%" 
           height="100%" 
+          maxWidth="397px"
           object-fit= "contain"
           src={url}
           alt=""

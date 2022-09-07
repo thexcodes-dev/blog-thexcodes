@@ -1,7 +1,5 @@
-import { Flex, Image, Link as ChakraLink, Spinner, Text } from "@chakra-ui/react";
-import { useQuery, gql } from '@apollo/client';
+import { Flex, Image, Link as ChakraLink, Text } from "@chakra-ui/react";
 
-import Head from "next/head";
 import Link from "next/link";
 import { useGetSessionsQuery } from "../../graphql/generated";
 
@@ -55,6 +53,8 @@ export default function Header({ title, selectedMenu}: HomeProps){
                     { item.slug === selectedMenu ? 
                         <Text 
                           fontWeight="medium"
+                          color='white' 
+                          pb='0px'
                           _after={{
                             content: `""`,
                             h:"3px",
@@ -68,7 +68,7 @@ export default function Header({ title, selectedMenu}: HomeProps){
                           }}
                         >{item.title}</Text>                  
                     :
-                        <Text fontWeight="medium">{item.title}</Text> 
+                        <Text fontWeight="medium" color='white' pb='0px'>{item.title}</Text> 
                     }
                   </ChakraLink>
               </Link>
@@ -78,7 +78,7 @@ export default function Header({ title, selectedMenu}: HomeProps){
 
           <Link href="/sobre">
             <ChakraLink _hover={{ color: 'green.300' }}>
-              <Text fontWeight="medium">
+              <Text fontWeight="medium" color='white' pb='0px'>
                 Sobre
               </Text>
             </ChakraLink>

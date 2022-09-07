@@ -4,7 +4,7 @@ import Link from "next/link";
 import BoxArticles from "../components/BoxArticles";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import { GetPostDocument, GetPostsBySessionDocument, useGetPostQuery, useGetPostsBySessionQuery, useGetPostsQuery } from "../graphql/generated";
+import { GetPostDocument, useGetPostsBySessionQuery } from "../graphql/generated";
 import { client } from "../service/apollo";
 
 type Session = { 
@@ -27,19 +27,20 @@ interface ArticleProps {
 }
 
 export default function Article({ article }: ArticleProps){
-  const session = article?.sessions[0].title
+  const sessionTitle = article?.sessions[0].title
+  const sessionSlug = article?.sessions[0].slug
   
   const { data, loading} = useGetPostsBySessionQuery({
     variables: { 
-      slug: article?.sessions.map(session => session.slug)
+      slug: article?.sessions.map(session => session.slug),
+      first: 5,
+      skip: 0
     }
   })
 
-  console.log(article?.text.html)
-
   return (
     <Flex direction="column" h="100vh" >
-      <Header title={session} selectedMenu={session}/>
+      <Header title={sessionTitle} selectedMenu={sessionSlug}/>
       <Box>
         <Box position="relative">
           <Box
@@ -83,7 +84,7 @@ export default function Article({ article }: ArticleProps){
             transition=".5s ease-out"
             zIndex="2"
           >
-              <Text>React JS</Text>
+              <Text color="#ffffff" >{sessionTitle}</Text>
               <Text 
                   fontSize={['sm', 'md', 'lg', 'xl', '3xl']}
                   pt="10px"
@@ -127,13 +128,11 @@ export default function Article({ article }: ArticleProps){
         
           <Box mx="5rem" pt="5rem">
             <Text fontSize={['sm', 'md', 'lg', 'xl', '3xl']} fontWeight='bold' color="gray.500">Explore mais</Text>
-            {/* <BoxArticles posts={listOfArticlesBySession} isArticlePage={true} /> */}
             {
               loading ? 
                 <CircularProgress value={30} size='120px' /> 
               :
-                <BoxArticles posts={data.posts} isArticlePage={true} /> 
-              
+                <BoxArticles posts={data.posts} isArticlePage={true} currentSession={sessionSlug} /> 
             }
           </Box>
         </Box>

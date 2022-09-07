@@ -3784,6 +3784,8 @@ export type ScheduledReleaseWhereUniqueInput = {
 
 export type Session = Node & {
   __typename?: 'Session';
+  bgColor?: Maybe<Scalars['String']>;
+  color?: Maybe<Scalars['String']>;
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
   /** User that created this document */
@@ -3882,6 +3884,8 @@ export type SessionConnection = {
 };
 
 export type SessionCreateInput = {
+  bgColor?: InputMaybe<Scalars['String']>;
+  color?: InputMaybe<Scalars['String']>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   isEnglish: Scalars['Boolean'];
   isPortuguese: Scalars['Boolean'];
@@ -3924,6 +3928,44 @@ export type SessionManyWhereInput = {
   OR?: InputMaybe<Array<SessionWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
+  bgColor?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  bgColor_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  bgColor_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  bgColor_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  bgColor_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  bgColor_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  bgColor_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  bgColor_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  bgColor_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  bgColor_starts_with?: InputMaybe<Scalars['String']>;
+  color?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  color_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  color_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  color_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  color_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  color_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  color_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  color_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  color_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  color_starts_with?: InputMaybe<Scalars['String']>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   createdAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -4044,6 +4086,10 @@ export type SessionManyWhereInput = {
 };
 
 export enum SessionOrderByInput {
+  BgColorAsc = 'bgColor_ASC',
+  BgColorDesc = 'bgColor_DESC',
+  ColorAsc = 'color_ASC',
+  ColorDesc = 'color_DESC',
   CreatedAtAsc = 'createdAt_ASC',
   CreatedAtDesc = 'createdAt_DESC',
   IdAsc = 'id_ASC',
@@ -4063,6 +4109,8 @@ export enum SessionOrderByInput {
 }
 
 export type SessionUpdateInput = {
+  bgColor?: InputMaybe<Scalars['String']>;
+  color?: InputMaybe<Scalars['String']>;
   isEnglish?: InputMaybe<Scalars['Boolean']>;
   isPortuguese?: InputMaybe<Scalars['Boolean']>;
   posts?: InputMaybe<PostUpdateManyInlineInput>;
@@ -4088,6 +4136,8 @@ export type SessionUpdateManyInlineInput = {
 };
 
 export type SessionUpdateManyInput = {
+  bgColor?: InputMaybe<Scalars['String']>;
+  color?: InputMaybe<Scalars['String']>;
   isEnglish?: InputMaybe<Scalars['Boolean']>;
   isPortuguese?: InputMaybe<Scalars['Boolean']>;
   title?: InputMaybe<Scalars['String']>;
@@ -4146,6 +4196,44 @@ export type SessionWhereInput = {
   OR?: InputMaybe<Array<SessionWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
+  bgColor?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  bgColor_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  bgColor_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  bgColor_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  bgColor_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  bgColor_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  bgColor_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  bgColor_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  bgColor_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  bgColor_starts_with?: InputMaybe<Scalars['String']>;
+  color?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  color_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  color_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  color_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  color_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  color_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  color_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  color_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  color_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  color_starts_with?: InputMaybe<Scalars['String']>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   createdAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -5605,26 +5693,37 @@ export type GetPostQueryVariables = Exact<{
 }>;
 
 
-export type GetPostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', slug: string, title: string, description?: string | null, text?: { __typename?: 'RichText', html: string } | null, image?: { __typename?: 'Asset', url: string } | null, sessions: Array<{ __typename?: 'Session', title: string, slug: string }>, teachers: Array<{ __typename?: 'Teacher', name: string }> } | null };
+export type GetPostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', slug: string, title: string, description?: string | null, text?: { __typename?: 'RichText', html: string } | null, image?: { __typename?: 'Asset', url: string } | null, sessions: Array<{ __typename?: 'Session', title: string, slug: string, color?: string | null, bgColor?: string | null }>, teachers: Array<{ __typename?: 'Teacher', name: string }> } | null };
 
 export type GetPostsBySessionQueryVariables = Exact<{
   slug?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
+  first?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
 }>;
 
 
 export type GetPostsBySessionQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teachers: Array<{ __typename?: 'Teacher', name: string }>, image?: { __typename?: 'Asset', url: string } | null }> };
 
-export type GetPostsQueryVariables = Exact<{
+export type GetPostsMostReadQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['Int']>;
   skip?: InputMaybe<Scalars['Int']>;
 }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teachers: Array<{ __typename?: 'Teacher', name: string }>, image?: { __typename?: 'Asset', url: string } | null }> };
+export type GetPostsMostReadQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, image?: { __typename?: 'Asset', url: string } | null }> };
+
+export type GetPostsQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teachers: Array<{ __typename?: 'Teacher', name: string }>, image?: { __typename?: 'Asset', url: string } | null, sessions: Array<{ __typename?: 'Session', title: string, color?: string | null, bgColor?: string | null }> }> };
 
 export type GetSessionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetSessionsQuery = { __typename?: 'Query', sessions: Array<{ __typename?: 'Session', slug: string, title: string }> };
+export type GetSessionsQuery = { __typename?: 'Query', sessions: Array<{ __typename?: 'Session', slug: string, title: string, color?: string | null, bgColor?: string | null }> };
 
 
 export const GetPostDocument = gql`
@@ -5642,6 +5741,8 @@ export const GetPostDocument = gql`
     sessions {
       title
       slug
+      color
+      bgColor
     }
     teachers {
       name
@@ -5678,8 +5779,13 @@ export type GetPostQueryHookResult = ReturnType<typeof useGetPostQuery>;
 export type GetPostLazyQueryHookResult = ReturnType<typeof useGetPostLazyQuery>;
 export type GetPostQueryResult = Apollo.QueryResult<GetPostQuery, GetPostQueryVariables>;
 export const GetPostsBySessionDocument = gql`
-    query GetPostsBySession($slug: [String]) {
-  posts(where: {sessions_some: {slug_in: $slug}}) {
+    query GetPostsBySession($slug: [String], $first: Int, $skip: Int) {
+  posts(
+    where: {sessions_some: {slug_in: $slug}}
+    orderBy: availableAt_DESC
+    first: $first
+    skip: $skip
+  ) {
     title
     slug
     description
@@ -5706,6 +5812,8 @@ export const GetPostsBySessionDocument = gql`
  * const { data, loading, error } = useGetPostsBySessionQuery({
  *   variables: {
  *      slug: // value for 'slug'
+ *      first: // value for 'first'
+ *      skip: // value for 'skip'
  *   },
  * });
  */
@@ -5720,9 +5828,50 @@ export function useGetPostsBySessionLazyQuery(baseOptions?: Apollo.LazyQueryHook
 export type GetPostsBySessionQueryHookResult = ReturnType<typeof useGetPostsBySessionQuery>;
 export type GetPostsBySessionLazyQueryHookResult = ReturnType<typeof useGetPostsBySessionLazyQuery>;
 export type GetPostsBySessionQueryResult = Apollo.QueryResult<GetPostsBySessionQuery, GetPostsBySessionQueryVariables>;
+export const GetPostsMostReadDocument = gql`
+    query GetPostsMostRead($first: Int, $skip: Int) {
+  posts(orderBy: views_DESC, first: $first, skip: $skip) {
+    title
+    slug
+    description
+    image {
+      url
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPostsMostReadQuery__
+ *
+ * To run a query within a React component, call `useGetPostsMostReadQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostsMostReadQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostsMostReadQuery({
+ *   variables: {
+ *      first: // value for 'first'
+ *      skip: // value for 'skip'
+ *   },
+ * });
+ */
+export function useGetPostsMostReadQuery(baseOptions?: Apollo.QueryHookOptions<GetPostsMostReadQuery, GetPostsMostReadQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostsMostReadQuery, GetPostsMostReadQueryVariables>(GetPostsMostReadDocument, options);
+      }
+export function useGetPostsMostReadLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsMostReadQuery, GetPostsMostReadQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostsMostReadQuery, GetPostsMostReadQueryVariables>(GetPostsMostReadDocument, options);
+        }
+export type GetPostsMostReadQueryHookResult = ReturnType<typeof useGetPostsMostReadQuery>;
+export type GetPostsMostReadLazyQueryHookResult = ReturnType<typeof useGetPostsMostReadLazyQuery>;
+export type GetPostsMostReadQueryResult = Apollo.QueryResult<GetPostsMostReadQuery, GetPostsMostReadQueryVariables>;
 export const GetPostsDocument = gql`
-    query GetPosts($skip: Int) {
-  posts(orderBy: availableAt_DESC, skip: $skip) {
+    query GetPosts($first: Int, $skip: Int) {
+  posts(orderBy: availableAt_DESC, first: $first, skip: $skip) {
     title
     slug
     description
@@ -5731,6 +5880,11 @@ export const GetPostsDocument = gql`
     }
     image {
       url
+    }
+    sessions {
+      title
+      color
+      bgColor
     }
   }
 }
@@ -5748,6 +5902,7 @@ export const GetPostsDocument = gql`
  * @example
  * const { data, loading, error } = useGetPostsQuery({
  *   variables: {
+ *      first: // value for 'first'
  *      skip: // value for 'skip'
  *   },
  * });
@@ -5768,6 +5923,8 @@ export const GetSessionsDocument = gql`
   sessions {
     slug
     title
+    color
+    bgColor
   }
 }
     `;
