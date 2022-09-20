@@ -20,18 +20,17 @@ export default function MostRead(){
   const mainPost = posts.shift();
 
   return (
-    <Box w={{ md: 80 }}>
+    <>
+      <HighlightArticle post={mainPost} isMiniHighlight={true} />                  
 
-    <HighlightArticle post={mainPost} isMiniHighlight={true} />                  
-
-    <Box bg="gray.900">
-      <Box display={{ md: 'flex' }} p="1rem">
-        <Text fontWeight='bold' textTransform="uppercase" pb="0px" color='white'>Most Read</Text>
+      <Box bg="gray.900" w="100%">
+        <Box display={{ md: 'flex' }} p="1rem">
+          <Text fontWeight='bold' textTransform="uppercase" pb="0px" color='white'>Most Read</Text>
+        </Box>
+        {
+          posts.map(post => <PostCard key={post.slug} post={post} />)
+        }
       </Box>
-      {
-        posts.map(post => <PostCard key={post.slug} post={post} />)
-      }
-    </Box>
-  </Box>   
+    </>   
   )
 }

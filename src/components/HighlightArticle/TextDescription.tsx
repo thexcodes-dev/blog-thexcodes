@@ -13,10 +13,10 @@ export default function TextDescription({ timeRead, title, description, isMiniHi
 
   return (
     <Box 
-      p="10px"
+      position="absolute" 
       w="100%"
-      position="absolute"
       bottom="0"
+      p="1rem"
       _hover={{
         color: 'green.300', 
         transition: "filter 0.5s"
@@ -26,14 +26,13 @@ export default function TextDescription({ timeRead, title, description, isMiniHi
       {
         isMiniHighlight ? (
           <>
-            {/* <Text fontSize='sm' pb="0px" color='white'>{timeRead} min read</Text> */}
-            <Text fontSize='sm' fontWeight='bold' textTransform="uppercase" color="white" pb="0px">{miniTitle}</Text>
+            <Text fontSize={['xl', 'sm']} fontWeight='bold' textTransform="uppercase" color="white" pb="0px">{miniTitle}</Text>
           </>
         ) : (
           <>
             <Text color='white' pb='0px'>{timeRead} min read</Text>
-            <Text fontSize={['sm', 'md', 'lg', 'xl', '3xl']} fontWeight='bold' textTransform="uppercase" color="white" pb="0px">{title}</Text>
-            <Text fontSize={['sm', 'md']} color="white" pb="0px">{description}</Text>
+            <Text fontSize={['2xl', 'sm']} fontWeight='bold' textTransform="uppercase" color="white" pb="0px">{title}</Text>
+            <Text fontSize={['2xl', 'sm']} color="white" pb="0px">{description}</Text>
           </>
         )
       }

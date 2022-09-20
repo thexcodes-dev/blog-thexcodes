@@ -1,4 +1,4 @@
-import { Box, Image } from "@chakra-ui/react";
+import { Box, Image, useBreakpointValue } from "@chakra-ui/react";
 
 interface MainImageProps {
   url: string;
@@ -6,8 +6,12 @@ interface MainImageProps {
 }
 
 export default function MainImage({ url, isMiniHighlight }: MainImageProps){
+  const variant = useBreakpointValue({ 
+    xl: 'normal', 
+    md: 'mobile' 
+  });
 
-  if (isMiniHighlight){
+  if (!isMiniHighlight){
     return (
       <Box 
         transition= "transform .5s ease"
@@ -18,7 +22,6 @@ export default function MainImage({ url, isMiniHighlight }: MainImageProps){
         <Image 
           width="100%" 
           height="100%" 
-          maxWidth="397px"
           object-fit= "contain"
           src={url}
           alt=""
@@ -29,20 +32,32 @@ export default function MainImage({ url, isMiniHighlight }: MainImageProps){
 
   return (
     <Box 
-      w={{ base: '1024px', '2xl': '1200px', xl: '1024px', md: '768px', sm: '480px'}}
-      max-height="650px"
       transition= "transform .5s ease"
       _hover={{
         transform: "scale(1.5)",
       }}
     >
-      <Image 
-        width="100%" 
-        height="100%" 
-        object-fit= "contain"
-        src={url}
-        alt=""
-      />
+      { 
+        variant === 'normal' ? 
+          <Image 
+            width="100%" 
+            height="100%" 
+            maxWidth="397px"
+            maxHeight="169px"
+
+            object-fit= "contain"
+            src={url}
+            alt=""
+          />
+        :
+          <Image 
+            width="100%" 
+            height="100%" 
+            object-fit= "contain"
+            src={url}
+            alt=""
+          />
+      }
     </Box>
   )
 }

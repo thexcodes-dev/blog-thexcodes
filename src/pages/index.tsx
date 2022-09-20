@@ -1,4 +1,4 @@
-import { Flex, Box, VStack, Spinner } from "@chakra-ui/react";
+import { Flex, Box, VStack, Spinner, HStack } from "@chakra-ui/react";
 import { GetPostsDocument, useGetPostsBySessionQuery, useGetPostsQuery } from "../graphql/generated";
 import { GetStaticProps } from "next";
 import { client } from "../service/apollo";
@@ -36,44 +36,41 @@ export default function Home({ posts}: HomeProps) {
   })
   
   return (
-    <Flex direction="column" h="100vh" position="relative">
+    <Flex
+      maxWidth={1344}
+      mx="auto" 
+      w={{ base: '1024px', '2xl': '1200px', xl: '1024px', md: '768px', sm: '480px'}}
+      flexDir="column"
+      alignItems="center"
+    >
       <Header title="Home"/>
 
-      <Flex 
-        maxWidth={1480} 
-        mx="auto" 
-        w={{ base: '1024px', '2xl': '1200px', xl: '1024px', md: '768px', sm: '480px'}}
-      >
-        <VStack>
-          <HighlightArticle post={mainPost} />
-          <Box mt="0px" display={{ md: 'flex' }}>
-            {
-              listOfPosts.map((post, index) => {
-                if (index === 0) {
-                  return <HighlightArticle key={post.slug} post={post} isMiniHighlight={true} />
-                }
-                return <HighlightArticle key={post.slug} post={post} isMiniHighlight={true} ml={{ md: '0.25rem' }} />
-              })
-            }
-          </Box>
-          {
-              loading ? 
-                <Spinner
-                  thickness='4px'
-                  speed='0.65s'
-                  emptyColor='gray.200'
-                  color='green.500'
-                  size='md'
-                  ml="0.5rem"
-                />
-              :
-                <BoxArticles posts={data.posts} p="1rem"/> 
-            }
+      <HighlightArticle post={mainPost} />
 
-        </VStack>
+      <HStack flexWrap="wrap" mt="0.5rem" w="100%" spacing={{xl: '0.25rem', md: '0rem'}}>
+        {
+          listOfPosts.map((post, index) => {
+            if (index === 0) {
+              return <HighlightArticle key={post.slug} post={post} isMiniHighlight={true} w={{ base: '1024px', xl: '398px', md: '794px'}} />
+            }
+            return <HighlightArticle key={post.slug} post={post} isMiniHighlight={true} w={{ base: '1024px', xl: '397px', md: '794px'}} />
+          })
+        }
+      </HStack>
 
-      </Flex>
-      
+      {
+          loading ? 
+            <Spinner
+              thickness='4px'
+              speed='0.65s'
+              emptyColor='gray.200'
+              color='green.500'
+              size='md'
+              ml="0.5rem"
+            />
+          :
+            <BoxArticles posts={data.posts} p="1rem"/> 
+        }
       <Footer />
     </Flex>
 

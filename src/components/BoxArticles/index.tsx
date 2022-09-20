@@ -1,4 +1,4 @@
-import { Box, Button, Center, CircularProgress, Spinner, Text } from "@chakra-ui/react";
+import { Box, Button, Center, CircularProgress, HStack, Spinner, StackDivider, Text, VStack } from "@chakra-ui/react";
 import { FormEvent, useState } from "react";
 import * as Apollo from '@apollo/client';
 import { GetPostsBySessionDocument, GetPostsDocument, useGetPostsBySessionQuery } from "../../graphql/generated";
@@ -59,38 +59,42 @@ export default function BoxArticles ({ posts, isArticlePage = false, currentSess
   }
 
   return (
-    <Box flex='1' bg='white' w="100%" {...rest}>
-      <Box display={{ md: 'flex' }}>
-        <Box>
-          {
-            listOfPosts.map(post => {
-              if (isArticlePage)
-                return (<MiniArticle key={post.slug} post={post} pt="1rem"/>)
+    <HStack flexWrap="wrap" bg='white' mt="0.5rem" w="100%" p="1rem" pt="2rem" alignItems="normal" {...rest}>
+      <VStack 
+        w={{ xl: '800px', md: '794px'}} 
+        color="black"
+        divider={<StackDivider borderColor='gray.200' />}
+      >
+        {
+          listOfPosts.map(post => {
+            if (isArticlePage)
+              return (<MiniArticle key={post.slug} post={post} pt="1rem"/>)
 
-              return (<MiniArticle key={post.slug} post={post} p="1rem"/>)  
-            })
-          }
-
-          <Center p="1rem">
-            <Button bg='gray.900' fontSize='xs' borderRadius="50" onClick={handleLoadMore}>
-              LOAD MORE
-              { isLoading && 
-                <Spinner
-                  thickness='4px'
-                  speed='0.65s'
-                  emptyColor='gray.200'
-                  color='green.500'
-                  size='md'
-                  ml="0.5rem"
-                /> }
+            return (<MiniArticle key={post.slug} post={post}/>)  
+          })
+        }
+ 
+        <Center p="1rem">
+          <Button bg='gray.900' color="white" fontSize='xs' borderRadius="50" onClick={handleLoadMore}>
+            LOAD MORE
+            { isLoading && 
+              <Spinner
+                thickness='4px'
+                speed='0.65s'
+                emptyColor='gray.200'
+                color='green.500'
+                size='md'
+                ml="0.5rem"
+              /> }
             </Button>
           </Center>
-        </Box>
+        
+      </VStack>
 
-        <Box p={4} pt={4} flexShrink={0}>
-          <MostRead />
-        </Box>
-      </Box>
-    </Box>
+
+      <VStack w={{ xl: '350px', md: '794px'}} color="white" bg='gray.900'>
+        <MostRead />
+      </VStack>
+    </HStack>
   )
 }

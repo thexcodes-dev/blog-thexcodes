@@ -1,4 +1,4 @@
-import { Avatar, Box, Flex, WrapItem, Text } from "@chakra-ui/react";
+import { Avatar, Box, Flex, WrapItem, Text, useBreakpointValue } from "@chakra-ui/react";
 
 interface Post {
   title: string, 
@@ -11,18 +11,47 @@ interface PostCardProps {
 }
 
 export default function PostCard({ post }: PostCardProps){
+  const variant = useBreakpointValue({ 
+    xl: 'normal', 
+    md: 'mobile' 
+  });
+  
+  if (variant) {
+    return (
+      <Flex p={4} alignItems="center" >
+        <Box mr="20px">
+          <WrapItem>
+            <Avatar size='lg' src={post?.image?.url} />{' '}
+          </WrapItem>
+        </Box>
+        <Box>
+          <Text
+            fontWeight='bold'
+            textTransform='uppercase'
+            fontSize='sm'
+            letterSpacing='wide'
+            color='white'
+            pb='0px'
+          >
+            {post?.title}
+          </Text>
+        </Box>
+      </Flex>     
+    )
+  }
+
   return (
-    <Flex p={4} display={{ md: 'flex' }} align="center" >
-      <Box flexShrink={0}>
+    <Flex p={4} alignItems="center">
+      <Box mr="20px">
         <WrapItem>
-          <Avatar size='xl' src={post?.image?.url} />{' '}
+          <Avatar size='lg' src={post?.image?.url} />{' '}
         </WrapItem>
       </Box>
-      <Box mt={{ base: 4, md: 0 }} ml={{ md: 6 }}>
+      <Box>
         <Text
           fontWeight='bold'
           textTransform='uppercase'
-          fontSize='sm'
+          fontSize='lg'
           letterSpacing='wide'
           color='white'
           pb='0px'
