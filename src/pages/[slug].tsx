@@ -39,71 +39,70 @@ export default function Article({ article }: ArticleProps){
   })
 
   return (
-    <Flex direction="column" h="100vh" >
+    <Flex mx="auto" flexDir="column">
       <Header title={sessionTitle} selectedMenu={sessionSlug}/>
-      <Box>
-        <Box position="relative">
-          <Box
-            h="66vh"
-            maxHeight="66vh"
+      
+      <Box position="relative">
+        <Box
+          h="66vh"
+          maxHeight="66vh"
+          w="100%"
+          overflow="hidden"
+          position="relative"
+          display="flex"
+        >
+          <Box 
+            as="picture"
             w="100%"
-            overflow="hidden"
-            position="relative"
-            display="flex"
+            height="100%"
+            objectFit="cover"
+            objectPosition="center"
           >
-            <Box 
-              as="picture"
+            <Image 
               w="100%"
-              height="100%"
+              h="120%" 
+              mt="-5%"
+              minHeight="100%"
+              animation="tipiOpa 1s normal forwards"
+              opacity="1"
+              transform="translate3d(0px, 50px, 0px)"
               objectFit="cover"
               objectPosition="center"
-            >
-              <Image 
-                w="100%"
-                h="120%" 
-                mt="-5%"
-                minHeight="100%"
-                animation="tipiOpa 1s normal forwards"
-                opacity="1"
-                transform="translate3d(0px, 50px, 0px)"
-                objectFit="cover"
-                objectPosition="center"
-                src={article?.image.url}
-                alt=""
-              />  
-            </Box>
-            <Box as="span" bg="rgba(10,0,0,0.5);" position="absolute" h="100%" w="100%" zIndex="1" />
+              src={article?.image.url}
+              alt=""
+            />  
           </Box>
-
-          <Box position="absolute"
-            maxWidth="900px"
-            left="50%" 
-            top="50%" 
-            textAlign="center" 
-            transform="translate(-50%, -50%)"
-            transition=".5s ease-out"
-            zIndex="2"
-          >
-              <Text color="#ffffff" >{sessionTitle}</Text>
-              <Text 
-                  fontSize={['sm', 'md', 'lg', 'xl', '3xl']}
-                  pt="10px"
-                  fontWeight='bold' 
-                  color="#ffffff" 
-                  textTransform="uppercase"
-                  transitionDelay=".5s"
-                  transition=".5s ease-out"
-                >
-                   {article?.title}</Text>
-            </Box>
+          <Box as="span" bg="rgba(10,0,0,0.5);" position="absolute" h="100%" w="100%" zIndex="1" />
         </Box>
 
+        <Box position="absolute"
+          maxWidth="900px"
+          left="50%" 
+          top="50%" 
+          textAlign="center" 
+          transform="translate(-50%, -50%)"
+          transition=".5s ease-out"
+          zIndex="2"
+        >
+          <Text color="#ffffff" >{sessionTitle}</Text>
+          <Text 
+              fontSize={['sm', 'md', 'lg', 'xl', '3xl']}
+              pt="10px"
+              fontWeight='bold' 
+              color="#ffffff" 
+              textTransform="uppercase"
+              transitionDelay=".5s"
+              transition=".5s ease-out"
+            >
+                {article?.title}</Text>
+        </Box>
+      </Box>
+
         <Box 
-          maxWidth={1480} 
+          maxWidth={1344} 
           mx="auto" 
           w={{ base: '1024px', '2xl': '1200px', xl: '1024px', md: '768px', sm: '480px'}}
           bg="#ffffff"
-          p="5rem"
         >
           <Box pt="1rem" pb="2rem" mx="5rem">
             <VStack >
@@ -122,12 +121,12 @@ export default function Article({ article }: ArticleProps){
 
             </VStack>
           </Box>
-          <Box mx="5rem" color="gray.500">
-            <Box dangerouslySetInnerHTML={{ __html: article?.text.html }} />
+          <Box  color="gray.500" mx="2rem">
+            <Box fontSize="xl" dangerouslySetInnerHTML={{ __html: article?.text.html }} />
           </Box>
         
-          <Box mx="5rem" pt="5rem">
-            <Text fontSize={['sm', 'md', 'lg', 'xl', '3xl']} fontWeight='bold' color="gray.500">Explore mais</Text>
+          <Box>
+            <Text fontSize={['sm', 'md', 'lg', 'xl', '3xl']} fontWeight='bold' color="gray.500" mx="1rem">Explore mais</Text>
             {
               loading ? 
                 <CircularProgress value={30} size='120px' /> 
@@ -136,8 +135,6 @@ export default function Article({ article }: ArticleProps){
             }
           </Box>
         </Box>
-
-      </Box>
       <Footer />
     </Flex>
   )

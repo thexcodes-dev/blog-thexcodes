@@ -1,90 +1,84 @@
-import { Box, Flex, Image } from "@chakra-ui/react";
+import { Box, Text, Flex, Link as ChakraLink, CircularProgress } from "@chakra-ui/react";
+import Link from "next/link";
 import { GetServerSideProps } from "next";
-import Carousel from "../../components/Carousel";
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+
+import '@splidejs/react-splide/css';
+import Footer from "../../components/Footer";
 import Header from "../../components/Header";
+import { useGetPostsQuery } from "../../graphql/generated";
+import TextDescription from "../../components/HighlightArticle/TextDescription";
+import MainImage from "../../components/HighlightArticle/MainImage";
+import Badge from "../../components/Badge";
+import BoxArticles from "../../components/BoxArticles";
 
 interface SessionProps {
   slug: string,
 }
 
 export default function Session({ slug }: SessionProps){
+
+  const { data, loading} = useGetPostsQuery({
+    variables: { 
+      first: 5,
+      skip: 4
+    }
+  })
+
+
     return (
-      <Flex direction="column" h="100vh" >
+      <Flex
+        maxWidth={1344}
+        mx="auto" 
+        w={{ base: '1024px', '2xl': '1200px', xl: '1024px', md: '768px', sm: '480px'}}
+        flexDir="column"
+        alignItems="center"
+      >
         <Header title={slug} selectedMenu={slug}/>
-        <Box
-          maxWidth={1480} 
-          mx="auto" 
-          w={{ base: '1024px', '2xl': '1200px', xl: '1024px', md: '768px', sm: '480px'}}
+        
+        <Splide>
+        {
+          data?.posts.map((post, index) => {
+            return (
+              <SplideSlide key={post.slug}>
+                <Box overflow="hidden" maxHeight="600px">
+                  <Link href={`../${post?.slug}`}>
+                    <ChakraLink _hover={{ color: 'green.300', textDecoration: 'none'}}>
+                      <MainImage url={post?.image?.url} />
+                      {
+                        post?.sessions !== undefined &&
+                        <Badge 
+                          text={post?.sessions[0]?.title} 
+                          color={post?.sessions[0]?.color}
+                          bgColor={post?.sessions[0]?.bgColor}
+                        />
+                      }
+                      <TextDescription 
+                        timeRead={1} 
+                        title={post?.title} 
+                        description={post?.description} 
+                        pb="2rem"
+                      />
+                    </ChakraLink>
+                  </Link>
+                </Box>
+              </SplideSlide>
+            )
+          })
+        }
+        </Splide>
 
-        >
-          <Box>
-            <Carousel gap={32}>
-              <Box 
-                as="picture"
-                w="100%"
-                height="100%"
-                objectFit="cover"
-                objectPosition="center"
-              >
-                <Image 
-                    w="100%"
-                    h="120%" 
-                    mt="-5%"
-                    minHeight="100%"
-                    animation="tipiOpa 1s normal forwards"
-                    opacity="1"
-                    transform="translate3d(0px, 50px, 0px)"
-                    objectFit="cover"
-                    objectPosition="center"
-                    src="https://thexcodes.com/wp-content/uploads/2021/07/capa-react18-1024x436.png"
-                    alt=""
-                  /> 
-              </Box>
-                <Image 
-                    w="100%"
-                    h="120%" 
-                    mt="-5%"
-                    minHeight="100%"
-                    animation="tipiOpa 1s normal forwards"
-                    opacity="1"
-                    transform="translate3d(0px, 50px, 0px)"
-                    objectFit="cover"
-                    objectPosition="center"
-                    src="https://media.graphassets.com/UlAWf4mRSsGtTEWsQVHn"
-                    alt=""
-                  /> 
-
-                  <Image 
-                    w="100%"
-                    h="120%" 
-                    mt="-5%"
-                    minHeight="100%"
-                    animation="tipiOpa 1s normal forwards"
-                    opacity="1"
-                    transform="translate3d(0px, 50px, 0px)"
-                    objectFit="cover"
-                    objectPosition="center"
-                    src="https://demos.codetipi.com/zeen-tech/wp-content/uploads/sites/11/2018/09/zeen-foto-020-1170x585.jpg"
-                    alt=""
-                  /> 
-
-                  <Image 
-                    w="100%"
-                    h="120%" 
-                    mt="-5%"
-                    minHeight="100%"
-                    animation="tipiOpa 1s normal forwards"
-                    opacity="1"
-                    transform="translate3d(0px, 50px, 0px)"
-                    objectFit="cover"
-                    objectPosition="center"
-                    src="https://demos.codetipi.com/zeen-tech/wp-content/uploads/sites/11/2018/05/zeen-00422-1170x585.jpg.webp"
-                    alt=""
-                  />
-            </Carousel>
-          </Box>
-
+        <Box bg="#ffffff" w="100%">
+          <Text fontSize={['sm', 'md', 'lg', 'xl', '3xl']} fontWeight='bold' color="gray.500" mx="1rem">Explore mais</Text>
+          {
+            loading ? 
+              <CircularProgress value={30} size='120px' /> 
+            :
+              <BoxArticles posts={data.posts} isArticlePage={true} currentSession={slug} /> 
+          }
         </Box>
+
+        <Footer />
       </Flex>
     )
 }

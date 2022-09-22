@@ -55,6 +55,7 @@ export default function Header({ title, selectedMenu}: HomeProps){
                     { item.slug === selectedMenu ? 
                         <Text 
                           fontWeight="medium"
+                          fontSize={{ '2xl': 'lg' }}
                           color='white' 
                           pb='0px'
                           _hover={{
@@ -75,11 +76,19 @@ export default function Header({ title, selectedMenu}: HomeProps){
                           }}
                         >{item.title}</Text>                  
                     :
-                        <Text fontWeight="medium" fontSize={{ '2xl': 'lg' }} color='white' pb='0px' _hover={{
-                          color: 'green.300', 
-                          transition: "filter 0.5s",
-                          textDecoration: 'none'
-                        }}>{item.title}</Text> 
+                        <Text 
+                          fontWeight="medium" 
+                          fontSize={{ '2xl': 'lg' }} 
+                          color='white' 
+                          pb='0px' 
+                          _hover={{
+                            color: 'green.300', 
+                            transition: "filter 0.5s",
+                            textDecoration: 'none'
+                        }}
+                      >
+                        {item.title}
+                      </Text> 
                     }
                   </ChakraLink>
               </Link>
@@ -89,11 +98,17 @@ export default function Header({ title, selectedMenu}: HomeProps){
 
           <Link href="/sobre">
             <ChakraLink _hover={{ color: 'green.300' }}>
-              <Text fontWeight="medium" color='white' pb='0px' _hover={{
-                      color: 'green.300', 
-                      transition: "filter 0.5s",
-                      textDecoration: 'none'
-                    }}>
+              <Text 
+                fontWeight="medium" 
+                fontSize={{ '2xl': 'lg' }} 
+                color='white' 
+                pb='0px' 
+                _hover={{
+                  color: 'green.300', 
+                  transition: "filter 0.5s",
+                  textDecoration: 'none'
+                }}
+              >
                 Sobre
               </Text>
             </ChakraLink>

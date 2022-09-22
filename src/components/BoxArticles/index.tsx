@@ -59,7 +59,7 @@ export default function BoxArticles ({ posts, isArticlePage = false, currentSess
   }
 
   return (
-    <HStack flexWrap="wrap" bg='white' mt="0.5rem" w="100%" p="1rem" pt="2rem" alignItems="normal" {...rest}>
+    <HStack flexWrap="wrap" bg='white' w="100%" p="1rem" alignItems="normal" {...rest}>
       <VStack 
         w={{ xl: '800px', md: '794px'}} 
         color="black"

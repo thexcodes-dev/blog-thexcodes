@@ -1,13 +1,13 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, BoxProps, Text } from "@chakra-ui/react";
 
-interface TextDescriptionProps {
+interface TextDescriptionProps extends BoxProps {
   timeRead: number;
   title: string;
   description: string;
   isMiniHighlight?: boolean | false;
 }
 
-export default function TextDescription({ timeRead, title, description, isMiniHighlight }: TextDescriptionProps){
+export default function TextDescription({ timeRead, title, description, isMiniHighlight, ...rest }: TextDescriptionProps){
   description = description.length > 150 ? `${description.substring(0, 150)} ...` : description;
   const miniTitle = title.length > 37 ? `${title.substring(0, 37)} ...` : title;
 
@@ -22,6 +22,7 @@ export default function TextDescription({ timeRead, title, description, isMiniHi
         transition: "filter 0.5s"
       }}
       bgImage="linear-gradient(130deg, #2a2d2cdb 60%, #e7dbe770 90%);"
+      {...rest}
     >
       {
         isMiniHighlight ? (
