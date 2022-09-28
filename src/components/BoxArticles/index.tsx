@@ -76,7 +76,7 @@ export default function BoxArticles ({ posts, isArticlePage = false, currentSess
  
         <Center p="1rem">
           <Button bg='gray.900' color="white" fontSize='xs' borderRadius="50" onClick={handleLoadMore}>
-            LOAD MORE
+            BUSCAR MAIS POSTS
             { isLoading && 
               <Spinner
                 thickness='4px'

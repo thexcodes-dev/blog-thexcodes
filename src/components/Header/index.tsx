@@ -96,7 +96,7 @@ export default function Header({ title, selectedMenu}: HomeProps){
             }
           </Flex>
 
-          <Link href="/sobre">
+          <Link href="/teacher/leandro-oliveira">
             <ChakraLink _hover={{ color: 'green.300' }}>
               <Text 
                 fontWeight="medium" 

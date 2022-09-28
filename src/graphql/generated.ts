@@ -267,6 +267,9 @@ export type AssetManyWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<AssetWhereStageInput>;
+  documentInStages_none?: InputMaybe<AssetWhereStageInput>;
+  documentInStages_some?: InputMaybe<AssetWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -509,6 +512,12 @@ export type AssetUpsertWithNestedWhereUniqueInput = {
   where: AssetWhereUniqueInput;
 };
 
+/** This contains a set of filters that can be used to compare values internally */
+export type AssetWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
 /** Identifies documents */
 export type AssetWhereInput = {
   /** Logical AND on all given filters. */
@@ -535,6 +544,9 @@ export type AssetWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<AssetWhereStageInput>;
+  documentInStages_none?: InputMaybe<AssetWhereStageInput>;
+  documentInStages_some?: InputMaybe<AssetWhereStageInput>;
   fileName?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   fileName_contains?: InputMaybe<Scalars['String']>;
@@ -715,6 +727,20 @@ export type AssetWhereInput = {
   width_not_in?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
 };
 
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type AssetWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<AssetWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<AssetWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<AssetWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<AssetWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
 /** References Asset record uniquely */
 export type AssetWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
@@ -751,6 +777,13 @@ export type ConnectPositionInput = {
   /** Connect document at first position */
   start?: InputMaybe<Scalars['Boolean']>;
 };
+
+/** This enumeration allow you to list of values that you can use when you create a Dropdown field. */
+export enum DemoEnumeration {
+  Large = 'Large',
+  Medium = 'Medium',
+  Small = 'Small'
+}
 
 export enum DocumentFileTypes {
   Doc = 'doc',
@@ -1783,7 +1816,7 @@ export type Post = Node & {
   slug: Scalars['String'];
   /** System stage field */
   stage: Stage;
-  teachers: Array<Teacher>;
+  teacher?: Maybe<Teacher>;
   text?: Maybe<RichText>;
   title: Scalars['String'];
   /** The time the document was updated */
@@ -1846,15 +1879,8 @@ export type PostSessionsArgs = {
 };
 
 
-export type PostTeachersArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
+export type PostTeacherArgs = {
   locales?: InputMaybe<Array<Locale>>;
-  orderBy?: InputMaybe<TeacherOrderByInput>;
-  skip?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<TeacherWhereInput>;
 };
 
 
@@ -1888,7 +1914,7 @@ export type PostCreateInput = {
   isPortuguese: Scalars['Boolean'];
   sessions?: InputMaybe<SessionCreateManyInlineInput>;
   slug: Scalars['String'];
-  teachers?: InputMaybe<TeacherCreateManyInlineInput>;
+  teacher?: InputMaybe<TeacherCreateOneInlineInput>;
   text?: InputMaybe<Scalars['RichTextAST']>;
   title: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -1978,6 +2004,9 @@ export type PostManyWhereInput = {
   description_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   description_starts_with?: InputMaybe<Scalars['String']>;
+  documentInStages_every?: InputMaybe<PostWhereStageInput>;
+  documentInStages_none?: InputMaybe<PostWhereStageInput>;
+  documentInStages_some?: InputMaybe<PostWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -2045,9 +2074,7 @@ export type PostManyWhereInput = {
   slug_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   slug_starts_with?: InputMaybe<Scalars['String']>;
-  teachers_every?: InputMaybe<TeacherWhereInput>;
-  teachers_none?: InputMaybe<TeacherWhereInput>;
-  teachers_some?: InputMaybe<TeacherWhereInput>;
+  teacher?: InputMaybe<TeacherWhereInput>;
   title?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   title_contains?: InputMaybe<Scalars['String']>;
@@ -2133,7 +2160,7 @@ export type PostUpdateInput = {
   isPortuguese?: InputMaybe<Scalars['Boolean']>;
   sessions?: InputMaybe<SessionUpdateManyInlineInput>;
   slug?: InputMaybe<Scalars['String']>;
-  teachers?: InputMaybe<TeacherUpdateManyInlineInput>;
+  teacher?: InputMaybe<TeacherUpdateOneInlineInput>;
   text?: InputMaybe<Scalars['RichTextAST']>;
   title?: InputMaybe<Scalars['String']>;
   views?: InputMaybe<Scalars['Int']>;
@@ -2209,6 +2236,12 @@ export type PostUpsertWithNestedWhereUniqueInput = {
   where: PostWhereUniqueInput;
 };
 
+/** This contains a set of filters that can be used to compare values internally */
+export type PostWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
 /** Identifies documents */
 export type PostWhereInput = {
   /** Logical AND on all given filters. */
@@ -2269,6 +2302,9 @@ export type PostWhereInput = {
   description_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   description_starts_with?: InputMaybe<Scalars['String']>;
+  documentInStages_every?: InputMaybe<PostWhereStageInput>;
+  documentInStages_none?: InputMaybe<PostWhereStageInput>;
+  documentInStages_some?: InputMaybe<PostWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -2336,9 +2372,7 @@ export type PostWhereInput = {
   slug_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   slug_starts_with?: InputMaybe<Scalars['String']>;
-  teachers_every?: InputMaybe<TeacherWhereInput>;
-  teachers_none?: InputMaybe<TeacherWhereInput>;
-  teachers_some?: InputMaybe<TeacherWhereInput>;
+  teacher?: InputMaybe<TeacherWhereInput>;
   title?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   title_contains?: InputMaybe<Scalars['String']>;
@@ -2389,6 +2423,20 @@ export type PostWhereInput = {
   views_not?: InputMaybe<Scalars['Int']>;
   /** All values that are not contained in given list. */
   views_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
+};
+
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type PostWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<PostWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<PostWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<PostWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<PostWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
 };
 
 /** References Post record uniquely */
@@ -3982,6 +4030,9 @@ export type SessionManyWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<SessionWhereStageInput>;
+  documentInStages_none?: InputMaybe<SessionWhereStageInput>;
+  documentInStages_some?: InputMaybe<SessionWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -4186,6 +4237,12 @@ export type SessionUpsertWithNestedWhereUniqueInput = {
   where: SessionWhereUniqueInput;
 };
 
+/** This contains a set of filters that can be used to compare values internally */
+export type SessionWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
 /** Identifies documents */
 export type SessionWhereInput = {
   /** Logical AND on all given filters. */
@@ -4250,6 +4307,9 @@ export type SessionWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<SessionWhereStageInput>;
+  documentInStages_none?: InputMaybe<SessionWhereStageInput>;
+  documentInStages_some?: InputMaybe<SessionWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -4351,6 +4411,20 @@ export type SessionWhereInput = {
   /** All values that are not contained in given list. */
   updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type SessionWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<SessionWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<SessionWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<SessionWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<SessionWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
 };
 
 /** References Session record uniquely */
@@ -4503,6 +4577,9 @@ export type SubscriberManyWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<SubscriberWhereStageInput>;
+  documentInStages_none?: InputMaybe<SubscriberWhereStageInput>;
+  documentInStages_some?: InputMaybe<SubscriberWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -4640,6 +4717,12 @@ export type SubscriberUpsertWithNestedWhereUniqueInput = {
   where: SubscriberWhereUniqueInput;
 };
 
+/** This contains a set of filters that can be used to compare values internally */
+export type SubscriberWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
 /** Identifies documents */
 export type SubscriberWhereInput = {
   /** Logical AND on all given filters. */
@@ -4666,6 +4749,9 @@ export type SubscriberWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<SubscriberWhereStageInput>;
+  documentInStages_none?: InputMaybe<SubscriberWhereStageInput>;
+  documentInStages_some?: InputMaybe<SubscriberWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -4722,6 +4808,20 @@ export type SubscriberWhereInput = {
   updatedBy?: InputMaybe<UserWhereInput>;
 };
 
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type SubscriberWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<SubscriberWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<SubscriberWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<SubscriberWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<SubscriberWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
 /** References Subscriber record uniquely */
 export type SubscriberWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
@@ -4748,11 +4848,13 @@ export type Teacher = Node & {
   /** The unique identifier */
   id: Scalars['ID'];
   name: Scalars['String'];
+  posts: Array<Post>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
   /** User that last published this document */
   publishedBy?: Maybe<User>;
   scheduledIn: Array<ScheduledOperation>;
+  slug?: Maybe<Scalars['String']>;
   /** System stage field */
   stage: Stage;
   /** The time the document was updated */
@@ -4778,6 +4880,18 @@ export type TeacherHistoryArgs = {
   limit?: Scalars['Int'];
   skip?: Scalars['Int'];
   stageOverride?: InputMaybe<Stage>;
+};
+
+
+export type TeacherPostsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<PostOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<PostWhereInput>;
 };
 
 
@@ -4821,9 +4935,10 @@ export type TeacherConnection = {
 export type TeacherCreateInput = {
   avatarUrl: Scalars['String'];
   bio?: InputMaybe<Scalars['String']>;
-  cl7g9hnqf7j0d01t272xg0vld?: InputMaybe<PostCreateManyInlineInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   name: Scalars['String'];
+  posts?: InputMaybe<PostCreateManyInlineInput>;
+  slug?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -4914,6 +5029,9 @@ export type TeacherManyWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<TeacherWhereStageInput>;
+  documentInStages_none?: InputMaybe<TeacherWhereStageInput>;
+  documentInStages_some?: InputMaybe<TeacherWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -4952,6 +5070,9 @@ export type TeacherManyWhereInput = {
   name_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   name_starts_with?: InputMaybe<Scalars['String']>;
+  posts_every?: InputMaybe<PostWhereInput>;
+  posts_none?: InputMaybe<PostWhereInput>;
+  posts_some?: InputMaybe<PostWhereInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -4971,6 +5092,25 @@ export type TeacherManyWhereInput = {
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  slug?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  slug_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  slug_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  slug_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  slug_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  slug_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  slug_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  slug_starts_with?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -5002,6 +5142,8 @@ export enum TeacherOrderByInput {
   NameDesc = 'name_DESC',
   PublishedAtAsc = 'publishedAt_ASC',
   PublishedAtDesc = 'publishedAt_DESC',
+  SlugAsc = 'slug_ASC',
+  SlugDesc = 'slug_DESC',
   UpdatedAtAsc = 'updatedAt_ASC',
   UpdatedAtDesc = 'updatedAt_DESC'
 }
@@ -5009,8 +5151,9 @@ export enum TeacherOrderByInput {
 export type TeacherUpdateInput = {
   avatarUrl?: InputMaybe<Scalars['String']>;
   bio?: InputMaybe<Scalars['String']>;
-  cl7g9hnqf7j0d01t272xg0vld?: InputMaybe<PostUpdateManyInlineInput>;
   name?: InputMaybe<Scalars['String']>;
+  posts?: InputMaybe<PostUpdateManyInlineInput>;
+  slug?: InputMaybe<Scalars['String']>;
 };
 
 export type TeacherUpdateManyInlineInput = {
@@ -5079,6 +5222,12 @@ export type TeacherUpsertWithNestedWhereUniqueInput = {
   where: TeacherWhereUniqueInput;
 };
 
+/** This contains a set of filters that can be used to compare values internally */
+export type TeacherWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
 /** Identifies documents */
 export type TeacherWhereInput = {
   /** Logical AND on all given filters. */
@@ -5143,6 +5292,9 @@ export type TeacherWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<TeacherWhereStageInput>;
+  documentInStages_none?: InputMaybe<TeacherWhereStageInput>;
+  documentInStages_some?: InputMaybe<TeacherWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -5181,6 +5333,9 @@ export type TeacherWhereInput = {
   name_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   name_starts_with?: InputMaybe<Scalars['String']>;
+  posts_every?: InputMaybe<PostWhereInput>;
+  posts_none?: InputMaybe<PostWhereInput>;
+  posts_some?: InputMaybe<PostWhereInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -5200,6 +5355,25 @@ export type TeacherWhereInput = {
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  slug?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  slug_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  slug_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  slug_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  slug_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  slug_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  slug_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  slug_starts_with?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -5218,9 +5392,24 @@ export type TeacherWhereInput = {
   updatedBy?: InputMaybe<UserWhereInput>;
 };
 
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type TeacherWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<TeacherWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<TeacherWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<TeacherWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<TeacherWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
 /** References Teacher record uniquely */
 export type TeacherWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
+  slug?: InputMaybe<Scalars['String']>;
 };
 
 export type UnpublishLocaleInput = {
@@ -5332,6 +5521,9 @@ export type UserManyWhereInput = {
   createdAt_not?: InputMaybe<Scalars['DateTime']>;
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  documentInStages_every?: InputMaybe<UserWhereStageInput>;
+  documentInStages_none?: InputMaybe<UserWhereStageInput>;
+  documentInStages_some?: InputMaybe<UserWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -5466,6 +5658,12 @@ export type UserUpdateOneInlineInput = {
   disconnect?: InputMaybe<Scalars['Boolean']>;
 };
 
+/** This contains a set of filters that can be used to compare values internally */
+export type UserWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
 /** Identifies documents */
 export type UserWhereInput = {
   /** Logical AND on all given filters. */
@@ -5491,6 +5689,9 @@ export type UserWhereInput = {
   createdAt_not?: InputMaybe<Scalars['DateTime']>;
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  documentInStages_every?: InputMaybe<UserWhereStageInput>;
+  documentInStages_none?: InputMaybe<UserWhereStageInput>;
+  documentInStages_some?: InputMaybe<UserWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -5588,6 +5789,20 @@ export type UserWhereInput = {
   updatedAt_not?: InputMaybe<Scalars['DateTime']>;
   /** All values that are not contained in given list. */
   updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+};
+
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type UserWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<UserWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<UserWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<UserWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<UserWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
 };
 
 /** References User record uniquely */
@@ -5693,7 +5908,7 @@ export type GetPostQueryVariables = Exact<{
 }>;
 
 
-export type GetPostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', slug: string, title: string, description?: string | null, text?: { __typename?: 'RichText', html: string } | null, image?: { __typename?: 'Asset', url: string } | null, sessions: Array<{ __typename?: 'Session', title: string, slug: string, color?: string | null, bgColor?: string | null }>, teachers: Array<{ __typename?: 'Teacher', name: string }> } | null };
+export type GetPostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', slug: string, title: string, description?: string | null, text?: { __typename?: 'RichText', html: string } | null, image?: { __typename?: 'Asset', url: string } | null, sessions: Array<{ __typename?: 'Session', title: string, slug: string, color?: string | null, bgColor?: string | null }>, teacher?: { __typename?: 'Teacher', name: string } | null } | null };
 
 export type GetPostsBySessionQueryVariables = Exact<{
   slug?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
@@ -5702,7 +5917,16 @@ export type GetPostsBySessionQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsBySessionQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teachers: Array<{ __typename?: 'Teacher', name: string }>, image?: { __typename?: 'Asset', url: string } | null }> };
+export type GetPostsBySessionQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
+
+export type GetPostsByTeacherQueryVariables = Exact<{
+  slug?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
+  first?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetPostsByTeacherQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
 
 export type GetPostsMostReadQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
@@ -5718,12 +5942,19 @@ export type GetPostsQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teachers: Array<{ __typename?: 'Teacher', name: string }>, image?: { __typename?: 'Asset', url: string } | null, sessions: Array<{ __typename?: 'Session', title: string, color?: string | null, bgColor?: string | null }> }> };
+export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, image?: { __typename?: 'Asset', url: string } | null, sessions: Array<{ __typename?: 'Session', title: string, color?: string | null, bgColor?: string | null }> }> };
 
 export type GetSessionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetSessionsQuery = { __typename?: 'Query', sessions: Array<{ __typename?: 'Session', slug: string, title: string, color?: string | null, bgColor?: string | null }> };
+
+export type GetTeacherBySlugQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetTeacherBySlugQuery = { __typename?: 'Query', teacher?: { __typename?: 'Teacher', bio?: string | null, avatarUrl: string, name: string, slug?: string | null } | null, teachersConnection: { __typename?: 'TeacherConnection', edges: Array<{ __typename?: 'TeacherEdge', node: { __typename?: 'Teacher', id: string, posts: Array<{ __typename?: 'Post', id: string }> } }> }, posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
 
 
 export const GetPostDocument = gql`
@@ -5744,7 +5975,7 @@ export const GetPostDocument = gql`
       color
       bgColor
     }
-    teachers {
+    teacher {
       name
     }
   }
@@ -5789,7 +6020,7 @@ export const GetPostsBySessionDocument = gql`
     title
     slug
     description
-    teachers {
+    teacher {
       name
     }
     image {
@@ -5828,6 +6059,56 @@ export function useGetPostsBySessionLazyQuery(baseOptions?: Apollo.LazyQueryHook
 export type GetPostsBySessionQueryHookResult = ReturnType<typeof useGetPostsBySessionQuery>;
 export type GetPostsBySessionLazyQueryHookResult = ReturnType<typeof useGetPostsBySessionLazyQuery>;
 export type GetPostsBySessionQueryResult = Apollo.QueryResult<GetPostsBySessionQuery, GetPostsBySessionQueryVariables>;
+export const GetPostsByTeacherDocument = gql`
+    query GetPostsByTeacher($slug: [String], $first: Int, $skip: Int) {
+  posts(
+    where: {teacher: {AND: {slug: "leandro-oliveira"}}}
+    orderBy: availableAt_DESC
+    first: $first
+    skip: $skip
+  ) {
+    title
+    slug
+    description
+    teacher {
+      name
+    }
+    image {
+      url
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPostsByTeacherQuery__
+ *
+ * To run a query within a React component, call `useGetPostsByTeacherQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostsByTeacherQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostsByTeacherQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *      first: // value for 'first'
+ *      skip: // value for 'skip'
+ *   },
+ * });
+ */
+export function useGetPostsByTeacherQuery(baseOptions?: Apollo.QueryHookOptions<GetPostsByTeacherQuery, GetPostsByTeacherQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostsByTeacherQuery, GetPostsByTeacherQueryVariables>(GetPostsByTeacherDocument, options);
+      }
+export function useGetPostsByTeacherLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsByTeacherQuery, GetPostsByTeacherQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostsByTeacherQuery, GetPostsByTeacherQueryVariables>(GetPostsByTeacherDocument, options);
+        }
+export type GetPostsByTeacherQueryHookResult = ReturnType<typeof useGetPostsByTeacherQuery>;
+export type GetPostsByTeacherLazyQueryHookResult = ReturnType<typeof useGetPostsByTeacherLazyQuery>;
+export type GetPostsByTeacherQueryResult = Apollo.QueryResult<GetPostsByTeacherQuery, GetPostsByTeacherQueryVariables>;
 export const GetPostsMostReadDocument = gql`
     query GetPostsMostRead($first: Int, $skip: Int) {
   posts(orderBy: views_DESC, first: $first, skip: $skip) {
@@ -5875,7 +6156,7 @@ export const GetPostsDocument = gql`
     title
     slug
     description
-    teachers {
+    teacher {
       name
     }
     image {
@@ -5955,3 +6236,67 @@ export function useGetSessionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetSessionsQueryHookResult = ReturnType<typeof useGetSessionsQuery>;
 export type GetSessionsLazyQueryHookResult = ReturnType<typeof useGetSessionsLazyQuery>;
 export type GetSessionsQueryResult = Apollo.QueryResult<GetSessionsQuery, GetSessionsQueryVariables>;
+export const GetTeacherBySlugDocument = gql`
+    query GetTeacherBySlug($slug: String) {
+  teacher(where: {slug: $slug}) {
+    bio
+    avatarUrl
+    name
+    slug
+  }
+  teachersConnection {
+    edges {
+      node {
+        id
+        posts {
+          id
+        }
+      }
+    }
+  }
+  posts(
+    where: {teacher: {AND: {slug: "leandro-oliveira"}}}
+    orderBy: availableAt_DESC
+    first: 5
+    skip: 0
+  ) {
+    title
+    slug
+    description
+    teacher {
+      name
+    }
+    image {
+      url
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetTeacherBySlugQuery__
+ *
+ * To run a query within a React component, call `useGetTeacherBySlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTeacherBySlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTeacherBySlugQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useGetTeacherBySlugQuery(baseOptions?: Apollo.QueryHookOptions<GetTeacherBySlugQuery, GetTeacherBySlugQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTeacherBySlugQuery, GetTeacherBySlugQueryVariables>(GetTeacherBySlugDocument, options);
+      }
+export function useGetTeacherBySlugLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTeacherBySlugQuery, GetTeacherBySlugQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTeacherBySlugQuery, GetTeacherBySlugQueryVariables>(GetTeacherBySlugDocument, options);
+        }
+export type GetTeacherBySlugQueryHookResult = ReturnType<typeof useGetTeacherBySlugQuery>;
+export type GetTeacherBySlugLazyQueryHookResult = ReturnType<typeof useGetTeacherBySlugLazyQuery>;
+export type GetTeacherBySlugQueryResult = Apollo.QueryResult<GetTeacherBySlugQuery, GetTeacherBySlugQueryVariables>;

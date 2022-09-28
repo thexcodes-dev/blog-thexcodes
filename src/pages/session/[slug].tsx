@@ -69,7 +69,7 @@ export default function Session({ slug }: SessionProps){
         </Splide>
 
         <Box bg="#ffffff" w="100%">
-          <Text fontSize={['sm', 'md', 'lg', 'xl', '3xl']} fontWeight='bold' color="gray.500" mx="1rem">Explore mais</Text>
+          <Text fontSize={['sm', 'md', 'lg', 'xl', '3xl']} fontWeight='bold' color="gray.500" ml="1rem" mt="0.5rem">Explore mais</Text>
           {
             loading ? 
               <CircularProgress value={30} size='120px' /> 

@@ -9,7 +9,7 @@ type Post = {
   title: string, 
   slug: string, 
   description?: string | null, 
-  teachers?: Teacher[] | null, 
+  teacher?: Teacher | null, 
   image?: { url: string } | null 
 }
 
@@ -23,7 +23,7 @@ export default function MiniArticle({ post, ...rest }: MiniArticleProps) {
   }
 
   const description = post?.description?.length > 150 ? `${post.description.substring(0, 150)} ...` : post?.description;
-  const teacher = post?.teachers.map(teacher => teacher.name).join(',')
+  const teacher = "teste"//post?.teacher
 
   const variant = useBreakpointValue({ 
     xl: 'normal', 

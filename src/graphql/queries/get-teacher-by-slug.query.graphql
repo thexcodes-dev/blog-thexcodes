@@ -1,0 +1,29 @@
+query GetTeacherBySlug ($slug: String) {
+  teacher(where: {slug: $slug}) {
+    bio
+    avatarUrl
+    name
+    slug
+  }
+  teachersConnection {
+    edges {
+      node {
+        id
+        posts {
+          id
+        }
+      }
+    }
+  }
+  posts(where: {teacher: {AND: {slug: "leandro-oliveira"}}}, orderBy: availableAt_DESC, first: 5, skip: 0) {
+    title
+    slug
+    description
+    teacher { 
+      name
+    }
+    image {
+      url
+    }
+  }
+}

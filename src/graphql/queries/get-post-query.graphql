@@ -15,7 +15,7 @@ query GetPost($slug: String) {
       color
       bgColor
     }
-    teachers {
+    teacher {
       name
     }
   }

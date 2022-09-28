@@ -1,0 +1,13 @@
+query GetPostsByTeacher ($slug: [String], $first: Int, $skip: Int) {
+  posts(where: {teacher: {AND: {slug: "leandro-oliveira"}}}, orderBy: availableAt_DESC, first: $first, skip: $skip) {
+    title
+    slug
+    description
+    teacher { 
+      name
+    }
+    image {
+      url
+    }
+  }
+}

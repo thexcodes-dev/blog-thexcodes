@@ -3,7 +3,7 @@ query GetPostsBySession ($slug: [String], $first: Int, $skip: Int) {
     title
     slug
     description
-    teachers { 
+    teacher { 
       name
     }
     image {
