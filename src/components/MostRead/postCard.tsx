@@ -1,4 +1,5 @@
-import { Avatar, Box, Flex, WrapItem, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Avatar, Box, Flex, WrapItem, Text, useBreakpointValue, Link as ChakraLink  } from "@chakra-ui/react";
+import Link from "next/link";
 
 interface Post {
   title: string, 
@@ -21,20 +22,29 @@ export default function PostCard({ post }: PostCardProps){
       <Flex p={4} alignItems="center" >
         <Box mr="20px">
           <WrapItem>
-            <Avatar size='lg' src={post?.image?.url} />{' '}
+            <Link href={post?.slug} passHref={true}>
+              <ChakraLink _hover={{ color: 'green.300', textDecoration: 'none'}}>
+                <Avatar size='lg' src={post?.image?.url} />
+              </ChakraLink> 
+            </Link>
           </WrapItem>
         </Box>
         <Box>
-          <Text
-            fontWeight='bold'
-            textTransform='uppercase'
-            fontSize='sm'
-            letterSpacing='wide'
-            color='white'
-            pb='0px'
-          >
-            {post?.title}
-          </Text>
+          <Link href={post?.slug} passHref={true}>
+            <ChakraLink _hover={{ color: 'green.300', textDecoration: 'none'}}>
+              <Text
+                fontWeight='bold'
+                textTransform='uppercase'
+                fontSize='sm'
+                letterSpacing='wide'
+                color='white'
+                pb='0px'
+                _hover={{ color: 'green.300', textDecoration: 'none'}}
+              >
+                {post?.title}
+              </Text>
+            </ChakraLink> 
+          </Link>
         </Box>
       </Flex>     
     )
@@ -44,21 +54,29 @@ export default function PostCard({ post }: PostCardProps){
     <Flex p={4} alignItems="center">
       <Box mr="20px">
         <WrapItem>
-          <Avatar size='lg' src={post?.image?.url} />{' '}
+          <Link href={post?.slug} passHref={true}>
+            <ChakraLink _hover={{ color: 'green.300', textDecoration: 'none'}}>
+              <Avatar size='lg' src={post?.image?.url} />
+            </ChakraLink> 
+          </Link>
         </WrapItem>
       </Box>
       <Box>
-        <Text
-          fontWeight='bold'
-          textTransform='uppercase'
-          fontSize='lg'
-          letterSpacing='wide'
-          color='white'
-          pb='0px'
-        >
-          {post?.title}
-        </Text>
-      </Box>
+        <Link href={post?.slug} passHref={true}>
+          <ChakraLink _hover={{ color: 'green.300', textDecoration: 'none'}}>
+            <Text
+              fontWeight='bold'
+              textTransform='uppercase'
+              fontSize='lg'
+              letterSpacing='wide'
+              color='white'
+              pb='0px'
+            >
+              {post?.title}
+            </Text>
+          </ChakraLink> 
+        </Link>
+      </Box>          
     </Flex>     
   )
 }

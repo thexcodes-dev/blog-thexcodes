@@ -15,7 +15,7 @@ export default function About({ avatarUrl, name, articles, description }: AboutP
         <Image src={avatarUrl} alt={name} />
       </Box>
       <Box textAlign="center" mt="1rem">
-        <Link href="/teacher/Leandro Oliveira">
+        <Link href="/teacher/leandro-oliveira" passHref={true}>
           <ChakraLink _hover={{ color: 'green.300' }}>
             <Text fontWeight="bold" fontSize={{ '2xl': 'lg' }}>
               {name}

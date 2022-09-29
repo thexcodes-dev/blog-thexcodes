@@ -83,6 +83,11 @@ export const theme = extendTheme({
       },
       ol: {
         margin: '0 0 1.5em 3em'
+      },
+      pre: {
+        bg: '#eee',
+        p: '1.5rem',
+        mb: '1rem'
       }
     },
   },
