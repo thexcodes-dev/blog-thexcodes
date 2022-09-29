@@ -1,24 +1,13 @@
-import { Flex, Box, VStack, Spinner, HStack } from "@chakra-ui/react";
-import { GetPostsDocument, useGetPostsBySessionQuery, useGetPostsQuery } from "../graphql/generated";
+import { Flex, Spinner, HStack } from "@chakra-ui/react";
+import { GetPostsDocument, useGetPostsQuery } from "../graphql/generated";
 import { GetStaticProps } from "next";
 import { client } from "../service/apollo";
+import { Post } from "../graphql/generated";
 
 import Header from "../components/Header";
 import HighlightArticle from '../components/HighlightArticle';
 import BoxArticles from "../components/BoxArticles";
 import Footer from "../components/Footer";
-
-type Teacher = {
-  name: string
-}
-
-interface Post { 
-  title: string, 
-  slug: string, 
-  description?: string | null, 
-  teacher?: Array<Teacher> | null, 
-  image?: { __typename?: 'Asset', url: string } | null 
-}
 
 interface HomeProps {
   posts: Post[]
