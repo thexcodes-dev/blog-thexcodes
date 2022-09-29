@@ -23,7 +23,7 @@ export default function MiniArticle({ post, ...rest }: MiniArticleProps) {
   }
 
   const description = post?.description?.length > 150 ? `${post.description.substring(0, 150)} ...` : post?.description;
-  const teacher = "teste"//post?.teacher
+  const teacher = post?.teacher.name
 
   const variant = useBreakpointValue({ 
     xl: 'normal', 
@@ -44,7 +44,7 @@ export default function MiniArticle({ post, ...rest }: MiniArticleProps) {
         />
       </Box>
       <Box ml={{ md: '0.5rem' }}>
-        <Link href={post?.slug}>
+        <Link href={post?.slug} passHref={true}>
         <ChakraLink _hover={{ color: 'green.300', textDecoration: 'none'}}>
           {
             variant ? 

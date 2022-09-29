@@ -2,6 +2,7 @@ import { Box, CircularProgress, Text } from "@chakra-ui/react";
 import { useGetPostsMostReadQuery } from "../../graphql/generated";
 import HighlightArticle from "../HighlightArticle";
 import PostCard from "./postCard";
+import { Post } from "../../graphql/generated";
 
 export default function MostRead(){
 
@@ -17,7 +18,7 @@ export default function MostRead(){
   }
 
   const posts = [...data.posts];
-  const mainPost = posts.shift();
+  const mainPost = posts.shift() as Post;
 
   return (
     <>

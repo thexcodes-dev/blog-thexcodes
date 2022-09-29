@@ -41,7 +41,7 @@ export default function Header({ title, selectedMenu}: HomeProps){
           <Flex as="nav" w="60%">
             {
               data?.sessions.map(item => (
-                <Link key={item.slug} href={`/session/${item.slug}`}>
+                <Link key={item.slug} href={`/session/${item.slug}`} passHref={true}>
                   <ChakraLink 
                     position="relative"
                     pl="0.5rem"
@@ -96,7 +96,7 @@ export default function Header({ title, selectedMenu}: HomeProps){
             }
           </Flex>
 
-          <Link href="/teacher/leandro-oliveira">
+          <Link href="/teacher/leandro-oliveira" passHref={true}>
             <ChakraLink _hover={{ color: 'green.300' }}>
               <Text 
                 fontWeight="medium" 

@@ -122,7 +122,7 @@ export default function Article({ article }: ArticleProps){
             </VStack>
           </Box>
           <Box  color="gray.500" mx="2rem">
-            <Box fontSize="xl" dangerouslySetInnerHTML={{ __html: article?.text.html }} />
+            <Box fontSize="md" textAlign="justify" dangerouslySetInnerHTML={{ __html: article?.text.html }} />
           </Box>
         
           <Box>

@@ -6,8 +6,6 @@ import Badge from "../Badge";
 import MainImage from "./MainImage";
 import TextDescription from "./TextDescription";
 
-
-
 interface HighlightArticleProps extends BoxProps {
   post: Post;
   isMiniHighlight?: boolean | false;
@@ -22,7 +20,7 @@ export default function HighlightArticle({ post, isMiniHighlight, ...rest }: Hig
           position="relative"
           {...rest}
         >
-          <Link href={post?.slug}>
+          <Link href={post?.slug} passHref={true}>
             <ChakraLink _hover={{ color: 'green.300', textDecoration: 'none'}}>
               <MainImage url={post?.image?.url} isMiniHighlight={isMiniHighlight} />
               {
@@ -53,7 +51,7 @@ export default function HighlightArticle({ post, isMiniHighlight, ...rest }: Hig
         max-height="650px" 
         {...rest}
       >
-        <Link href={post?.slug}>
+        <Link href={post?.slug} passHref={true}>
           <ChakraLink _hover={{ color: 'green.300', textDecoration: 'none'}}>
             <MainImage url={post?.image?.url} isMiniHighlight={isMiniHighlight} />
             {

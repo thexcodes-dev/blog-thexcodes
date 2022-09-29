@@ -26,8 +26,8 @@ export default function Footer(){
 
         <Spacer />
 
-        <Link href="https://www.instagram.com/thexcodes/">
-          <ChakraLink>
+        <Link href="https://www.instagram.com/thexcodes/" passHref={true}>
+          <ChakraLink target="_blank">
             <Icon as={RiInstagramLine} fontSize="20" />
           </ChakraLink>
         </Link>
