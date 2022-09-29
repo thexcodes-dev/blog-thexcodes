@@ -1,4 +1,4 @@
-import { Box, Button, Center, CircularProgress, HStack, Spinner, StackDivider, Text, VStack } from "@chakra-ui/react";
+import { Box, BoxProps, Button, Center, CircularProgress, HStack, Spinner, StackDivider, Text, VStack } from "@chakra-ui/react";
 import { FormEvent, useState } from "react";
 import * as Apollo from '@apollo/client';
 import { GetPostsBySessionDocument, GetPostsDocument, useGetPostsBySessionQuery } from "../../graphql/generated";
@@ -15,7 +15,7 @@ interface Post {
   image?: { __typename?: 'Asset', url: string } | null 
 }
 
-interface BoxArticlesProps {
+interface BoxArticlesProps extends BoxProps{
   posts: Post[],
   isArticlePage?: boolean | false,
   currentSession?: string | null
