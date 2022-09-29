@@ -1,10 +1,22 @@
 query GetPostsMostRead($first: Int, $skip: Int)  {
   posts(orderBy: views_DESC, first: $first, skip: $skip) {
-    title
-    slug
-    description
+    text {
+      html
+    }
     image {
       url
+    }
+    slug
+    title
+    description
+    sessions {
+      title
+      slug
+      color
+      bgColor
+    }
+    teacher {
+      name
     }
   }
 }

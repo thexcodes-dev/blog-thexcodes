@@ -18,11 +18,11 @@ export default function MostRead(){
   }
 
   const posts = [...data.posts];
-  const mainPost = posts.shift() as Post;
+  //const mainPost = posts.shift() as Post;
 
   return (
     <>
-      <HighlightArticle post={mainPost} isMiniHighlight={true} />                  
+      {/* <HighlightArticle post={mainPost} isMiniHighlight={true} />                   */}
 
       <Box bg="gray.900" w="100%">
         <Box display={{ md: 'flex' }} p="1rem">

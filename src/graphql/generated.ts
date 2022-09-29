@@ -5934,7 +5934,7 @@ export type GetPostsMostReadQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsMostReadQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, image?: { __typename?: 'Asset', url: string } | null }> };
+export type GetPostsMostReadQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', slug: string, title: string, description?: string | null, text?: { __typename?: 'RichText', html: string } | null, image?: { __typename?: 'Asset', url: string } | null, sessions: Array<{ __typename?: 'Session', title: string, slug: string, color?: string | null, bgColor?: string | null }>, teacher?: { __typename?: 'Teacher', name: string } | null }> };
 
 export type GetPostsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
@@ -6112,11 +6112,23 @@ export type GetPostsByTeacherQueryResult = Apollo.QueryResult<GetPostsByTeacherQ
 export const GetPostsMostReadDocument = gql`
     query GetPostsMostRead($first: Int, $skip: Int) {
   posts(orderBy: views_DESC, first: $first, skip: $skip) {
-    title
-    slug
-    description
+    text {
+      html
+    }
     image {
       url
+    }
+    slug
+    title
+    description
+    sessions {
+      title
+      slug
+      color
+      bgColor
+    }
+    teacher {
+      name
     }
   }
 }
