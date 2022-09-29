@@ -40,9 +40,9 @@ export default function Home({ posts}: HomeProps) {
         {
           listOfPosts.map((post, index) => {
             if (index === 0) {
-              return <HighlightArticle key={post.slug} post={post} isMiniHighlight={true} w={{ base: '1024px', xl: '398px', md: '794px'}} />
+              return <HighlightArticle key={post.slug} post={post} isMiniHighlight={true} w={{ base: '1024px', '2xl': '398px', xl: '338px', md: '794px'}} />
             }
-            return <HighlightArticle key={post.slug} post={post} isMiniHighlight={true} w={{ base: '1024px', xl: '397px', md: '794px'}} />
+            return <HighlightArticle key={post.slug} post={post} isMiniHighlight={true} w={{ base: '1024px', '2xl': '397px', xl: '338px', md: '794px'}} />
           })
         }
       </HStack>

@@ -7,7 +7,8 @@ interface MainImageProps {
 
 export default function MainImage({ url, isMiniHighlight }: MainImageProps){
   const variant = useBreakpointValue({ 
-    xl: 'normal', 
+    '2xl': 'bigger', 
+    xl: 'notebook', 
     md: 'mobile' 
   });
 
@@ -38,7 +39,7 @@ export default function MainImage({ url, isMiniHighlight }: MainImageProps){
       }}
     >
       { 
-        variant === 'normal' ? 
+        variant === 'bigger' ? 
           <Image 
             width="100%" 
             height="100%" 
@@ -50,13 +51,25 @@ export default function MainImage({ url, isMiniHighlight }: MainImageProps){
             alt=""
           />
         :
-          <Image 
-            width="100%" 
-            height="100%" 
-            object-fit= "contain"
-            src={url}
-            alt=""
-          />
+          variant === 'notebook' ? 
+            <Image 
+              width="100%" 
+              height="100%" 
+              maxWidth="338px"
+              maxHeight="169px"
+
+              object-fit= "contain"
+              src={url}
+              alt=""
+            />
+          :
+            <Image 
+              width="100%" 
+              height="100%" 
+              object-fit= "contain"
+              src={url}
+              alt=""
+            />
       }
     </Box>
   )
