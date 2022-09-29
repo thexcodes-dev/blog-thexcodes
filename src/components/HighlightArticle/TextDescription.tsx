@@ -9,7 +9,7 @@ interface TextDescriptionProps extends BoxProps {
 
 export default function TextDescription({ timeRead, title, description, isMiniHighlight, ...rest }: TextDescriptionProps){
   description = description.length > 150 ? `${description.substring(0, 150)} ...` : description;
-  const miniTitle = title.length > 37 ? `${title.substring(0, 37)} ...` : title;
+  const miniTitle = title.length > 34 ? `${title.substring(0, 34)} ...` : title;
 
   return (
     <Box 

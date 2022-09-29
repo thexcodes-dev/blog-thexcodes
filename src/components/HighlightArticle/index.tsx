@@ -1,4 +1,4 @@
-import { Box, BoxProps, Flex, Link as ChakraLink } from "@chakra-ui/react";
+import { Box, BoxProps, Flex, Link as ChakraLink, useBreakpointValue } from "@chakra-ui/react";
 import Link from "next/link";
 import { Post } from "../../graphql/generated";
 
@@ -12,7 +12,6 @@ interface HighlightArticleProps extends BoxProps {
 }
 
 export default function HighlightArticle({ post, isMiniHighlight, ...rest }: HighlightArticleProps){
-
   if (isMiniHighlight){
     return (
       <Flex as="article" overflow="hidden">
