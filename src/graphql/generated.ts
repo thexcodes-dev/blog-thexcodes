@@ -5917,7 +5917,7 @@ export type GetPostsBySessionQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsBySessionQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
+export type GetPostsBySessionQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, image?: { __typename?: 'Asset', url: string } | null, sessions: Array<{ __typename?: 'Session', title: string, color?: string | null, bgColor?: string | null }> }>, mostRead: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, image?: { __typename?: 'Asset', url: string } | null, sessions: Array<{ __typename?: 'Session', title: string, color?: string | null, bgColor?: string | null }> }> };
 
 export type GetPostsByTeacherQueryVariables = Exact<{
   slug?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
@@ -5942,7 +5942,7 @@ export type GetPostsQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, image?: { __typename?: 'Asset', url: string } | null, sessions: Array<{ __typename?: 'Session', title: string, color?: string | null, bgColor?: string | null }> }> };
+export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, image?: { __typename?: 'Asset', url: string } | null, sessions: Array<{ __typename?: 'Session', title: string, color?: string | null, bgColor?: string | null }> }>, mostRead: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, image?: { __typename?: 'Asset', url: string } | null, sessions: Array<{ __typename?: 'Session', title: string, color?: string | null, bgColor?: string | null }> }> };
 
 export type GetSessionsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -6025,6 +6025,27 @@ export const GetPostsBySessionDocument = gql`
     }
     image {
       url
+    }
+    sessions {
+      title
+      color
+      bgColor
+    }
+  }
+  mostRead: posts(orderBy: views_DESC, first: 5, skip: 0) {
+    title
+    slug
+    description
+    teacher {
+      name
+    }
+    image {
+      url
+    }
+    sessions {
+      title
+      color
+      bgColor
     }
   }
 }
@@ -6165,6 +6186,22 @@ export type GetPostsMostReadQueryResult = Apollo.QueryResult<GetPostsMostReadQue
 export const GetPostsDocument = gql`
     query GetPosts($first: Int, $skip: Int) {
   posts(orderBy: availableAt_DESC, first: $first, skip: $skip) {
+    title
+    slug
+    description
+    teacher {
+      name
+    }
+    image {
+      url
+    }
+    sessions {
+      title
+      color
+      bgColor
+    }
+  }
+  mostRead: posts(orderBy: views_DESC, first: 5, skip: 0) {
     title
     slug
     description

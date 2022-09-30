@@ -1,27 +1,19 @@
-import { Box, BoxProps, Button, Center, CircularProgress, HStack, Spinner, StackDivider, Text, VStack } from "@chakra-ui/react";
+import { BoxProps, Button, Center, HStack, Spinner, StackDivider, VStack } from "@chakra-ui/react";
 import { FormEvent, useState } from "react";
-import * as Apollo from '@apollo/client';
-import { GetPostsBySessionDocument, GetPostsDocument, useGetPostsBySessionQuery } from "../../graphql/generated";
-import HighlightArticle from "../HighlightArticle";
+import { GetPostsBySessionDocument, GetPostsDocument } from "../../graphql/generated";
 import MiniArticle from "../MiniArticle";
 import MostRead from "../MostRead";
 import { client } from "../../service/apollo";
-
-interface Post { 
-  title: string, 
-  slug: string, 
-  description?: string | null, 
-  teacher?: { __typename?: 'Teacher', name: string } | null, 
-  image?: { __typename?: 'Asset', url: string } | null 
-}
+import { Post } from "../../graphql/generated";
 
 interface BoxArticlesProps extends BoxProps{
   posts: Post[],
+  postsMostRead: Post[],
   isArticlePage?: boolean | false,
   currentSession?: string | null
 }
 
-export default function BoxArticles ({ posts, isArticlePage = false, currentSession, ...rest }: BoxArticlesProps){
+export default function BoxArticles ({ posts, postsMostRead, isArticlePage = false, currentSession, ...rest }: BoxArticlesProps){
   const [listOfPosts, setListOfPosts] = useState<Post[]>(posts);
   const [currentPage, setCurrentPage] = useState(isArticlePage ? 5 : 9);
   const [isLoading, setIsLoading] = useState(false);
@@ -93,7 +85,7 @@ export default function BoxArticles ({ posts, isArticlePage = false, currentSess
 
 
       <VStack w={{ xl: '350px', md: '794px'}} color="white" bg='gray.900'>
-        <MostRead />
+        <MostRead posts={postsMostRead} />
       </VStack>
     </HStack>
   )

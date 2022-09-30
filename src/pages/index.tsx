@@ -10,20 +10,15 @@ import BoxArticles from "../components/BoxArticles";
 import Footer from "../components/Footer";
 
 interface HomeProps {
-  posts: Post[]
+  posts: Post[],
+  postsMostRead: Post[]
 }
 
-export default function Home({ posts}: HomeProps) {
+export default function Home({ posts, postsMostRead }: HomeProps) {
   const listOfPosts = [...posts];
   const mainPost = listOfPosts.shift();
+  const listOfMainPosts = listOfPosts.splice(0, 3);
 
-  const { data, loading} = useGetPostsQuery({
-    variables: { 
-      first: 5,
-      skip: 4
-    }
-  })
-  
   return (
     <Flex
       maxWidth={1344}
@@ -38,7 +33,7 @@ export default function Home({ posts}: HomeProps) {
 
       <HStack flexWrap="wrap" mt="0.5rem" w="100%" spacing={{xl: '0.25rem', md: '0rem'}}>
         {
-          listOfPosts.map((post, index) => {
+          listOfMainPosts.map((post, index) => {
             if (index === 0) {
               return <HighlightArticle key={post.slug} post={post} isMiniHighlight={true} w={{ base: '1024px', '2xl': '398px', xl: '338px', md: '794px'}} />
             }
@@ -47,19 +42,8 @@ export default function Home({ posts}: HomeProps) {
         }
       </HStack>
 
-      {
-          loading ? 
-            <Spinner
-              thickness='4px'
-              speed='0.65s'
-              emptyColor='gray.200'
-              color='green.500'
-              size='md'
-              ml="0.5rem"
-            />
-          :
-            <BoxArticles posts={data.posts} p="1rem"/> 
-        }
+      <BoxArticles posts={listOfPosts} postsMostRead={postsMostRead} p="1rem"/>
+      
       <Footer />
     </Flex>
 
@@ -71,14 +55,15 @@ export const getStaticProps: GetStaticProps = async () => {
   const { data } = await client.query({
     query: GetPostsDocument,
     variables: {
-      first: 4,
+      first: 10,
       skip: 0
     }
   });
 
   return {
     props: {
-      posts: data.posts
+      posts: data.posts,
+      postsMostRead: data.mostRead
     },
     //revalidate: 60 * 30, //30 minutes
   }

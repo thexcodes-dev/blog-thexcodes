@@ -15,4 +15,20 @@ query GetPosts($first: Int, $skip: Int) {
       bgColor
     }
   }
+  mostRead: posts(orderBy: views_DESC, first: 5, skip: 0) {
+    title
+    slug
+    description
+    teacher {
+      name
+    }
+    image {
+      url
+    }
+    sessions {
+      title
+      color
+      bgColor
+    }
+  }
 }
