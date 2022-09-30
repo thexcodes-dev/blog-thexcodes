@@ -4,22 +4,12 @@ import Link from "next/link";
 import BoxArticles from "../components/BoxArticles";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import { GetPostDocument, useGetPostsBySessionQuery } from "../graphql/generated";
+import { GetPostDocument, Post, useGetPostsBySessionQuery } from "../graphql/generated";
 import { client } from "../service/apollo";
 
 type Session = { 
   slug: string, 
   title: string 
-}
-
-type Post = {
-    slug: string, 
-    title: string, 
-    description?: string | null, 
-    teacher?: { name: string } | null, 
-    text?: { html: string } | null, 
-    image?: { url: string } | null, 
-    sessions?: Array<Session> | null 
 }
 
 interface ArticleProps {
@@ -37,6 +27,9 @@ export default function Article({ article }: ArticleProps){
       skip: 0
     }
   })
+
+  const posts = [...data.posts] as Array<Post>;
+  const mostRead = [...data.mostRead] as Array<Post>;
 
   return (
     <Flex mx="auto" flexDir="column">
@@ -131,7 +124,7 @@ export default function Article({ article }: ArticleProps){
               loading ? 
                 <CircularProgress value={30} size='120px' /> 
               :
-                <BoxArticles posts={data.posts} isArticlePage={true} currentSession={sessionSlug} /> 
+                <BoxArticles posts={posts} postsMostRead={mostRead} isArticlePage={true} currentSession={sessionSlug} /> 
             }
           </Box>
         </Box>
