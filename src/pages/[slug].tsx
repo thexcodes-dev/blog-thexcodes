@@ -1,6 +1,5 @@
-import { Flex, Image, Text, Link as ChakraLink, Box, VStack, Badge, Button, Center, WrapItem, Avatar, Wrap, HStack, Spinner, CircularProgress } from "@chakra-ui/react";
-import { GetServerSideProps, GetStaticProps } from "next";
-import Link from "next/link";
+import { Flex, Image, Text, Box, VStack, Button, WrapItem, Wrap, CircularProgress } from "@chakra-ui/react";
+import { GetServerSideProps } from "next";
 import BoxArticles from "../components/BoxArticles";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -27,9 +26,6 @@ export default function Article({ article }: ArticleProps){
       skip: 0
     }
   })
-
-  const posts = [...data.posts] as Array<Post>;
-  const mostRead = [...data.mostRead] as Array<Post>;
 
   return (
     <Flex mx="auto" flexDir="column">
@@ -124,7 +120,7 @@ export default function Article({ article }: ArticleProps){
               loading ? 
                 <CircularProgress value={30} size='120px' /> 
               :
-                <BoxArticles posts={posts} postsMostRead={mostRead} isArticlePage={true} currentSession={sessionSlug} /> 
+                <BoxArticles posts={data.posts as Array<Post>} postsMostRead={data.mostRead as Array<Post>} isArticlePage={true} currentSession={sessionSlug} /> 
             }
           </Box>
         </Box>
