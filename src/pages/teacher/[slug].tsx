@@ -1,7 +1,6 @@
-import { Box, Flex, HStack, Image, Link as ChakraLink, Text, useBreakpointValue, VStack } from "@chakra-ui/react";
-import Link from "next/link";
+import { Box, Flex, HStack, useBreakpointValue, VStack } from "@chakra-ui/react";
 
-import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import About from "../../components/About";
@@ -91,32 +90,7 @@ export default function Teacher({ slug, teacher, numberOfArticles, posts }: Teac
   )
 }
 
-// export const getServerSideProps: GetServerSideProps = async ({ req, params }) => {
-//   const { slug } = params;
-
-//   const { data } = await client.query({
-//     query: GetTeacherBySlugDocument,
-//     variables: {
-//       slug: slug,
-//       first: 5,
-//       skip: 0
-//     }
-//   });
-
-//   const numberOfArticles = data.teachersConnection.edges[0].node.posts.length;
-
-//   return {
-//     props: { 
-//       slug: slug,
-//       teacher: data.teacher,
-//       posts: data.posts,
-//       numberOfArticles
-//      },
-//   }
-// }
-
 export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-
   return {
       paths: [], //indicates that no page needs be created at build time
       fallback: 'blocking' //indicates the type of fallback

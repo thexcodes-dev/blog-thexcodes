@@ -53,7 +53,7 @@ export default function BoxArticles ({ posts, postsMostRead, isArticlePage = fal
   return (
     <HStack flexWrap="wrap" bg='white' w="100%" p="1rem" alignItems="normal" {...rest}>
       <VStack 
-        w={{ xl: '800px', md: '794px'}} 
+        w={{ '2xl': '800px', xl: '630px', md: '794px'}} 
         color="black"
         divider={<StackDivider borderColor='gray.200' />}
       >
@@ -84,7 +84,7 @@ export default function BoxArticles ({ posts, postsMostRead, isArticlePage = fal
       </VStack>
 
 
-      <VStack w={{ xl: '350px', md: '794px'}} color="white" bg='gray.900'>
+      <VStack w={{ '2xl': '350px', xl: '350px', md: '794px'}} color="white" bg='gray.900'>
         <MostRead posts={postsMostRead} />
       </VStack>
     </HStack>

@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, useBreakpointValue } from "@chakra-ui/react";
 import HighlightArticle from "../HighlightArticle";
 import PostCard from "./postCard";
 import { Post } from "../../graphql/generated";
