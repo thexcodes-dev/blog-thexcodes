@@ -1,15 +1,20 @@
-import { Flex, Image, Text, Box, VStack, Button, WrapItem, Wrap, CircularProgress } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
+import { Flex, Image, Text, Box, VStack, Button, WrapItem, Wrap, CircularProgress } from "@chakra-ui/react";
+import { 
+  FacebookShareButton, 
+  TwitterShareButton,
+  LinkedinShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  LinkedinIcon, 
+} from "react-share";
+
+
+import { client } from "../service/apollo";
+import { GetPostDocument, Post, useGetPostsBySessionQuery } from "../graphql/generated";
 import BoxArticles from "../components/BoxArticles";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import { GetPostDocument, Post, useGetPostsBySessionQuery } from "../graphql/generated";
-import { client } from "../service/apollo";
-
-type Session = { 
-  slug: string, 
-  title: string 
-}
 
 interface ArticleProps {
   article: Post,
@@ -25,18 +30,21 @@ export default function Article({ article }: ArticleProps){
       first: 5,
       skip: 0
     }
-  })
+  })  
+  const currentLocation = `https://www.thexcodes.com/${article?.slug}`;
+  const pageTitle = `${article?.title} - The Xcodes`;
 
   return (
     <Flex mx="auto" flexDir="column">
       <Header slug={article?.title} selectedMenu={sessionSlug}>
         <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-	      <link rel="canonical" href="https://thexcodes.com/entrevista-tecnica-para-software-engineer-back-end-roadmap/" />
+	      <link rel="canonical" href={currentLocation} />
+        <meta name="description" content={article?.description} />
 	      <meta property="og:locale" content="pt_BR" />
 	      <meta property="og:type" content="article" />
-	      <meta property="og:title" content={article?.title} />
+	      <meta property="og:title" content={pageTitle} />
 	      <meta property="og:description" content={article?.description} />
-	      <meta property="og:url" content="https://thexcodes.com/entrevista-tecnica-para-software-engineer-back-end-roadmap/" />
+	      <meta property="og:url" content={currentLocation} />
 	      <meta property="og:site_name" content="The Xcodes" />
 	      <meta property="article:published_time" content="2022-08-10T23:46:40+00:00" />
 	      <meta property="article:modified_time" content="2022-08-15T00:08:37+00:00" />
@@ -116,13 +124,19 @@ export default function Article({ article }: ArticleProps){
             <VStack >
               <Wrap spacing={4}>
                 <WrapItem>
-                  <Button colorScheme='facebook'>Facebook</Button>
+                  <FacebookShareButton url={currentLocation} title={article.title}>
+                   <FacebookIcon size={32} />
+                  </FacebookShareButton>
                 </WrapItem>
                 <WrapItem>
-                  <Button colorScheme='twitter'>Twitter</Button>
+                  <TwitterShareButton url={currentLocation} title={article.title}>
+                   <TwitterIcon size={32} />
+                  </TwitterShareButton>
                 </WrapItem>
                 <WrapItem>
-                  <Button colorScheme='linkedin'>Linkedin</Button>
+                  <LinkedinShareButton url={currentLocation} title={article.title}>
+                   <LinkedinIcon size={32} />
+                  </LinkedinShareButton>
                 </WrapItem>
 
               </Wrap>

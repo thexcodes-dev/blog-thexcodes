@@ -17,13 +17,13 @@ export default function Header({ slug, selectedMenu, children}: HomeProps){
 
   useEffect(() => {
     const session = data?.sessions.find(s => s.slug === slug);
-    setPageTitle(session ? `${session.title} - ` : pageTitle);
+    setPageTitle(session ? `${session.title}` : pageTitle);
   }, []);
 
   return (
     <>
       <Head>
-        <title>{pageTitle} The Xcodes</title>
+        <title>{pageTitle} - The Xcodes</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="icon" href="/thexcodes-32x32.png" sizes="32x32" />
         <link rel="icon" href="/thexcodes-192x192.png" sizes="192x192" />

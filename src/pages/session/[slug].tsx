@@ -23,6 +23,10 @@ export default function Session({ slug, posts, postsMostRead }: SessionProps){
   const listOfPosts = [...posts];
   const listOfMainPosts = listOfPosts.splice(0, 3);
 
+  const currentLocation = window.location.href;
+  const pageTitle = `${slug} - The Xcodes`
+  const description = `Nesta categoria serão listados todos os posts cujo o conteúdo e sobre ${slug}`
+
   return (
     <Flex
       maxWidth={1344}
@@ -31,7 +35,22 @@ export default function Session({ slug, posts, postsMostRead }: SessionProps){
       flexDir="column"
       alignItems="center"
     >
-      <Header slug={slug} selectedMenu={slug}/>
+      <Header slug={slug} selectedMenu={slug} >
+        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+	      <link rel="canonical" href={currentLocation} />
+        <meta name="description" content={description} />
+	      <meta property="og:locale" content="pt_BR" />
+	      <meta property="og:type" content="article" />
+	      <meta property="og:title" content={pageTitle} />
+	      <meta property="og:description" content={description} />
+	      <meta property="og:url" content={currentLocation} />
+	      <meta property="og:site_name" content="The Xcodes" />
+	      <meta name="twitter:card" content="summary_large_image" />
+	      <meta name="twitter:label1" content="Written by" />
+	      <meta name="twitter:data1" content="Leandro Oliveira" />
+	      <meta name="twitter:label2" content="Est. reading time" />
+	      <meta name="twitter:data2" content="3 minutos" />
+      </Header>
       
       <Splide>
       {
