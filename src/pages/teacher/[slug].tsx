@@ -34,6 +34,9 @@ export default function Teacher({ slug, teacher, numberOfArticles, posts }: Teac
     md: 'mobile' 
   });
 
+  const currentLocation = window.location.href;
+  const pageTitle = `${teacher?.name} - The Xcodes`
+
   return (
     <Flex
       maxWidth={1344}
@@ -42,7 +45,25 @@ export default function Teacher({ slug, teacher, numberOfArticles, posts }: Teac
       flexDir="column"
       alignItems="center"
     >
-      <Header title={slug}/>
+      <Header slug={slug} >
+        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+	      <link rel="canonical" href={currentLocation} />
+        <meta name="description" content={teacher?.bio} />
+	      <meta property="og:locale" content="pt_BR" />
+	      <meta property="og:type" content="article" />
+	      <meta property="og:title" content={pageTitle} />
+	      <meta property="og:description" content={teacher?.bio} />
+	      <meta property="og:url" content={currentLocation} />
+	      <meta property="og:site_name" content="The Xcodes" />
+	      <meta property="article:published_time" content={teacher.createdAt} />
+	      <meta property="article:modified_time" content={teacher.updatedAt}/>
+	      <meta property="og:image" content={teacher?.avatarUrl} />
+	      <meta name="twitter:card" content="summary_large_image" />
+	      <meta name="twitter:label1" content="Written by" />
+	      <meta name="twitter:data1" content="Leandro Oliveira" />
+	      <meta name="twitter:label2" content="Est. reading time" />
+	      <meta name="twitter:data2" content="3 minutos" />
+      </Header>
 
       <Flex bgColor="white" w="100%" minHeight="600px" p="2rem">
 

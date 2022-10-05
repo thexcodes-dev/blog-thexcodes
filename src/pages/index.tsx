@@ -29,7 +29,27 @@ export default function Home({ posts, postsMostRead }: HomeProps) {
         flexDir="column"
         alignItems="center"
       >
-        <Header slug="Home"/>
+        <Header slug="Home">
+          <link rel="canonical" href="https://www.thexcodes.com" />
+          <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+          <meta name="description" content="Este é o The X Codes, um local para falar sobre programação e tecnologia e trocar conhecimento e experiências." />
+          <meta property="og:locale" content="pt_BR" />
+          <meta property="og:type" content="article" />
+          <meta property="og:title" content="Home - The Xcodes" />
+          <meta property="og:description" content="Este é o The X Codes, um local para falar sobre programação e tecnologia e trocar conhecimento e experiências." />
+          <meta property="og:url" content="https://thexcodes.com/" />
+          <meta property="og:site_name" content="The Xcodes" />
+          <meta property="article:published_time" content="2022-08-10T23:46:40+00:00" />
+          <meta property="article:modified_time" content="2022-08-15T00:08:37+00:00" />
+          <meta property="og:image" content={mainPost?.image.url} />
+          <meta property="og:image:width" content={mainPost?.image.width?.toString()} />
+          <meta property="og:image:height" content={mainPost?.image.height?.toString()} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:label1" content="Written by" />
+          <meta name="twitter:data1" content="Leandro Oliveira" />
+          <meta name="twitter:label2" content="Est. reading time" />
+          <meta name="twitter:data2" content="3 minutos" />
+        </Header>
 
         <HighlightArticle post={mainPost} />
 
