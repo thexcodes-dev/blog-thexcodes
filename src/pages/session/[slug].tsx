@@ -31,7 +31,7 @@ export default function Session({ slug, posts, postsMostRead }: SessionProps){
       flexDir="column"
       alignItems="center"
     >
-      <Header title={slug} selectedMenu={slug}/>
+      <Header slug={slug} selectedMenu={slug}/>
       
       <Splide>
       {

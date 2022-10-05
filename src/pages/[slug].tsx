@@ -29,7 +29,26 @@ export default function Article({ article }: ArticleProps){
 
   return (
     <Flex mx="auto" flexDir="column">
-      <Header title={sessionTitle} selectedMenu={sessionSlug}/>
+      <Header slug={article?.title} selectedMenu={sessionSlug}>
+        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+	      <link rel="canonical" href="https://thexcodes.com/entrevista-tecnica-para-software-engineer-back-end-roadmap/" />
+	      <meta property="og:locale" content="pt_BR" />
+	      <meta property="og:type" content="article" />
+	      <meta property="og:title" content={article?.title} />
+	      <meta property="og:description" content={article?.description} />
+	      <meta property="og:url" content="https://thexcodes.com/entrevista-tecnica-para-software-engineer-back-end-roadmap/" />
+	      <meta property="og:site_name" content="The Xcodes" />
+	      <meta property="article:published_time" content="2022-08-10T23:46:40+00:00" />
+	      <meta property="article:modified_time" content="2022-08-15T00:08:37+00:00" />
+	      <meta property="og:image" content={article?.image.url} />
+	      <meta property="og:image:width" content={article?.image.width?.toString()} />
+	      <meta property="og:image:height" content={article?.image.height?.toString()} />
+	      <meta name="twitter:card" content="summary_large_image" />
+	      <meta name="twitter:label1" content="Written by" />
+	      <meta name="twitter:data1" content="Leandro Oliveira" />
+	      <meta name="twitter:label2" content="Est. reading time" />
+	      <meta name="twitter:data2" content="3 minutos" />
+      </Header>
       
       <Box position="relative">
         <Box
