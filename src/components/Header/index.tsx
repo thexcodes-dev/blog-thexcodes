@@ -1,18 +1,36 @@
 import { Flex, Image, Link as ChakraLink, Text } from "@chakra-ui/react";
+import Head from "next/head";
 
 import Link from "next/link";
+import { ReactNode, useEffect, useState } from "react";
 import { useGetSessionsQuery } from "../../graphql/generated";
 
 interface HomeProps {
-  title: string;
+  slug: string;
   selectedMenu?: string;
+  children: ReactNode;
 }
 
-export default function Header({ title, selectedMenu}: HomeProps){
+export default function Header({ slug, selectedMenu, children}: HomeProps){
+  const [pageTitle, setPageTitle] = useState(slug);
   const { data } = useGetSessionsQuery();
+
+  useEffect(() => {
+    const session = data?.sessions.find(s => s.slug === slug);
+    setPageTitle(session ? `${session.title} - ` : pageTitle);
+  }, []);
 
   return (
     <>
+      <Head>
+        <title>{pageTitle} The Xcodes</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <link rel="icon" href="/thexcodes-32x32.png" sizes="32x32" />
+        <link rel="icon" href="/thexcodes-192x192.png" sizes="192x192" />
+        <link rel="apple-touch-icon" href="/thexcodes-180x180.png" />
+        <meta name="msapplication-TileImage" content="/thexcodes-270x270.png" />
+        {children}
+      </Head>
       {/* <Head>
         <title>{title} - The Xcodes</title>
       </Head>   */}
@@ -34,7 +52,7 @@ export default function Header({ title, selectedMenu}: HomeProps){
         >
           <Link href="/">
             <ChakraLink>
-              <Image w={{lg: "178px"}} src="../images/logo.png" alt="TheXCodes"/>
+              <Image w={{lg: "178px"}} src="../logo.png" alt="TheXCodes"/>
             </ChakraLink> 
           </Link>        
 

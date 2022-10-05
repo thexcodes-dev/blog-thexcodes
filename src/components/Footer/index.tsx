@@ -18,7 +18,7 @@ export default function Footer(){
         p="1.5rem"
       >
         <Box>
-          <Image w="178px" src="../images/logo.png" alt="TheXCodes"/>
+          <Image w="178px" src="../logo.png" alt="TheXCodes"/>
           <Text fontWeight="sm" pl="0.5rem" color='white'>
             Copyright © {year} The Xcodes
           </Text>
