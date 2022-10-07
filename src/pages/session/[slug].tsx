@@ -23,7 +23,7 @@ export default function Session({ slug, posts, postsMostRead }: SessionProps){
   const listOfPosts = [...posts];
   const listOfMainPosts = listOfPosts.splice(0, 3);
 
-  const currentLocation = window.location.href;
+  const currentLocation = `https://www.thexcodes.com/session/${slug}`;
   const pageTitle = `${slug} - The Xcodes`
   const description = `Nesta categoria serão listados todos os posts cujo o conteúdo e sobre ${slug}`
 
