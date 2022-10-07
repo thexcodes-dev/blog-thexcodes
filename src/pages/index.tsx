@@ -35,7 +35,7 @@ export default function Home({ posts, postsMostRead }: HomeProps) {
           <meta name="description" content="Este é o The X Codes, um local para falar sobre programação e tecnologia e trocar conhecimento e experiências." />
           <meta property="og:locale" content="pt_BR" />
           <meta property="og:type" content="article" />
-          <meta property="og:title" content="Home - The Xcodes" />
+          <meta property="og:title" content="The Xcodes · Cresça e evolua com a Programação e Tecnologia!" />
           <meta property="og:description" content="Este é o The X Codes, um local para falar sobre programação e tecnologia e trocar conhecimento e experiências." />
           <meta property="og:url" content="https://thexcodes.com/" />
           <meta property="og:site_name" content="The Xcodes" />

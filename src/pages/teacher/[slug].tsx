@@ -34,7 +34,7 @@ export default function Teacher({ slug, teacher, numberOfArticles, posts }: Teac
     md: 'mobile' 
   });
 
-  const currentLocation = window.location.href;
+  const currentLocation = `https://www.thexcodes.com/teacher/${slug}`;
   const pageTitle = `${teacher?.name} - The Xcodes`
 
   return (
