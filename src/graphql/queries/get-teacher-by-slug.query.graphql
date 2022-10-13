@@ -1,4 +1,4 @@
-query GetTeacherBySlug ($slug: String) {
+query GetTeacherBySlug ($slug: String, $first: Int, $skip: Int) {
   teacher(where: {slug: $slug}) {
     bio
     avatarUrl
@@ -15,7 +15,7 @@ query GetTeacherBySlug ($slug: String) {
       }
     }
   }
-  posts(where: {teacher: {AND: {slug: "leandro-oliveira"}}}, orderBy: availableAt_DESC, first: 5, skip: 0) {
+  posts(where: {teacher: {AND: {slug: "leandro-oliveira"}}}, orderBy: availableAt_DESC, first: $first, skip: $skip) {
     title
     slug
     description

@@ -5951,6 +5951,8 @@ export type GetSessionsQuery = { __typename?: 'Query', sessions: Array<{ __typen
 
 export type GetTeacherBySlugQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
 }>;
 
 
@@ -6201,7 +6203,7 @@ export const GetPostsDocument = gql`
       bgColor
     }
   }
-  mostRead: posts(orderBy: views_DESC, first: 5, skip: 0) {
+  mostRead: posts(orderBy: views_DESC, first: $first, skip: $skip) {
     title
     slug
     description
@@ -6286,7 +6288,7 @@ export type GetSessionsQueryHookResult = ReturnType<typeof useGetSessionsQuery>;
 export type GetSessionsLazyQueryHookResult = ReturnType<typeof useGetSessionsLazyQuery>;
 export type GetSessionsQueryResult = Apollo.QueryResult<GetSessionsQuery, GetSessionsQueryVariables>;
 export const GetTeacherBySlugDocument = gql`
-    query GetTeacherBySlug($slug: String) {
+    query GetTeacherBySlug($slug: String, $first: Int, $skip: Int) {
   teacher(where: {slug: $slug}) {
     bio
     avatarUrl
@@ -6306,8 +6308,8 @@ export const GetTeacherBySlugDocument = gql`
   posts(
     where: {teacher: {AND: {slug: "leandro-oliveira"}}}
     orderBy: availableAt_DESC
-    first: 5
-    skip: 0
+    first: $first
+    skip: $skip
   ) {
     title
     slug
@@ -6335,6 +6337,8 @@ export const GetTeacherBySlugDocument = gql`
  * const { data, loading, error } = useGetTeacherBySlugQuery({
  *   variables: {
  *      slug: // value for 'slug'
+ *      first: // value for 'first'
+ *      skip: // value for 'skip'
  *   },
  * });
  */
