@@ -24,7 +24,7 @@ export default function Session({ slug, posts, postsMostRead }: SessionProps){
   const listOfMainPosts = listOfPosts.splice(0, 3);
 
   const currentLocation = `https://www.thexcodes.com/session/${slug}`;
-  const pageTitle = `${slug} - The Xcodes`
+  const pageTitle = `${slug} · The Xcodes`
   const description = `Nesta categoria serão listados todos os posts cujo o conteúdo e sobre ${slug}`
 
   return (
@@ -35,7 +35,7 @@ export default function Session({ slug, posts, postsMostRead }: SessionProps){
       flexDir="column"
       alignItems="center"
     >
-      <Header slug={slug} selectedMenu={slug} >
+      <Header slug={slug} selectedMenu={slug} pageTitle={pageTitle} >
         <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 	      <link rel="canonical" href={currentLocation} />
         <meta name="description" content={description} />
