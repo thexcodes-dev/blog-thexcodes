@@ -10,11 +10,12 @@ import { RiMenuFill, RiReactjsLine, RiCodeSSlashFill, RiUser3Line } from "react-
 interface HomeProps {
   slug: string;
   selectedMenu?: string;
+  pageTitle?: string;
   children: ReactNode;
 }
 
-export default function Header({ slug, selectedMenu, children}: HomeProps){
-  const [pageTitle, setPageTitle] = useState(slug);
+export default function Header({ slug, selectedMenu, pageTitle, children}: HomeProps){
+  //const [pageTitle, setPageTitle] = useState(slug);
   const { data } = useGetSessionsQuery();
 
   const variant = useBreakpointValue({ 
@@ -22,10 +23,10 @@ export default function Header({ slug, selectedMenu, children}: HomeProps){
     md: 'mobile' 
   });
 
-  useEffect(() => {
-    const session = data?.sessions.find(s => s.slug === slug);
-    setPageTitle(session ? `${session.title}` : pageTitle);
-  }, []);
+  // useEffect(() => {
+  //   const session = data?.sessions.find(s => s.slug === slug);
+  //   setPageTitle(session ? `${session.title}` : pageTitle);
+  // }, []);
 
   return (
     <>

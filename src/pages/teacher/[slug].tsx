@@ -35,7 +35,7 @@ export default function Teacher({ slug, teacher, numberOfArticles, posts }: Teac
   });
 
   const currentLocation = `https://www.thexcodes.com/teacher/${slug}`;
-  const pageTitle = `${teacher?.name} - The Xcodes`
+  const pageTitle = `${teacher?.name} · The Xcodes`
 
   return (
     <Flex
@@ -45,7 +45,7 @@ export default function Teacher({ slug, teacher, numberOfArticles, posts }: Teac
       flexDir="column"
       alignItems="center"
     >
-      <Header slug={slug} >
+      <Header slug={slug} pageTitle={pageTitle}>
         <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 	      <link rel="canonical" href={currentLocation} />
         <meta name="description" content={teacher?.bio} />

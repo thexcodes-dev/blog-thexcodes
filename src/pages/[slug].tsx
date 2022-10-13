@@ -32,11 +32,11 @@ export default function Article({ article }: ArticleProps){
     }
   })  
   const currentLocation = `https://www.thexcodes.com/${article?.slug}`;
-  const pageTitle = `${article?.title} - The Xcodes`;
+  const pageTitle = `${article?.title} · The Xcodes`;
 
   return (
     <Flex mx="auto" flexDir="column">
-      <Header slug={article?.title} selectedMenu={sessionSlug}>
+      <Header slug={article?.title} selectedMenu={sessionSlug} pageTitle={pageTitle}>
         <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 	      <link rel="canonical" href={currentLocation} />
         <meta name="description" content={article?.description} />
