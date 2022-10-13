@@ -1,4 +1,4 @@
-import { Box, Flex, HStack, useBreakpointValue, VStack } from "@chakra-ui/react";
+import { Box, Button, Center, Flex, HStack, Spinner, useBreakpointValue, VStack } from "@chakra-ui/react";
 
 import { GetStaticPaths, GetStaticProps } from "next";
 import Header from "../../components/Header";
@@ -7,27 +7,56 @@ import About from "../../components/About";
 import MediumArticle from "../../components/MediumArticle";
 import { GetTeacherBySlugDocument, Teacher as TeacherModel, Post as PostModel } from "../../graphql/generated";
 import { client } from "../../service/apollo";
+import { FormEvent, useEffect, useState } from "react";
 
 interface TeacherProps {
   slug: string, 
   teacher: TeacherModel;
-  posts: Array<PostModel>[];
+  posts: Array<PostModel>;
   numberOfArticles: number;
 }
 
 export default function Teacher({ slug, teacher, numberOfArticles, posts }: TeacherProps){
+  const [listOfPosts, setListOfPosts] = useState<PostModel[]>(posts);
+  const [currentPage, setCurrentPage] = useState(5);
+  const [isLoading, setIsLoading] = useState(false);
+  const [leftList, setLeftList] = useState([]);
+  const [rightList, setRightList] = useState([]);
 
-  const leftList = [];
-  const rightList = [];
+  async function handleLoadMore(event: FormEvent) {
+    event.preventDefault();
 
-  for (let i in posts){
-    if(Number(i) % 2 === 0) {
-      leftList.push(posts[i])
-    }
-    else{
-      rightList.push(posts[i])
-    }
+    setCurrentPage(currentPage+5);
+    setIsLoading(true);
+
+    const { data } = await client.query({
+      query: GetTeacherBySlugDocument,
+      variables: {
+        slug: slug,
+        first: 5,
+        skip: currentPage
+      }
+    });
+
+    setListOfPosts([...listOfPosts, ...data.posts]);
+
+    setIsLoading(false);
   }
+
+
+  useEffect(() => {
+    setLeftList([]);
+    setRightList([]);
+
+    for (let i in listOfPosts){
+      if(Number(i) % 2 === 0) {
+        setLeftList(prevArray => [...prevArray, listOfPosts[i]]);
+      }
+      else{
+        setRightList(prevArray => [...prevArray, listOfPosts[i]]);
+      }
+    }
+  }, [listOfPosts]);
 
   const variant = useBreakpointValue({ 
     xl: 'normal', 
@@ -35,7 +64,7 @@ export default function Teacher({ slug, teacher, numberOfArticles, posts }: Teac
   });
 
   const currentLocation = `https://www.thexcodes.com/teacher/${slug}`;
-  const pageTitle = `${teacher?.name} · The Xcodes`
+  const pageTitle = `${teacher?.name} · The Xcodes`;
 
   return (
     <Flex
@@ -100,8 +129,23 @@ export default function Teacher({ slug, teacher, numberOfArticles, posts }: Teac
               </VStack>
             )
           }
+
+            <Center p="1rem">
+              <Button bg='gray.900' color="white" fontSize='xs' borderRadius="50" onClick={handleLoadMore}>
+                BUSCAR MAIS POSTS
+                { isLoading && 
+                  <Spinner
+                    thickness='4px'
+                    speed='0.65s'
+                    emptyColor='gray.200'
+                    color='green.500'
+                    size='md'
+                    ml="0.5rem"
+                  /> }
+                </Button>
+            </Center>
           </Box>
-          
+
         </HStack>
         
       </Flex>

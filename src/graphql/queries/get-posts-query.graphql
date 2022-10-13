@@ -15,7 +15,7 @@ query GetPosts($first: Int, $skip: Int) {
       bgColor
     }
   }
-  mostRead: posts(orderBy: views_DESC, first: 5, skip: 0) {
+  mostRead: posts(orderBy: views_DESC, first: $first, skip: $skip) {
     title
     slug
     description
