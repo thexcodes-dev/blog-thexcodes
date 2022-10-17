@@ -60,7 +60,7 @@ export default function Session({ slug, posts, postsMostRead }: SessionProps){
               <Box overflow="hidden" maxHeight="600px">
                 <Link href={`../${post?.slug}`}>
                   <ChakraLink _hover={{ color: 'green.300', textDecoration: 'none'}}>
-                    <MainImage url={post?.image?.url} />
+                    <MainImage url={post?.imageUrl} />
                     {
                       post?.sessions !== undefined &&
                       <Badge 

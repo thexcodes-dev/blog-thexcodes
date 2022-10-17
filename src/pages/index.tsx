@@ -41,9 +41,9 @@ export default function Home({ posts, postsMostRead }: HomeProps) {
           <meta property="og:site_name" content="The Xcodes" />
           <meta property="article:published_time" content="2022-08-10T23:46:40+00:00" />
           <meta property="article:modified_time" content="2022-08-15T00:08:37+00:00" />
-          <meta property="og:image" content={mainPost?.image.url} />
-          <meta property="og:image:width" content={mainPost?.image.width?.toString()} />
-          <meta property="og:image:height" content={mainPost?.image.height?.toString()} />
+          <meta property="og:image" content={mainPost?.imageUrl} />
+          {/* <meta property="og:image:width" content={mainPost?.image.width?.toString()} />
+          <meta property="og:image:height" content={mainPost?.image.height?.toString()} /> */}
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:label1" content="Written by" />
           <meta name="twitter:data1" content="Leandro Oliveira" />

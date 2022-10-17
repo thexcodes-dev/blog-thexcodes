@@ -48,9 +48,9 @@ export default function Article({ article }: ArticleProps){
 	      <meta property="og:site_name" content="The Xcodes" />
 	      <meta property="article:published_time" content="2022-08-10T23:46:40+00:00" />
 	      <meta property="article:modified_time" content="2022-08-15T00:08:37+00:00" />
-	      <meta property="og:image" content={article?.image.url} />
-	      <meta property="og:image:width" content={article?.image.width?.toString()} />
-	      <meta property="og:image:height" content={article?.image.height?.toString()} />
+	      <meta property="og:image" content={article?.imageUrl} />
+	      {/* <meta property="og:image:width" content={article?.image.width?.toString()} />
+	      <meta property="og:image:height" content={article?.image.height?.toString()} /> */}
 	      <meta name="twitter:card" content="summary_large_image" />
 	      <meta name="twitter:label1" content="Written by" />
 	      <meta name="twitter:data1" content="Leandro Oliveira" />
@@ -84,8 +84,8 @@ export default function Article({ article }: ArticleProps){
               transform="translate3d(0px, 50px, 0px)"
               objectFit="cover"
               objectPosition="center"
-              src={article?.image.url}
-              alt=""
+              src={article?.imageUrl}
+              alt={article?.imageLabel}
             />  
           </Box>
           <Box as="span" bg="rgba(10,0,0,0.5);" position="absolute" h="100%" w="100%" zIndex="1" />

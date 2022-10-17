@@ -16,8 +16,8 @@ export default function MediumArticle({ post, ...rest }: MediumArticleProps) {
     <Box as="article" pl="2rem" pb="1rem" {...rest}>
       <Box flexShrink={0}>
         <Image
-          src={post?.image?.url}
-          alt=''
+          src={post?.imageUrl}
+          alt={post?.imageLabel}
         />
       </Box>
       <Box pt="1rem">

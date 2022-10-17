@@ -6,9 +6,8 @@ query GetPosts($first: Int, $skip: Int) {
     teacher {
       name
     }
-    image {
-      url
-    }
+    imageUrl
+    imageLabel
     sessions {
       title
       color
@@ -22,9 +21,8 @@ query GetPosts($first: Int, $skip: Int) {
     teacher {
       name
     }
-    image {
-      url
-    }
+    imageUrl
+    imageLabel
     sessions {
       title
       color
