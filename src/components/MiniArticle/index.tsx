@@ -1,16 +1,9 @@
 import { Box, Image, Text, Link as ChakraLink, BoxProps, useBreakpointValue } from "@chakra-ui/react";
 import Link from "next/link";
+import { Post } from "../../graphql/generated";
 
 type Teacher = {
   name: string
-}
-
-type Post = {
-  title: string, 
-  slug: string, 
-  description?: string | null, 
-  teacher?: Teacher | null, 
-  image?: { url: string } | null 
 }
 
 interface MiniArticleProps extends BoxProps {
@@ -19,7 +12,7 @@ interface MiniArticleProps extends BoxProps {
 
 export default function MiniArticle({ post, ...rest }: MiniArticleProps) {
   if (!post){
-    <h1>Loadning ...</h1>
+    <h1>Loading ...</h1>
   }
 
   const description = post?.description?.length > 150 ? `${post.description.substring(0, 150)} ...` : post?.description;
@@ -39,8 +32,8 @@ export default function MiniArticle({ post, ...rest }: MiniArticleProps) {
       <Box flexShrink={0}>
         <Image
           width={{ md: 40 }}
-          src={post?.image?.url}
-          alt=''
+          src={post?.imageUrl}
+          alt={post?.imageLabel}
         />
       </Box>
       <Box ml={{ md: '0.5rem' }}>

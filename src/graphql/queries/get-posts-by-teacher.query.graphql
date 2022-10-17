@@ -6,8 +6,7 @@ query GetPostsByTeacher ($slug: [String], $first: Int, $skip: Int) {
     teacher { 
       name
     }
-    image {
-      url
-    }
+    imageUrl
+    imageLabel
   }
 }

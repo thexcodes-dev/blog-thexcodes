@@ -12,6 +12,7 @@ interface HighlightArticleProps extends BoxProps {
 }
 
 export default function HighlightArticle({ post, isMiniHighlight, ...rest }: HighlightArticleProps){
+
   if (isMiniHighlight){
     return (
       <Flex as="article" overflow="hidden">
@@ -21,7 +22,7 @@ export default function HighlightArticle({ post, isMiniHighlight, ...rest }: Hig
         >
           <Link href={post?.slug} passHref={true}>
             <ChakraLink _hover={{ color: 'green.300', textDecoration: 'none'}}>
-              <MainImage url={post?.image?.url} isMiniHighlight={isMiniHighlight} />
+              <MainImage url={post?.imageUrl} alt={post?.imageLabel} isMiniHighlight={isMiniHighlight} />
               {
                 post?.sessions !== undefined &&
                 <Badge 
@@ -52,7 +53,7 @@ export default function HighlightArticle({ post, isMiniHighlight, ...rest }: Hig
       >
         <Link href={post?.slug} passHref={true}>
           <ChakraLink _hover={{ color: 'green.300', textDecoration: 'none'}}>
-            <MainImage url={post?.image?.url} isMiniHighlight={isMiniHighlight} />
+            <MainImage url={post?.imageUrl} isMiniHighlight={isMiniHighlight} />
             {
               post?.sessions !== undefined &&
               <Badge 

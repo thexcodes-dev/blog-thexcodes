@@ -1805,6 +1805,8 @@ export type Post = Node & {
   /** The unique identifier */
   id: Scalars['ID'];
   image?: Maybe<Asset>;
+  imageLabel?: Maybe<Scalars['String']>;
+  imageUrl?: Maybe<Scalars['String']>;
   isEnglish: Scalars['Boolean'];
   isPortuguese: Scalars['Boolean'];
   /** The time the document was published. Null on documents in draft stage. */
@@ -1910,6 +1912,8 @@ export type PostCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   description?: InputMaybe<Scalars['String']>;
   image?: InputMaybe<AssetCreateOneInlineInput>;
+  imageLabel?: InputMaybe<Scalars['String']>;
+  imageUrl?: InputMaybe<Scalars['String']>;
   isEnglish: Scalars['Boolean'];
   isPortuguese: Scalars['Boolean'];
   sessions?: InputMaybe<SessionCreateManyInlineInput>;
@@ -2027,6 +2031,44 @@ export type PostManyWhereInput = {
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']>;
   image?: InputMaybe<AssetWhereInput>;
+  imageLabel?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  imageLabel_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  imageLabel_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  imageLabel_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  imageLabel_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  imageLabel_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  imageLabel_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  imageLabel_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  imageLabel_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  imageLabel_starts_with?: InputMaybe<Scalars['String']>;
+  imageUrl?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  imageUrl_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  imageUrl_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  imageUrl_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  imageUrl_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  imageUrl_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  imageUrl_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  imageUrl_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  imageUrl_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  imageUrl_starts_with?: InputMaybe<Scalars['String']>;
   isEnglish?: InputMaybe<Scalars['Boolean']>;
   /** All values that are not equal to given value. */
   isEnglish_not?: InputMaybe<Scalars['Boolean']>;
@@ -2136,6 +2178,10 @@ export enum PostOrderByInput {
   DescriptionDesc = 'description_DESC',
   IdAsc = 'id_ASC',
   IdDesc = 'id_DESC',
+  ImageLabelAsc = 'imageLabel_ASC',
+  ImageLabelDesc = 'imageLabel_DESC',
+  ImageUrlAsc = 'imageUrl_ASC',
+  ImageUrlDesc = 'imageUrl_DESC',
   IsEnglishAsc = 'isEnglish_ASC',
   IsEnglishDesc = 'isEnglish_DESC',
   IsPortugueseAsc = 'isPortuguese_ASC',
@@ -2156,6 +2202,8 @@ export type PostUpdateInput = {
   availableAt?: InputMaybe<Scalars['DateTime']>;
   description?: InputMaybe<Scalars['String']>;
   image?: InputMaybe<AssetUpdateOneInlineInput>;
+  imageLabel?: InputMaybe<Scalars['String']>;
+  imageUrl?: InputMaybe<Scalars['String']>;
   isEnglish?: InputMaybe<Scalars['Boolean']>;
   isPortuguese?: InputMaybe<Scalars['Boolean']>;
   sessions?: InputMaybe<SessionUpdateManyInlineInput>;
@@ -2186,6 +2234,8 @@ export type PostUpdateManyInlineInput = {
 export type PostUpdateManyInput = {
   availableAt?: InputMaybe<Scalars['DateTime']>;
   description?: InputMaybe<Scalars['String']>;
+  imageLabel?: InputMaybe<Scalars['String']>;
+  imageUrl?: InputMaybe<Scalars['String']>;
   isEnglish?: InputMaybe<Scalars['Boolean']>;
   isPortuguese?: InputMaybe<Scalars['Boolean']>;
   text?: InputMaybe<Scalars['RichTextAST']>;
@@ -2325,6 +2375,44 @@ export type PostWhereInput = {
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']>;
   image?: InputMaybe<AssetWhereInput>;
+  imageLabel?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  imageLabel_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  imageLabel_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  imageLabel_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  imageLabel_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  imageLabel_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  imageLabel_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  imageLabel_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  imageLabel_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  imageLabel_starts_with?: InputMaybe<Scalars['String']>;
+  imageUrl?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  imageUrl_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  imageUrl_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  imageUrl_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  imageUrl_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  imageUrl_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  imageUrl_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  imageUrl_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  imageUrl_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  imageUrl_starts_with?: InputMaybe<Scalars['String']>;
   isEnglish?: InputMaybe<Scalars['Boolean']>;
   /** All values that are not equal to given value. */
   isEnglish_not?: InputMaybe<Scalars['Boolean']>;
@@ -5908,7 +5996,7 @@ export type GetPostQueryVariables = Exact<{
 }>;
 
 
-export type GetPostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', slug: string, title: string, description?: string | null, text?: { __typename?: 'RichText', html: string } | null, image?: { __typename?: 'Asset', url: string } | null, sessions: Array<{ __typename?: 'Session', title: string, slug: string, color?: string | null, bgColor?: string | null }>, teacher?: { __typename?: 'Teacher', name: string } | null } | null };
+export type GetPostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', imageUrl?: string | null, imageLabel?: string | null, slug: string, title: string, description?: string | null, text?: { __typename?: 'RichText', html: string } | null, sessions: Array<{ __typename?: 'Session', title: string, slug: string, color?: string | null, bgColor?: string | null }>, teacher?: { __typename?: 'Teacher', name: string } | null } | null };
 
 export type GetPostsBySessionQueryVariables = Exact<{
   slug?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
@@ -5917,7 +6005,7 @@ export type GetPostsBySessionQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsBySessionQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, image?: { __typename?: 'Asset', url: string } | null, sessions: Array<{ __typename?: 'Session', title: string, color?: string | null, bgColor?: string | null }> }>, mostRead: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, image?: { __typename?: 'Asset', url: string } | null, sessions: Array<{ __typename?: 'Session', title: string, color?: string | null, bgColor?: string | null }> }> };
+export type GetPostsBySessionQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, imageUrl?: string | null, imageLabel?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, sessions: Array<{ __typename?: 'Session', title: string, color?: string | null, bgColor?: string | null }> }>, mostRead: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, imageUrl?: string | null, imageLabel?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, sessions: Array<{ __typename?: 'Session', title: string, color?: string | null, bgColor?: string | null }> }> };
 
 export type GetPostsByTeacherQueryVariables = Exact<{
   slug?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
@@ -5926,7 +6014,7 @@ export type GetPostsByTeacherQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsByTeacherQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
+export type GetPostsByTeacherQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, imageUrl?: string | null, imageLabel?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null }> };
 
 export type GetPostsMostReadQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
@@ -5934,7 +6022,7 @@ export type GetPostsMostReadQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsMostReadQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', slug: string, title: string, description?: string | null, text?: { __typename?: 'RichText', html: string } | null, image?: { __typename?: 'Asset', url: string } | null, sessions: Array<{ __typename?: 'Session', title: string, slug: string, color?: string | null, bgColor?: string | null }>, teacher?: { __typename?: 'Teacher', name: string } | null }> };
+export type GetPostsMostReadQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', imageUrl?: string | null, imageLabel?: string | null, slug: string, title: string, description?: string | null, text?: { __typename?: 'RichText', html: string } | null, sessions: Array<{ __typename?: 'Session', title: string, slug: string, color?: string | null, bgColor?: string | null }>, teacher?: { __typename?: 'Teacher', name: string } | null }> };
 
 export type GetPostsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
@@ -5942,7 +6030,7 @@ export type GetPostsQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, image?: { __typename?: 'Asset', url: string } | null, sessions: Array<{ __typename?: 'Session', title: string, color?: string | null, bgColor?: string | null }> }>, mostRead: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, image?: { __typename?: 'Asset', url: string } | null, sessions: Array<{ __typename?: 'Session', title: string, color?: string | null, bgColor?: string | null }> }> };
+export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, imageUrl?: string | null, imageLabel?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, sessions: Array<{ __typename?: 'Session', title: string, color?: string | null, bgColor?: string | null }> }>, mostRead: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, imageUrl?: string | null, imageLabel?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, sessions: Array<{ __typename?: 'Session', title: string, color?: string | null, bgColor?: string | null }> }> };
 
 export type GetSessionsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5956,7 +6044,7 @@ export type GetTeacherBySlugQueryVariables = Exact<{
 }>;
 
 
-export type GetTeacherBySlugQuery = { __typename?: 'Query', teacher?: { __typename?: 'Teacher', bio?: string | null, avatarUrl: string, name: string, slug?: string | null } | null, teachersConnection: { __typename?: 'TeacherConnection', edges: Array<{ __typename?: 'TeacherEdge', node: { __typename?: 'Teacher', id: string, posts: Array<{ __typename?: 'Post', id: string }> } }> }, posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
+export type GetTeacherBySlugQuery = { __typename?: 'Query', teacher?: { __typename?: 'Teacher', bio?: string | null, avatarUrl: string, name: string, slug?: string | null } | null, teachersConnection: { __typename?: 'TeacherConnection', edges: Array<{ __typename?: 'TeacherEdge', node: { __typename?: 'Teacher', id: string, posts: Array<{ __typename?: 'Post', id: string }> } }> }, posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, imageUrl?: string | null, imageLabel?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null }> };
 
 
 export const GetPostDocument = gql`
@@ -5965,9 +6053,8 @@ export const GetPostDocument = gql`
     text {
       html
     }
-    image {
-      url
-    }
+    imageUrl
+    imageLabel
     slug
     title
     description
@@ -6025,9 +6112,8 @@ export const GetPostsBySessionDocument = gql`
     teacher {
       name
     }
-    image {
-      url
-    }
+    imageUrl
+    imageLabel
     sessions {
       title
       color
@@ -6041,9 +6127,8 @@ export const GetPostsBySessionDocument = gql`
     teacher {
       name
     }
-    image {
-      url
-    }
+    imageUrl
+    imageLabel
     sessions {
       title
       color
@@ -6096,9 +6181,8 @@ export const GetPostsByTeacherDocument = gql`
     teacher {
       name
     }
-    image {
-      url
-    }
+    imageUrl
+    imageLabel
   }
 }
     `;
@@ -6138,9 +6222,8 @@ export const GetPostsMostReadDocument = gql`
     text {
       html
     }
-    image {
-      url
-    }
+    imageUrl
+    imageLabel
     slug
     title
     description
@@ -6194,9 +6277,8 @@ export const GetPostsDocument = gql`
     teacher {
       name
     }
-    image {
-      url
-    }
+    imageUrl
+    imageLabel
     sessions {
       title
       color
@@ -6210,9 +6292,8 @@ export const GetPostsDocument = gql`
     teacher {
       name
     }
-    image {
-      url
-    }
+    imageUrl
+    imageLabel
     sessions {
       title
       color
@@ -6317,9 +6398,8 @@ export const GetTeacherBySlugDocument = gql`
     teacher {
       name
     }
-    image {
-      url
-    }
+    imageUrl
+    imageLabel
   }
 }
     `;

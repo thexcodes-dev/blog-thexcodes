@@ -3,9 +3,8 @@ query GetPostsMostRead($first: Int, $skip: Int)  {
     text {
       html
     }
-    image {
-      url
-    }
+    imageUrl
+    imageLabel
     slug
     title
     description

@@ -3,9 +3,8 @@ query GetPost($slug: String) {
     text {
       html
     }
-    image {
-      url
-    }
+    imageUrl
+    imageLabel
     slug
     title
     description

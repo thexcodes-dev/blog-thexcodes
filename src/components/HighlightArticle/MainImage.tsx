@@ -2,10 +2,11 @@ import { Box, Image, useBreakpointValue } from "@chakra-ui/react";
 
 interface MainImageProps {
   url: string;
+  alt?: string;
   isMiniHighlight?: boolean | false;
 }
 
-export default function MainImage({ url, isMiniHighlight }: MainImageProps){
+export default function MainImage({ url, alt, isMiniHighlight }: MainImageProps){
   const variant = useBreakpointValue({ 
     '2xl': 'bigger', 
     xl: 'notebook', 
@@ -25,7 +26,7 @@ export default function MainImage({ url, isMiniHighlight }: MainImageProps){
           height="100%" 
           object-fit= "contain"
           src={url}
-          alt=""
+          alt={alt}
         />
       </Box>
     )
@@ -48,7 +49,7 @@ export default function MainImage({ url, isMiniHighlight }: MainImageProps){
 
             object-fit= "contain"
             src={url}
-            alt=""
+            alt={alt}
           />
         :
           variant === 'notebook' ? 
@@ -60,7 +61,7 @@ export default function MainImage({ url, isMiniHighlight }: MainImageProps){
 
               object-fit= "contain"
               src={url}
-              alt=""
+              alt={alt}
             />
           :
             <Image 
@@ -68,7 +69,7 @@ export default function MainImage({ url, isMiniHighlight }: MainImageProps){
               height="100%" 
               object-fit= "contain"
               src={url}
-              alt=""
+              alt={alt}
             />
       }
     </Box>

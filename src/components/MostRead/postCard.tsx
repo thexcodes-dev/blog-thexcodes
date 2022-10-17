@@ -1,17 +1,13 @@
 import { Avatar, Box, Flex, WrapItem, Text, useBreakpointValue, Link as ChakraLink  } from "@chakra-ui/react";
 import Link from "next/link";
-
-interface Post {
-  title: string, 
-  slug: string, 
-  image?: { url: string } | null 
-}
+import { Post } from "../../graphql/generated";
 
 interface PostCardProps {
   post: Post;
 }
 
 export default function PostCard({ post }: PostCardProps){
+  
   const variant = useBreakpointValue({ 
     xl: 'normal', 
     md: 'mobile' 
@@ -24,7 +20,7 @@ export default function PostCard({ post }: PostCardProps){
           <WrapItem>
             <Link href={post?.slug} passHref={true}>
               <ChakraLink _hover={{ color: 'green.300', textDecoration: 'none'}}>
-                <Avatar size='lg' src={post?.image?.url} />
+                <Avatar size='lg' src={post?.imageUrl} />
               </ChakraLink> 
             </Link>
           </WrapItem>
@@ -56,7 +52,7 @@ export default function PostCard({ post }: PostCardProps){
         <WrapItem>
           <Link href={post?.slug} passHref={true}>
             <ChakraLink _hover={{ color: 'green.300', textDecoration: 'none'}}>
-              <Avatar size='lg' src={post?.image?.url} />
+              <Avatar size='lg' src={post?.imageUrl} />
             </ChakraLink> 
           </Link>
         </WrapItem>
