@@ -11,26 +11,56 @@ import {
 
 
 import { client } from "../service/apollo";
-import { GetPostDocument, Post, useGetPostsBySessionQuery } from "../graphql/generated";
+import { GetPostDocument, Post, useGetPostsBySessionQuery, useGetPostViewQuery, useUpdatePostViewsMutation } from "../graphql/generated";
 import BoxArticles from "../components/BoxArticles";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import { useEffect } from "react";
 
 interface ArticleProps {
   article: Post,
 }
 
 export default function Article({ article }: ArticleProps){
-  const sessionTitle = article?.sessions[0].title
-  const sessionSlug = article?.sessions[0].slug
+  const sessionTitle = article?.sessions[0].title;
+  const sessionSlug = article?.sessions[0].slug;
   
+  const result = useGetPostViewQuery({ 
+    variables: {
+      slug: article?.slug
+    }
+  });
+
+  const views = result?.data?.post?.views + 1;
+  const [updatePostViews] = useUpdatePostViewsMutation();
+
+  useEffect( () => { 
+    
+    async function fetchData() {
+      try {
+        const r = await updatePostViews({
+          variables: {
+            slug: article?.slug,
+            view: views
+          }
+        })
+
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchData();
+  }, []);
+
+
   const { data, loading} = useGetPostsBySessionQuery({
     variables: { 
       slug: article?.sessions.map(session => session.slug),
-      first: 5,
+      first: 10,
       skip: 0
     }
-  })  
+  }) 
+  
   const currentLocation = `https://www.thexcodes.com/${article?.slug}`;
   const pageTitle = `${article?.title} · The Xcodes`;
 
@@ -124,17 +154,17 @@ export default function Article({ article }: ArticleProps){
             <VStack >
               <Wrap spacing={4}>
                 <WrapItem>
-                  <FacebookShareButton url={currentLocation} title={article.title}>
+                  <FacebookShareButton url={currentLocation} title={article?.title}>
                    <FacebookIcon size={32} />
                   </FacebookShareButton>
                 </WrapItem>
                 <WrapItem>
-                  <TwitterShareButton url={currentLocation} title={article.title}>
+                  <TwitterShareButton url={currentLocation} title={article?.title}>
                    <TwitterIcon size={32} />
                   </TwitterShareButton>
                 </WrapItem>
                 <WrapItem>
-                  <LinkedinShareButton url={currentLocation} title={article.title}>
+                  <LinkedinShareButton url={currentLocation} title={article?.title}>
                    <LinkedinIcon size={32} />
                   </LinkedinShareButton>
                 </WrapItem>

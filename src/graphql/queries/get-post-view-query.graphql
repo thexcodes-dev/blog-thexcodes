@@ -1,0 +1,5 @@
+query GetPostView($slug: String) {
+  post(where: {slug: $slug}) {
+    views
+  }
+}

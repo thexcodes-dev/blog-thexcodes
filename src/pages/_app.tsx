@@ -5,7 +5,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { client } from '../service/apollo';
 import { theme } from '../styles/theme';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps, router }: AppProps) {
 
   return (
     <ApolloProvider client={client}>

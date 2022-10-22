@@ -1,0 +1,16 @@
+mutation UpdatePostViews($slug: String, $view: Int) {
+  updatePost(
+    data: {
+      views: $view
+    }, 
+    where: 
+    {
+      slug: $slug
+    }
+  ) {
+    id
+  }
+  publishPost(where: {slug: $slug}) {
+    views
+  }
+}

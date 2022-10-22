@@ -15,7 +15,7 @@ interface BoxArticlesProps extends BoxProps{
 
 export default function BoxArticles ({ posts, postsMostRead, isArticlePage = false, currentSession, ...rest }: BoxArticlesProps){
   const [listOfPosts, setListOfPosts] = useState<Post[]>(posts);
-  const [currentPage, setCurrentPage] = useState(isArticlePage ? 5 : 9);
+  const [currentPage, setCurrentPage] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
 
   async function handleLoadMore(event: FormEvent) {

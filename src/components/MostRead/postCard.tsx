@@ -18,7 +18,7 @@ export default function PostCard({ post }: PostCardProps){
       <Flex p={4} alignItems="center" >
         <Box mr="20px">
           <WrapItem>
-            <Link href={post?.slug} passHref={true}>
+            <Link href={`../${post?.slug}`} passHref={true}>
               <ChakraLink _hover={{ color: 'green.300', textDecoration: 'none'}}>
                 <Avatar size='lg' src={post?.imageUrl} />
               </ChakraLink> 
@@ -26,7 +26,7 @@ export default function PostCard({ post }: PostCardProps){
           </WrapItem>
         </Box>
         <Box>
-          <Link href={post?.slug} passHref={true}>
+          <Link href={`../${post?.slug}`} passHref={true}>
             <ChakraLink _hover={{ color: 'green.300', textDecoration: 'none'}}>
               <Text
                 fontWeight='bold'
@@ -50,7 +50,7 @@ export default function PostCard({ post }: PostCardProps){
     <Flex p={4} alignItems="center">
       <Box mr="20px">
         <WrapItem>
-          <Link href={post?.slug} passHref={true}>
+          <Link href={`../${post?.slug}`} passHref={true}>
             <ChakraLink _hover={{ color: 'green.300', textDecoration: 'none'}}>
               <Avatar size='lg' src={post?.imageUrl} />
             </ChakraLink> 
@@ -58,7 +58,7 @@ export default function PostCard({ post }: PostCardProps){
         </WrapItem>
       </Box>
       <Box>
-        <Link href={post?.slug} passHref={true}>
+        <Link href={`../${post?.slug}`} passHref={true}>
           <ChakraLink _hover={{ color: 'green.300', textDecoration: 'none'}}>
             <Text
               fontWeight='bold'

@@ -8,6 +8,7 @@ query GetPost($slug: String) {
     slug
     title
     description
+    views
     sessions {
       title
       slug

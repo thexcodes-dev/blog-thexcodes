@@ -9,7 +9,7 @@ query GetTeacherBySlug ($slug: String, $first: Int, $skip: Int) {
     edges {
       node {
         id
-        posts {
+        posts(first: 100) {
           id
         }
       }
