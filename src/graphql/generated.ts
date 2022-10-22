@@ -5991,12 +5991,27 @@ export enum _SystemDateTimeFieldVariation {
   Localization = 'localization'
 }
 
+export type UpdatePostViewsMutationVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']>;
+  view?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type UpdatePostViewsMutation = { __typename?: 'Mutation', updatePost?: { __typename?: 'Post', id: string } | null, publishPost?: { __typename?: 'Post', views: number } | null };
+
 export type GetPostQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetPostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', imageUrl?: string | null, imageLabel?: string | null, slug: string, title: string, description?: string | null, text?: { __typename?: 'RichText', html: string } | null, sessions: Array<{ __typename?: 'Session', title: string, slug: string, color?: string | null, bgColor?: string | null }>, teacher?: { __typename?: 'Teacher', name: string } | null } | null };
+export type GetPostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', imageUrl?: string | null, imageLabel?: string | null, slug: string, title: string, description?: string | null, views: number, text?: { __typename?: 'RichText', html: string } | null, sessions: Array<{ __typename?: 'Session', title: string, slug: string, color?: string | null, bgColor?: string | null }>, teacher?: { __typename?: 'Teacher', name: string } | null } | null };
+
+export type GetPostViewQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetPostViewQuery = { __typename?: 'Query', post?: { __typename?: 'Post', views: number } | null };
 
 export type GetPostsBySessionQueryVariables = Exact<{
   slug?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
@@ -6047,6 +6062,43 @@ export type GetTeacherBySlugQueryVariables = Exact<{
 export type GetTeacherBySlugQuery = { __typename?: 'Query', teacher?: { __typename?: 'Teacher', bio?: string | null, avatarUrl: string, name: string, slug?: string | null } | null, teachersConnection: { __typename?: 'TeacherConnection', edges: Array<{ __typename?: 'TeacherEdge', node: { __typename?: 'Teacher', id: string, posts: Array<{ __typename?: 'Post', id: string }> } }> }, posts: Array<{ __typename?: 'Post', title: string, slug: string, description?: string | null, imageUrl?: string | null, imageLabel?: string | null, teacher?: { __typename?: 'Teacher', name: string } | null }> };
 
 
+export const UpdatePostViewsDocument = gql`
+    mutation UpdatePostViews($slug: String, $view: Int) {
+  updatePost(data: {views: $view}, where: {slug: $slug}) {
+    id
+  }
+  publishPost(where: {slug: $slug}) {
+    views
+  }
+}
+    `;
+export type UpdatePostViewsMutationFn = Apollo.MutationFunction<UpdatePostViewsMutation, UpdatePostViewsMutationVariables>;
+
+/**
+ * __useUpdatePostViewsMutation__
+ *
+ * To run a mutation, you first call `useUpdatePostViewsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePostViewsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updatePostViewsMutation, { data, loading, error }] = useUpdatePostViewsMutation({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *      view: // value for 'view'
+ *   },
+ * });
+ */
+export function useUpdatePostViewsMutation(baseOptions?: Apollo.MutationHookOptions<UpdatePostViewsMutation, UpdatePostViewsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdatePostViewsMutation, UpdatePostViewsMutationVariables>(UpdatePostViewsDocument, options);
+      }
+export type UpdatePostViewsMutationHookResult = ReturnType<typeof useUpdatePostViewsMutation>;
+export type UpdatePostViewsMutationResult = Apollo.MutationResult<UpdatePostViewsMutation>;
+export type UpdatePostViewsMutationOptions = Apollo.BaseMutationOptions<UpdatePostViewsMutation, UpdatePostViewsMutationVariables>;
 export const GetPostDocument = gql`
     query GetPost($slug: String) {
   post(where: {slug: $slug}) {
@@ -6058,6 +6110,7 @@ export const GetPostDocument = gql`
     slug
     title
     description
+    views
     sessions {
       title
       slug
@@ -6098,6 +6151,41 @@ export function useGetPostLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Ge
 export type GetPostQueryHookResult = ReturnType<typeof useGetPostQuery>;
 export type GetPostLazyQueryHookResult = ReturnType<typeof useGetPostLazyQuery>;
 export type GetPostQueryResult = Apollo.QueryResult<GetPostQuery, GetPostQueryVariables>;
+export const GetPostViewDocument = gql`
+    query GetPostView($slug: String) {
+  post(where: {slug: $slug}) {
+    views
+  }
+}
+    `;
+
+/**
+ * __useGetPostViewQuery__
+ *
+ * To run a query within a React component, call `useGetPostViewQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostViewQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostViewQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useGetPostViewQuery(baseOptions?: Apollo.QueryHookOptions<GetPostViewQuery, GetPostViewQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostViewQuery, GetPostViewQueryVariables>(GetPostViewDocument, options);
+      }
+export function useGetPostViewLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostViewQuery, GetPostViewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostViewQuery, GetPostViewQueryVariables>(GetPostViewDocument, options);
+        }
+export type GetPostViewQueryHookResult = ReturnType<typeof useGetPostViewQuery>;
+export type GetPostViewLazyQueryHookResult = ReturnType<typeof useGetPostViewLazyQuery>;
+export type GetPostViewQueryResult = Apollo.QueryResult<GetPostViewQuery, GetPostViewQueryVariables>;
 export const GetPostsBySessionDocument = gql`
     query GetPostsBySession($slug: [String], $first: Int, $skip: Int) {
   posts(
@@ -6380,7 +6468,7 @@ export const GetTeacherBySlugDocument = gql`
     edges {
       node {
         id
-        posts {
+        posts(first: 100) {
           id
         }
       }

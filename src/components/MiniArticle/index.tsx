@@ -37,7 +37,7 @@ export default function MiniArticle({ post, ...rest }: MiniArticleProps) {
         />
       </Box>
       <Box ml={{ md: '0.5rem' }}>
-        <Link href={post?.slug} passHref={true}>
+        <Link href={`../${post?.slug}`} passHref={true}>
         <ChakraLink _hover={{ color: 'green.300', textDecoration: 'none'}}>
           {
             variant ? 

@@ -1,4 +1,4 @@
-import { Box, Button, Center, Flex, HStack, Spinner, useBreakpointValue, VStack } from "@chakra-ui/react";
+import { Box, Button, Center, Fade, Flex, HStack, ScaleFade, Spinner, useBreakpointValue, VStack } from "@chakra-ui/react";
 
 import { GetStaticPaths, GetStaticProps } from "next";
 import Header from "../../components/Header";
@@ -7,7 +7,7 @@ import About from "../../components/About";
 import MediumArticle from "../../components/MediumArticle";
 import { GetTeacherBySlugDocument, Teacher as TeacherModel, Post as PostModel } from "../../graphql/generated";
 import { client } from "../../service/apollo";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 
 interface TeacherProps {
   slug: string, 
@@ -106,44 +106,45 @@ export default function Teacher({ slug, teacher, numberOfArticles, posts }: Teac
             />
           </Box>
           <Box width="100%" position="relative">
-          {
-            variant ? 
-            (
-              <HStack alignItems="baseline" >
-                <VStack flexWrap="wrap">
-                  {
-                    leftList.map(post => <MediumArticle key={post.slug} post={post} maxWidth="400px"/>)
-                  }
-                </VStack>
-                <VStack flexWrap="wrap">
-                  {
-                    rightList.map(post => <MediumArticle key={post.slug} post={post} maxWidth="400px"/>)
-                  }
-                </VStack>
-              </HStack>              
-            ) : (
-              <VStack flexWrap="wrap">
-                {
-                  leftList.map(post => <MediumArticle key={post.slug} post={post} maxWidth="600px"/>)
-                }
-              </VStack>
-            )
-          }
+            
+              {
+                variant ? 
+                (
+                  <HStack alignItems="baseline" >
+                    <VStack flexWrap="wrap">
+                      {
+                        leftList.map(post => <MediumArticle key={post.slug} post={post} maxWidth="400px"/>)
+                      }
+                    </VStack>
+                    <VStack flexWrap="wrap">
+                      {
+                        rightList.map(post => <MediumArticle key={post.slug} post={post} maxWidth="400px"/>)
+                      }
+                    </VStack>
+                  </HStack>              
+                ) : (
+                  <VStack flexWrap="wrap">
+                    {
+                      leftList.map(post => <MediumArticle key={post.slug} post={post} maxWidth="600px"/>)
+                    }
+                  </VStack>
+                )
+              }
 
-            <Center p="1rem">
-              <Button bg='gray.900' color="white" fontSize='xs' borderRadius="50" onClick={handleLoadMore}>
-                BUSCAR MAIS POSTS
-                { isLoading && 
-                  <Spinner
-                    thickness='4px'
-                    speed='0.65s'
-                    emptyColor='gray.200'
-                    color='green.500'
-                    size='md'
-                    ml="0.5rem"
-                  /> }
-                </Button>
-            </Center>
+              <Center p="1rem">
+                <Button bg='gray.900' color="white" fontSize='xs' borderRadius="50" onClick={handleLoadMore}>
+                  BUSCAR MAIS POSTS
+                  { isLoading && 
+                    <Spinner
+                      thickness='4px'
+                      speed='0.65s'
+                      emptyColor='gray.200'
+                      color='green.500'
+                      size='md'
+                      ml="0.5rem"
+                    /> }
+                  </Button>
+              </Center>
           </Box>
 
         </HStack>

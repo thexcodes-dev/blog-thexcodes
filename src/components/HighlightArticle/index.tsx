@@ -20,7 +20,7 @@ export default function HighlightArticle({ post, isMiniHighlight, ...rest }: Hig
           position="relative"
           {...rest}
         >
-          <Link href={post?.slug} passHref={true}>
+          <Link href={`../${post?.slug}`} passHref={true}>
             <ChakraLink _hover={{ color: 'green.300', textDecoration: 'none'}}>
               <MainImage url={post?.imageUrl} alt={post?.imageLabel} isMiniHighlight={isMiniHighlight} />
               {
