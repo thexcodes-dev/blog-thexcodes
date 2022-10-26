@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import { Flex, Image, Text, Box, VStack, Button, WrapItem, Wrap, CircularProgress } from "@chakra-ui/react";
+import { Flex, Image, Text, Box, VStack, WrapItem, Wrap, CircularProgress } from "@chakra-ui/react";
 import { 
   FacebookShareButton, 
   TwitterShareButton,
@@ -24,18 +24,12 @@ interface ArticleProps {
 export default function Article({ article }: ArticleProps){
   const sessionTitle = article?.sessions[0].title;
   const sessionSlug = article?.sessions[0].slug;
-  
-  const result = useGetPostViewQuery({ 
-    variables: {
-      slug: article?.slug
-    }
-  });
 
-  const views = result?.data?.post?.views + 1;
+  const views = article?.views + 1;
   const [updatePostViews] = useUpdatePostViewsMutation();
 
   useEffect( () => { 
-    
+   
     async function fetchData() {
       try {
         const r = await updatePostViews({
@@ -44,9 +38,8 @@ export default function Article({ article }: ArticleProps){
             view: views
           }
         })
-
       } catch (err) {
-        console.log(err);
+        console.log('update failed', err);
       }
     }
     fetchData();
