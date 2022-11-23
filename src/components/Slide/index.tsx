@@ -1,4 +1,4 @@
-import { Badge, Box, Link as ChakraLink } from "@chakra-ui/react";
+import { Box, Link as ChakraLink } from "@chakra-ui/react";
 import Link from "next/link";
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 
@@ -7,13 +7,14 @@ import MainImage from "../HighlightArticle/MainImage";
 import TextDescription from "../HighlightArticle/TextDescription";
 
 import { Post } from "../../graphql/generated";
+import Badge from "../Badge";
 
 interface SlideProps {
   posts: Post[]
 }
 
 export default function Slide({posts}: SlideProps){
-
+  
   return (
     <Splide>
         {
