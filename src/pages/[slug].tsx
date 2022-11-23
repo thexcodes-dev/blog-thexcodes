@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import { Flex, Image, Text, Box, VStack, WrapItem, Wrap, CircularProgress } from "@chakra-ui/react";
+import { Flex, Image, Text, Box, VStack, WrapItem, Wrap, CircularProgress, useMediaQuery } from "@chakra-ui/react";
 import { 
   FacebookShareButton, 
   TwitterShareButton,
@@ -22,6 +22,8 @@ interface ArticleProps {
 }
 
 export default function Article({ article }: ArticleProps){
+  const [isMobile] = useMediaQuery("(max-width: 768px)")
+  
   const sessionTitle = article?.sessions[0].title;
   const sessionSlug = article?.sessions[0].slug;
 
@@ -138,9 +140,8 @@ export default function Article({ article }: ArticleProps){
       </Box>
 
         <Box 
-          maxWidth={1344} 
           mx="auto" 
-          w={{ base: '1024px', '2xl': '1200px', xl: '1024px', md: '768px', sm: '480px'}}
+          w={isMobile ? "100%" : "1024px"}
           bg="#ffffff"
         >
           <Box pt="1rem" pb="2rem" mx="5rem">

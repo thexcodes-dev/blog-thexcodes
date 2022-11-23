@@ -1,6 +1,7 @@
-import { Flex, HStack } from "@chakra-ui/react";
-import { GetPostsDocument } from "../graphql/generated";
 import { GetStaticProps } from "next";
+import { Flex, HStack, useMediaQuery } from "@chakra-ui/react";
+
+import { GetPostsDocument } from "../graphql/generated";
 import { client } from "../service/apollo";
 import { Post } from "../graphql/generated";
 
@@ -8,7 +9,7 @@ import Header from "../components/Header";
 import HighlightArticle from '../components/HighlightArticle';
 import BoxArticles from "../components/BoxArticles";
 import Footer from "../components/Footer";
-import Head from "next/head";
+import Slide from "../components/Slide";
 
 interface HomeProps {
   posts: Post[],
@@ -16,6 +17,8 @@ interface HomeProps {
 }
 
 export default function Home({ posts, postsMostRead }: HomeProps) {
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
+  
   const listOfPosts = [...posts];
   const mainPost = listOfPosts.shift();
   const listOfMainPosts = listOfPosts.splice(0, 3);
@@ -25,7 +28,7 @@ export default function Home({ posts, postsMostRead }: HomeProps) {
       <Flex
         maxWidth={1344}
         mx="auto" 
-        w={{ base: '1024px', '2xl': '1200px', xl: '1024px', md: '768px', sm: '480px'}}
+        w={isMobile ? "100%" : "1024px"}
         flexDir="column"
         alignItems="center"
       >
@@ -51,19 +54,25 @@ export default function Home({ posts, postsMostRead }: HomeProps) {
           <meta name="twitter:data2" content="3 minutos" />
         </Header>
 
-        <HighlightArticle post={mainPost} />
 
-        <HStack flexWrap="wrap" mt="0.5rem" w="100%" spacing={{xl: '0.25rem', md: '0rem'}}>
-          {
-            listOfMainPosts.map((post, index) => {
-              if (index === 0) {
-                return <HighlightArticle key={post.slug} post={post} isMiniHighlight={true} w={{ base: '1024px', '2xl': '398px', xl: '338px', md: '794px'}} />
+        {
+          isMobile ? <Slide posts={[...posts].splice(0, 4)} />
+          : 
+          <>
+            <HighlightArticle post={mainPost} />
+            <HStack flexWrap="wrap" mt="0.5rem" w="100%" spacing={{xl: '0.25rem', md: '0rem'}}>
+              {
+                listOfMainPosts.map((post, index) => {
+                  if (index === 0) {
+                    return <HighlightArticle key={post.slug} post={post} isMiniHighlight={true} w={{ base: '1024px', '2xl': '398px', xl: '338px', md: '338px'}} />
+                  }
+                  return <HighlightArticle key={post.slug} post={post} isMiniHighlight={true} w={{ base: '1024px', '2xl': '397px', xl: '338px', md: '338px'}} />
+                })
               }
-              return <HighlightArticle key={post.slug} post={post} isMiniHighlight={true} w={{ base: '1024px', '2xl': '397px', xl: '338px', md: '794px'}} />
-            })
-          }
-        </HStack>
-
+            </HStack>
+          </>
+        }
+        
         <BoxArticles posts={listOfPosts} postsMostRead={postsMostRead} p="1rem"/>
         
         <Footer />

@@ -1,4 +1,4 @@
-import { Box, Button, Center, Fade, Flex, HStack, ScaleFade, Spinner, useBreakpointValue, VStack } from "@chakra-ui/react";
+import { Box, Button, Center, Fade, Flex, HStack, ScaleFade, Spinner, useBreakpointValue, useMediaQuery, VStack } from "@chakra-ui/react";
 
 import { GetStaticPaths, GetStaticProps } from "next";
 import Header from "../../components/Header";
@@ -17,6 +17,8 @@ interface TeacherProps {
 }
 
 export default function Teacher({ slug, teacher, numberOfArticles, posts }: TeacherProps){
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
+  
   const [listOfPosts, setListOfPosts] = useState<PostModel[]>(posts);
   const [currentPage, setCurrentPage] = useState(5);
   const [isLoading, setIsLoading] = useState(false);
@@ -58,19 +60,13 @@ export default function Teacher({ slug, teacher, numberOfArticles, posts }: Teac
     }
   }, [listOfPosts]);
 
-  const variant = useBreakpointValue({ 
-    xl: 'normal', 
-    md: 'mobile' 
-  });
-
   const currentLocation = `https://www.thexcodes.com/teacher/${slug}`;
   const pageTitle = `${teacher?.name} · The Xcodes`;
 
   return (
     <Flex
-      maxWidth={1344}
       mx="auto" 
-      w={{ base: '1024px', '2xl': '1200px', xl: '1024px', md: '768px', sm: '480px'}}
+      w={isMobile ? "100%" : "1024px"}
       flexDir="column"
       alignItems="center"
     >
@@ -96,58 +92,83 @@ export default function Teacher({ slug, teacher, numberOfArticles, posts }: Teac
 
       <Flex bgColor="white" w="100%" minHeight="600px" p="2rem">
 
-        <HStack width="100%" alignItems="start" position="relative">
-          <Box bg="base.100" width="40%" position="sticky" top="95px">
-            <About 
-              avatarUrl={teacher?.avatarUrl}
-              name={teacher?.name}
-              articles={numberOfArticles}
-              description={teacher?.bio}
-            />
-          </Box>
-          <Box width="100%" position="relative">
-            
-              {
-                variant ? 
-                (
-                  <HStack alignItems="baseline" >
-                    <VStack flexWrap="wrap">
-                      {
-                        leftList.map(post => <MediumArticle key={post.slug} post={post} maxWidth="400px"/>)
-                      }
-                    </VStack>
-                    <VStack flexWrap="wrap">
-                      {
-                        rightList.map(post => <MediumArticle key={post.slug} post={post} maxWidth="400px"/>)
-                      }
-                    </VStack>
-                  </HStack>              
-                ) : (
+        {
+          isMobile ? 
+            <>
+              <VStack flexWrap="wrap">
+                <Box bg="base.100" width="100%" top="95px">
+                  <About 
+                    avatarUrl={teacher?.avatarUrl}
+                    name={teacher?.name}
+                    articles={numberOfArticles}
+                    description={teacher?.bio}
+                  />
+                </Box>
+                {
+                  listOfPosts.map(post => <MediumArticle key={post.slug} post={post} maxWidth="600px"/>)
+                }
+
+                <Center p="1rem">
+                    <Button bg='gray.900' color="white" fontSize='xs' borderRadius="50" onClick={handleLoadMore}>
+                      BUSCAR MAIS POSTS
+                      { isLoading && 
+                        <Spinner
+                          thickness='4px'
+                          speed='0.65s'
+                          emptyColor='gray.200'
+                          color='green.500'
+                          size='md'
+                          ml="0.5rem"
+                        /> }
+                      </Button>
+                  </Center>
+              </VStack>
+            </>
+          : 
+            <HStack width="100%" alignItems="start" position="relative">
+              <Box bg="base.100" width="40%" position="sticky" top="95px">
+                <About 
+                  avatarUrl={teacher?.avatarUrl}
+                  name={teacher?.name}
+                  articles={numberOfArticles}
+                  description={teacher?.bio}
+                />
+              </Box>
+              <Box width="100%" position="relative">
+                <HStack alignItems="baseline" >
                   <VStack flexWrap="wrap">
                     {
-                      leftList.map(post => <MediumArticle key={post.slug} post={post} maxWidth="600px"/>)
+                      leftList.map(post => <MediumArticle key={post.slug} post={post} maxWidth="400px"/>)
                     }
                   </VStack>
-                )
-              }
+                  <VStack flexWrap="wrap">
+                    {
+                      rightList.map(post => <MediumArticle key={post.slug} post={post} maxWidth="400px"/>)
+                    }
+                  </VStack>
+                </HStack> 
 
-              <Center p="1rem">
-                <Button bg='gray.900' color="white" fontSize='xs' borderRadius="50" onClick={handleLoadMore}>
-                  BUSCAR MAIS POSTS
-                  { isLoading && 
-                    <Spinner
-                      thickness='4px'
-                      speed='0.65s'
-                      emptyColor='gray.200'
-                      color='green.500'
-                      size='md'
-                      ml="0.5rem"
-                    /> }
-                  </Button>
-              </Center>
-          </Box>
+                  <Center p="1rem">
+                    <Button bg='gray.900' color="white" fontSize='xs' borderRadius="50" onClick={handleLoadMore}>
+                      BUSCAR MAIS POSTS
+                      { isLoading && 
+                        <Spinner
+                          thickness='4px'
+                          speed='0.65s'
+                          emptyColor='gray.200'
+                          color='green.500'
+                          size='md'
+                          ml="0.5rem"
+                        /> }
+                      </Button>
+                  </Center>
+              </Box>
 
-        </HStack>
+            </HStack>
+        }
+
+
+
         
       </Flex>
 

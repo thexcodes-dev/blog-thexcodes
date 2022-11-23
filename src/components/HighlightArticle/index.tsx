@@ -1,4 +1,4 @@
-import { Box, BoxProps, Flex, Link as ChakraLink, useBreakpointValue } from "@chakra-ui/react";
+import { Box, BoxProps, Flex, Link as ChakraLink, useBreakpointValue, useMediaQuery } from "@chakra-ui/react";
 import Link from "next/link";
 import { Post } from "../../graphql/generated";
 
@@ -12,6 +12,7 @@ interface HighlightArticleProps extends BoxProps {
 }
 
 export default function HighlightArticle({ post, isMiniHighlight, ...rest }: HighlightArticleProps){
+  const [isMobile] = useMediaQuery("(max-width: 768px)")
 
   if (isMiniHighlight){
     return (
@@ -47,7 +48,7 @@ export default function HighlightArticle({ post, isMiniHighlight, ...rest }: Hig
     <Flex as="article" overflow="hidden">
       <Box 
         position="relative"
-        w={{ base: '1024px', '2xl': '1200px', xl: '1024px', md: '768px', sm: '480px'}}
+        w={isMobile ? "390px" : "1024px"}
         max-height="650px" 
         {...rest}
       >
