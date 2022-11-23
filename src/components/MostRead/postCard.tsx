@@ -1,4 +1,4 @@
-import { Avatar, Box, Flex, WrapItem, Text, useBreakpointValue, Link as ChakraLink  } from "@chakra-ui/react";
+import { Avatar, Box, Flex, WrapItem, Text, useBreakpointValue, Link as ChakraLink, useMediaQuery  } from "@chakra-ui/react";
 import Link from "next/link";
 import { Post } from "../../graphql/generated";
 
@@ -8,12 +8,9 @@ interface PostCardProps {
 
 export default function PostCard({ post }: PostCardProps){
   
-  const variant = useBreakpointValue({ 
-    xl: 'normal', 
-    md: 'mobile' 
-  });
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
   
-  if (variant) {
+  if (isMobile) {
     return (
       <Flex p={4} alignItems="center" >
         <Box mr="20px">

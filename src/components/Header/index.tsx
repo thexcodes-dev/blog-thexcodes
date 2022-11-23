@@ -1,4 +1,4 @@
-import { Flex, IconButton, Image, Link as ChakraLink, Menu, MenuButton, MenuItem, MenuList, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Flex, IconButton, Image, Link as ChakraLink, Menu, MenuButton, MenuItem, MenuList, Text, useBreakpointValue, useMediaQuery } from "@chakra-ui/react";
 import Head from "next/head";
 
 import Link from "next/link";
@@ -6,6 +6,7 @@ import NextLink from 'next/link'
 import { ReactNode, useEffect, useState } from "react";
 import { useGetSessionsQuery } from "../../graphql/generated";
 import { RiMenuFill, RiReactjsLine, RiCodeSSlashFill, RiUser3Line } from "react-icons/ri";
+import Logo from "./Logo";
 
 interface HomeProps {
   slug: string;
@@ -15,18 +16,8 @@ interface HomeProps {
 }
 
 export default function Header({ slug, selectedMenu, pageTitle, children}: HomeProps){
-  //const [pageTitle, setPageTitle] = useState(slug);
   const { data } = useGetSessionsQuery();
-
-  const variant = useBreakpointValue({ 
-    xl: 'normal', 
-    md: 'mobile' 
-  });
-
-  // useEffect(() => {
-  //   const session = data?.sessions.find(s => s.slug === slug);
-  //   setPageTitle(session ? `${session.title}` : pageTitle);
-  // }, []);
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
 
   return (
     <>
@@ -51,17 +42,16 @@ export default function Header({ slug, selectedMenu, pageTitle, children}: HomeP
         <Flex 
           justify="space-around" 
           align="center" 
-          maxWidth={1480}
-          w={{ base: '1024px', '2xl': '1200px', xl: '1024px', md: '768px', sm: '480px'}}
+          w={isMobile ? "390px" : "1024px"}
           p="0.5rem"
         >
           <Link href="/">
             <ChakraLink>
-              <Image w={{lg: "178px"}} src="../logo.png" alt="TheXCodes"/>
+              <Logo />
             </ChakraLink> 
           </Link>        
 
-          { variant === 'normal' ? 
+          { !isMobile ? 
             <>
               <Flex as="nav" w="60%">
                 {

@@ -1,8 +1,9 @@
-import { Box, Flex, Image, Spacer, Text, Link as ChakraLink, Icon } from "@chakra-ui/react";
+import { Box, Flex, Image, Spacer, Text, Link as ChakraLink, Icon, useMediaQuery } from "@chakra-ui/react";
 import Link from "next/link";
 import { RiInstagramLine } from "react-icons/ri";
 
 export default function Footer(){
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
   const year = new Date().getFullYear();
   return (
     <Flex 
@@ -14,7 +15,7 @@ export default function Footer(){
         justify="space-around" 
         align="center" 
         maxWidth={1480}
-        w={{ base: '1024px', '2xl': '1200px', xl: '1024px', md: '768px', sm: '480px'}}
+        w={isMobile ? "390px" : "1024px"}
         p="1.5rem"
       >
         <Box>

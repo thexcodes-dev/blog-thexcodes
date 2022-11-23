@@ -1,4 +1,4 @@
-import { Box, BoxProps, Text } from "@chakra-ui/react";
+import { Box, BoxProps, Text, useMediaQuery } from "@chakra-ui/react";
 
 interface TextDescriptionProps extends BoxProps {
   timeRead: number;
@@ -8,6 +8,8 @@ interface TextDescriptionProps extends BoxProps {
 }
 
 export default function TextDescription({ timeRead, title, description, isMiniHighlight, ...rest }: TextDescriptionProps){
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
+  
   description = description.length > 150 ? `${description.substring(0, 150)} ...` : description;
   const miniTitle = title.length > 34 ? `${title.substring(0, 34)} ...` : title;
 
@@ -23,8 +25,11 @@ export default function TextDescription({ timeRead, title, description, isMiniHi
       }}
       bgImage="linear-gradient(130deg, #2a2d2cdb 60%, #e7dbe770 90%);"
       {...rest}
-    >
+    >      
       {
+        isMobile ? 
+          <Text fontSize={'sm'} fontWeight='bold' textTransform="uppercase" color="white" pb="0px">{miniTitle}</Text>
+          :
         isMiniHighlight ? (
           <>
             <Text fontSize={['xl', 'sm']} fontWeight='bold' textTransform="uppercase" color="white" pb="0px">{miniTitle}</Text>

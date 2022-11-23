@@ -1,17 +1,19 @@
-import { Box, Flex, Link as ChakraLink } from "@chakra-ui/react";
-import Link from "next/link";
 import { GetStaticPaths, GetStaticProps } from "next";
+import { Box, Flex, Link as ChakraLink, useMediaQuery } from "@chakra-ui/react";
+import Link from "next/link";
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 
+import { GetPostsBySessionDocument, Post } from "../../graphql/generated";
+
 import '@splidejs/react-splide/css';
+
+import { client } from "../../service/apollo";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import { GetPostsBySessionDocument, Post } from "../../graphql/generated";
 import TextDescription from "../../components/HighlightArticle/TextDescription";
 import MainImage from "../../components/HighlightArticle/MainImage";
 import Badge from "../../components/Badge";
 import BoxArticles from "../../components/BoxArticles";
-import { client } from "../../service/apollo";
 
 interface SessionProps {
   slug: string,
@@ -20,6 +22,8 @@ interface SessionProps {
 }
 
 export default function Session({ slug, posts, postsMostRead }: SessionProps){
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
+
   const listOfPosts = [...posts];
   const listOfMainPosts = listOfPosts.splice(0, 3);
 
@@ -29,9 +33,8 @@ export default function Session({ slug, posts, postsMostRead }: SessionProps){
 
   return (
     <Flex
-      maxWidth={1344}
       mx="auto" 
-      w={{ base: '1024px', '2xl': '1200px', xl: '1024px', md: '768px', sm: '480px'}}
+      w={isMobile ? "100%" : "1024px"}
       flexDir="column"
       alignItems="center"
     >
